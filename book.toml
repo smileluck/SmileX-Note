@@ -1,0 +1,17 @@
+[book]
+authors = ["smileluck"]
+language = "en"
+multilingual = false
+src = "src"
+title = "SmileX-Note"
+
+[output.html]
+default-theme = "rust"
+preferred-dark-theme = "navy"
+site-url = "/SmileX-Note/"
+git-repository-url = "https://github.com/smileluck/SmileX-Note"
+
+
+[output.html.fold]
+enable = true    # whether or not to enable section folding
+level = 2         # the depth to start folding
