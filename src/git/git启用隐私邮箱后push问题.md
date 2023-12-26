@@ -1,10 +1,10 @@
 [toc]
 
-```handlebars
-{{#toc}}{{/toc}}
-```
+@[toc](目录)
 
 ---
+
+
 
 # github 开启隐私邮箱
 
