@@ -1,5 +1,9 @@
 [toc]
 
+```handlebars
+{{#toc}}{{/toc}}
+```
+
 ---
 
 # github 开启隐私邮箱
