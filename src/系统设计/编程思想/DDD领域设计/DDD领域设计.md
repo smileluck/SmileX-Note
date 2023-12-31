@@ -26,7 +26,16 @@
   - Dao + Entity 
   - Service + DTO (Data Transfer Object)
   - Controller + VO (View Object)
-
+  
+  ```mermaid
+  graph TD
+  控制器-->服务层
+  服务层-->数据层
+  ```
+  
+  
+  
+  
 ### 优缺点
 
 - 优点
@@ -109,7 +118,7 @@ public class TransferServiceImpl implements TransferService {
 
 		/** 检查转入账户 **/
 		if (toAccount.isFrozen()) {
-			throw new MyBizException(ErrorCodeBiz.ACCOUNT_FROZEN);
+			throw new Exception(ErrorCodeBiz.ACCOUNT_FROZEN);
 		}
 		toAccount.setBalance(toAccount.getBalance() + amount);
 
@@ -147,6 +156,32 @@ public class TransferServiceImpl implements TransferService {
 
 - 包含各种利息计算模型、还款模型等复杂业务的金融系统。
 
+```mermaid
+graph TD
+用户接口层-->服务层
+用户接口层-->领域层
+用户接口层-->基础设施层
+服务层-->领域层
+服务层-->基础设施层
+基础设施层-->领域层
+```
+
+> 依赖倒置原则（DIP）：
+>
+> - 高层模块不依赖于低层模块，两者都依赖于抽象；
+> - 抽象不应该依赖于细节，细节应依赖抽象
+
+- 分层作用
+
+  | 分层 | 描述 |
+  | ---- | ---- |
+  |   用户接口层   |  用户界面层，或者表现层，负责向用户显示解释用户命令     |
+  |    服务层  |   定义软件要完成的任务，并且指挥协调领域对象进行不同的操作。该层不包含业务领域知识。   |
+  |   领域层   |   或称为模型层，系统的核心，负责表达业务概念，业务状态信息以及业务规则。即包含了该领域（问题域）所有复杂的业务知识抽象和规则定义。该层主要精力要放在领域对象分析上，可以从实体，值对象，聚合（聚合根），领域服务，领域事件，仓储，工厂等方面入手   |
+  |    基础设施层  |    主要有2方面内容，一是为领域模型提供持久化机制，当软件需要持久化能力时候才需要进行规划；一是对其他层提供通用的技术支持能力，如消息通信，通用工具，配置等的实现；  |
+
+  
+
 ### 优缺点
 
 - 优点
@@ -157,5 +192,191 @@ public class TransferServiceImpl implements TransferService {
   
   - 对于开发团队要求更高，对领域模型需要熟练划分，否则会造成更大的负担。
   - 如何划分业务逻辑呢？按照Rod johnson提出远测是 “case by case”，可重用度高的，和实体密切关联的放在实体中，反之，放在service中。简单来说，**放在实体中的应该只和这个实体有关，而不应该涉及多个实体。**当逻辑放在实体中，这个实体应该仍然独立在持久层之外，可以脱离持久层框架进行单元测试，这个**实体才是一个完整的，不依赖外部实体的领域对象，这个情况下，这个逻辑才是实体逻辑**。
-  
-  
+
+### 代码示例
+
+```java
+/**
+ * 账户业务对象
+ */
+public class AccountBO {
+
+	/**
+	 * 账户ID
+	 */
+	private String accountId;
+
+	/**
+	 * 账户余额
+	 */
+	private Long balance;
+	/**
+	 * 是否冻结
+	 */
+	private boolean isFrozen;
+	/**
+	 * 出借策略
+	 */
+	private DebitPolicy debitPolicy;
+
+	/**
+	 * 入账策略
+	 */
+	private CreditPolicy creditPolicy;
+
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
+
+	public Long getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Long balance) {
+		this.balance = balance;
+	}
+
+	public boolean isFrozen() {
+		return isFrozen;
+	}
+
+	public void setFrozen(boolean isFrozen) {
+		this.isFrozen = isFrozen;
+	}
+    
+    /**
+	 * 出借方法
+	 * 
+	 * @param amount 金额
+	 */
+	public void debit(Long amount) {
+		debitPolicy.preDebit(this, amount);
+		this.balance -= amount;
+		debitPolicy.afterDebit(this, amount);
+	}
+
+	/**
+	 * 转入方法
+	 * 
+	 * @param amount 金额
+	 */
+	public void credit(Long amount) {
+		creditPolicy.preCredit(this, amount);
+		this.balance += amount;
+		creditPolicy.afterCredit(this, amount);
+	}
+
+	/**
+	 * BO和DO转换必须加set方法这是一种权衡
+	 */
+	public DebitPolicy getDebitPolicy() {
+		return debitPolicy;
+	}
+
+	public void setDebitPolicy(DebitPolicy debitPolicy) {
+		this.debitPolicy = debitPolicy;
+	}
+
+	public CreditPolicy getCreditPolicy() {
+		return creditPolicy;
+	}
+
+	public void setCreditPolicy(CreditPolicy creditPolicy) {
+		this.creditPolicy = creditPolicy;
+	}
+}
+
+
+/**
+ * 入账策略实现
+ */
+@Service
+public class CreditPolicyImpl implements CreditPolicy {
+
+	@Override
+	public void preCredit(AccountBO account, Long amount) {
+		if (account.isFrozen()) {
+			throw new MyBizException(ErrorCodeBiz.ACCOUNT_FROZEN);
+		}		
+	}
+
+	@Override
+	public void afterCredit(AccountBO account, Long amount) {
+		System.out.println("afterCredit");
+	}
+}
+
+/**
+ * 出借策略实现
+ */
+@Service
+public class DebitPolicyImpl implements DebitPolicy {
+
+	@Override
+	public void preDebit(AccountBO account, Long amount) {
+		if (account.isFrozen()) {
+			throw new MyBizException(ErrorCodeBiz.ACCOUNT_FROZEN);
+		}
+		if (account.getBalance() < amount) {
+			throw new MyBizException(ErrorCodeBiz.INSUFFICIENT_BALANCE);
+		}
+	}
+
+	@Override
+	public void afterDebit(AccountBO account, Long amount) {
+		System.out.println("afterDebit");
+	}
+}
+
+/**
+ * 转账业务服务实现
+ */
+@Service
+public class TransferServiceImpl implements TransferService {
+
+	@Resource
+	private AccountService accountService;
+	@Resource
+	private CreditPolicy creditPolicy;
+	@Resource
+	private DebitPolicy debitPolicy;
+
+	@Override
+	public boolean transfer(String fromAccountId, String toAccountId, Long amount) {
+		AccountBO fromAccount = accountService.getAccountById(fromAccountId);
+		AccountBO toAccount = accountService.getAccountById(toAccountId);
+		fromAccount.setDebitPolicy(debitPolicy);
+		toAccount.setCreditPolicy(creditPolicy);
+
+		fromAccount.debit(amount);
+		toAccount.credit(amount);
+		accountService.updateAccount(fromAccount);
+		accountService.updateAccount(toAccount);
+		return Boolean.TRUE;
+	}
+}
+```
+
+## 总结
+
+基于贫血模型的传统开发架构MVC，只是将 entity 作为数据载体，重 service 层业务代码；而基于充血模型的DDD开发模式，将高复用和实体相关的业务逻辑放到实体里面，不同实体聚合形成领域层，不同领域聚合形成应用层。
+
+充血模型下：
+
+- Service 层主要功能：
+  - 负责与持久层交流。为了保证领域实体的独立性，不与其它层的的耦合，一般都会以交由Service处理。
+  - 负责与跨领域实体的业务聚合功能。比如转账会涉及两个钱包的操作，所以会在service层调用。
+  - 负责一些非功能性与三方系统的交互工作。比如幂等，发邮件，记录日志等。
+
+## 参考
+
+- [领域驱动设计-贫血模型VS充血模型](https://blog.csdn.net/yangyanping20108/article/details/119905513)
+
+- [领域驱动设计-贫血模型VS充血模型](https://zhuanlan.zhihu.com/p/464914100)
+
+- [领域驱动设计-贫血模型VS充血模型](https://php-note.com/2219.html)
+
