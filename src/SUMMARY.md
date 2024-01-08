@@ -111,6 +111,7 @@
 		- [Dbeaver-问题记录](工具使用/dbeaver/Dbeaver-问题记录.md)
 	- [idea]()
 		- [Idea 开发小技巧](工具使用/idea/Idea%20开发小技巧.md)
+		- [Idea-问题记录](工具使用/idea/Idea-问题记录.md)
 	- [mdbook]()
 		- [mdbook-基本使用](工具使用/mdbook/mdbook-基本使用.md)
 	- [putty]()

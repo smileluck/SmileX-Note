@@ -41,8 +41,39 @@
 </dependencyManagement>
 ```
 
+## Spring Cloud Alibaba
 
+各个版本适配请看alibaba：https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E
+
+```xml
+<!--版本依赖示例-->
+<properties>
+    <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
+    <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
+    <spring-cloud-alibaba.version>2.2.9.RELEASE</spring-cloud-alibaba.version>
+</properties>
+<dependencyManagement>
+    <!-- SpringCloud -->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>${spring-cloud.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+            <version>${spring-cloud-alibaba.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
 
 # 基础组件
 
  ![img](SpringCloud-基础.assets/471801123_1617818722438_70B715BD7A130A41AD9FDBAA0787D493.png) 
+
