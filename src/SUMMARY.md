@@ -169,6 +169,7 @@
 		- [SpringMvc-RequestCondition](框架/spring/SpringMvc-RequestCondition.md)
 		- [SpringMvc-Sse实践](框架/spring/SpringMvc-Sse实践.md)
 		- [SpringMvc-异步模式](框架/spring/SpringMvc-异步模式.md)
+		- [Spring-Bean](框架/spring/Spring-Bean.md)
 		- [Spring-InitializingBean和SmartInitializingSingleton](框架/spring/Spring-InitializingBean和SmartInitializingSingleton.md)
 		- [事务]()
 			- [SpringBoot-事务](框架/spring/事务/SpringBoot-事务.md)
