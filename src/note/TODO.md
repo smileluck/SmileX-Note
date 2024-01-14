@@ -52,3 +52,8 @@ https://rumenz.com/java-topic/hibernate/hibernate-validator-cdi/index.html
 - netty
 - 长轮询
 - stomp
+
+## 质量测试工具
+
+- sonarqube
+- arthas
