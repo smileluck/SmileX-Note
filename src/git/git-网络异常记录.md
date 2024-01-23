@@ -55,4 +55,14 @@
     ssh -T -p 443 git@github.com
     ```
 
-    
+# 访问不稳定
+- 问题描述：浏览器上访问 Github 时，无法访问。
+- 解决办法：
+  - 查询ip工具：https://www.ipaddress.com/ （或https://www.ipaddress.com/ip-lookup）
+  - 需要查询的网址信息
+  ```host
+  199.232.69.194 github.global.ssl.fastly.net
+  185.199.111.133 raw.githubusercontent.com
+  140.82.112.4 github.com
+  ```
+  - 需更改配置文件：hosts 地址 `C:\Windows\System32\drivers\etc\hosts`
