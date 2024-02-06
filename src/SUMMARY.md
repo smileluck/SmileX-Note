@@ -12,9 +12,11 @@
 	- [git-指令使用](git/git-指令使用.md)
 	- [git-启用隐私邮箱后push问题](git/git启用隐私邮箱后push问题.md)
 	- [git-网络异常记录](git/git-网络异常记录.md)
+	
 - [python]()
   - [安装与配置]()
     - [python-miniconda3安装与配置](python/安装与配置/python-miniconda3安装与配置.md)
+  
 - [java]()
 	- [basic]()
 		- [jdk8-Stream流]()
@@ -122,6 +124,7 @@
 	    - [springboot-undertow](java/框架/undertow/springboot-undertow.md)
 	  - [sapjco3]()
 	    - [sapjco-问题记录](java/框架/sapjco3/sapjco-问题记录.md)
+	
 - [note]()
 	- [druid-datasource](note/druid-datasource.md)
 	- [google.zxing-qrcode](note/google.zxing-qrcode.md)
@@ -136,8 +139,14 @@
 	- [sql-password-design](note/sql-password-design.md)
 	- [sql-ssh-proxy](note/sql-ssh-proxy.md)
 	- [TODO](note/TODO.md)
+	
 - [route]()
+
 - [前端]()
+	
+	- [工具方法]()
+	  - [视频抽帧显示](前端/工具方法/视频抽帧显示.md)
+	
 	- [electron]()
 		- [electron-项目搭建](前端/electron/electron-项目搭建.md)
 	- [gitbook]()
@@ -163,14 +172,19 @@
 		- [包装类型和进制转换](前端/原生JS/包装类型和进制转换.md)
 	- [微信小程序]()
 		- [开发心得和蓝牙库](前端/微信小程序/开发心得和蓝牙库.md)
+	
 - [单元测试]()
 	- [Mockito]()
 		- [Mockito 使用示例](单元测试/Mockito/Mockito%20使用示例.md)
+	
 - [小玩意]()
+	
 	- [Java+Selenium+swing_淘宝首页数据爬取的小软件](小玩意/Java+Selenium+swing_淘宝首页数据爬取的小软件.md)
+	
 - [嵌入式研发]()
 	- [理论知识]()
 		- [理论知识](嵌入式研发/理论知识/理论知识.md)
+	
 - [工具使用]()
 	- [dbeaver]()
 		- [Dbeaver-问题记录](工具使用/dbeaver/Dbeaver-问题记录.md)
@@ -181,6 +195,7 @@
 		- [mdbook-基本使用](工具使用/mdbook/mdbook-基本使用.md)
 	- [putty]()
 		- [win10通过ssh代理访问](工具使用/putty/win10通过ssh代理访问.md)
+	
 - [数据库]()
 	- [sql]()
 		- [mysql]()
@@ -195,13 +210,16 @@
 			- [Sql注入-入门](数据库/sql/Sql注入/Sql注入-入门.md)
 		- [预编译]()
 			- [Sql-预编译](数据库/sql/预编译/Sql-预编译.md)
+	
 - [理论记录]()
 	- [mybatis]()
 		- [MyBatis-面试题](理论记录/mybatis/MyBatis-面试题.md)
 	- [Spring]()
+	
 - [算法]()
 	- [敏感词算法]()
 		- [算法-敏感词](算法/敏感词算法/算法-敏感词.md)
+	
 - [系统设计]()
 	- [Api版本控制]()
 		- [系统设计-实现API版本控制](系统设计/Api版本控制/系统设计-实现API版本控制.md)
@@ -214,16 +232,20 @@
 			- [DDD领域设计](系统设计/编程思想/DDD领域设计/DDD领域设计.md)
 			- [DDD-基础](系统设计/编程思想/DDD领域设计/DDD-基础.md)
 			- [DDD-进阶](系统设计/编程思想/DDD领域设计/DDD-进阶.md)
+	
 - [网站记录]()
 	- [破解下载]()
 		- [csdn-资源破解下载](网站记录/破解下载/csdn-资源破解下载.md)
+	
 - [网络通信]()
 	- [io]()
 		- [五种IO模型分享]()
 			- [大纲](网络通信/io/五种IO模型分享/大纲.md)
+	
 - [计算机]()
 	- [数据结构]()
 		- [计算机-整数和浮点数表示](计算机/数据结构/计算机-整数和浮点数表示.md)
+	
 - [运维]()
 	- [CICD]()
 		- [gitlab]()
@@ -260,11 +282,16 @@
 			- [docker-dockerfile](运维/虚拟化/docker/docker-dockerfile.md)
 			- [docker-常用指令](运维/虚拟化/docker/docker-常用指令.md)
 			- [docker-踩坑记录](运维/虚拟化/docker/docker-踩坑记录.md)
+	
 - [面试记录]()
 	- [面试实战记录](面试记录/面试实战记录.md)
 	- [面试题总纲](面试记录/面试题总纲.md)
+	
 - [搭建示例]()
   - [示例01](搭建示例/Java开发搭建案例.md)
   - [示例02](搭建示例/Java开发搭建案例01.md)
   - [示例03](搭建示例/Java开发搭建案例02.md)
 
+- [开源记录]()
+  - [soybean-admin]()
+    - [2024-1-29-proxy](default proxy prefix)
