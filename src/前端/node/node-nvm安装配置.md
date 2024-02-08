@@ -58,6 +58,20 @@ npm config set cache "D:\dev\repositories\node_cache"
    Invoke-WebRequest 'https://get.pnpm.io/v6.16.js' -UseBasicParsing -o pnpm.js; node pnpm.js add --global pnpm; Remove-Item pnpm.js
    ```
 
+3. 换源
+
+   ```shell
+   # 切换淘宝
+   npm config set registry https://registry.npm.taobao.org
+   
+   # 还原
+   npm config set registry https://registry.npmjs.org
+   ```
+
+   
+
+
+
 # 常用指令
 
 - `nvm install 【版本】`。安装指定版本。
