@@ -78,3 +78,57 @@ sudo make test
 ```shell
 sudo make install
 ```
+
+# 方法三：win安装（redis-window）
+
+> 下载地址：https://github.com/MicrosoftArchive/redis/releases
+>
+> 版本：3.0.504
+
+1. 这里使用的zip安装，下载安装完后，进入安装根目录（msi安装后自动绑定6379服务）
+
+2. 控制台启动
+
+   ```shell
+   ./redis-server.exe redis.windows.conf
+   ```
+
+3. 日志配置。
+
+   1. 在根目录创建`Logs`目录
+   2. 在该目录下创建 `redis_log.txt` 文件。
+   3. 重启服务
+
+4. 配置服务
+
+   ```shell
+   ./redis-server.exe --service-install redis.windows-service.conf --loglevel verbose --service-name Redis
+   ```
+
+   - 注意这里对应文件是 `redis.windows-service.conf`
+
+   - 相关指令
+
+     ```shell
+     // 安装服务
+     ./redis-server.exe --service-install
+     
+     // 卸载服务
+     ./redis-server.exe --service-uninstall
+     
+     // 开启服务
+     ./redis-server.exe --service-start
+     
+     // 停止服务
+     ./redis-server.exe --service-stop
+     
+     // 开启 CLI 模式
+     ./redis-cli.exe -h 127.0.0.1 -p 6379
+     ```
+
+     
+
+# 方法四：win安装（WSL安装）
+
+> 指南：https://redis.io/docs/install/install-redis/install-redis-on-windows/
+
