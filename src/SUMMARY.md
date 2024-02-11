@@ -7,12 +7,7 @@
 
 
 # 目录
-- [git]()
-	- [git-husky代码检查](git/git-husky代码检查.md)
-	- [git-指令使用](git/git-指令使用.md)
-	- [git-启用隐私邮箱后push问题](git/git启用隐私邮箱后push问题.md)
-	- [git-网络异常记录](git/git-网络异常记录.md)
-	
+
 - [python]()
   - [安装与配置]()
     - [python-miniconda3安装与配置](python/安装与配置/python-miniconda3安装与配置.md)
@@ -177,10 +172,6 @@
 	- [Mockito]()
 		- [Mockito 使用示例](单元测试/Mockito/Mockito%20使用示例.md)
 	
-- [小玩意]()
-	
-	- [Java+Selenium+swing_淘宝首页数据爬取的小软件](小玩意/Java+Selenium+swing_淘宝首页数据爬取的小软件.md)
-	
 - [嵌入式研发]()
 	- [理论知识]()
 		- [理论知识](嵌入式研发/理论知识/理论知识.md)
@@ -195,6 +186,11 @@
 		- [mdbook-基本使用](工具使用/mdbook/mdbook-基本使用.md)
 	- [putty]()
 		- [win10通过ssh代理访问](工具使用/putty/win10通过ssh代理访问.md)
+    - [git]()
+        - [git-husky代码检查](git/git-husky代码检查.md)
+        - [git-指令使用](git/git-指令使用.md)
+        - [git-启用隐私邮箱后push问题](git/git启用隐私邮箱后push问题.md)
+        - [git-网络异常记录](git/git-网络异常记录.md)
 	
 - [数据库]()
 	- [sql]()
@@ -212,9 +208,14 @@
 			- [Sql-预编译](数据库/sql/预编译/Sql-预编译.md)
 	
 - [理论记录]()
-	- [mybatis]()
-		- [MyBatis-面试题](理论记录/mybatis/MyBatis-面试题.md)
+	
 	- [Spring]()
+	- [数据结构]()
+		- [计算机-整数和浮点数表示](计算机/数据结构/计算机-整数和浮点数表示.md)
+	- [网络通信]()
+	  - [io]()
+	  	- [五种IO模型分享]()
+	  		- [大纲](网络通信/io/五种IO模型分享/大纲.md)
 	
 - [算法]()
 	- [敏感词算法]()
@@ -236,15 +237,6 @@
 - [网站记录]()
 	- [破解下载]()
 		- [csdn-资源破解下载](网站记录/破解下载/csdn-资源破解下载.md)
-	
-- [网络通信]()
-	- [io]()
-		- [五种IO模型分享]()
-			- [大纲](网络通信/io/五种IO模型分享/大纲.md)
-	
-- [计算机]()
-	- [数据结构]()
-		- [计算机-整数和浮点数表示](计算机/数据结构/计算机-整数和浮点数表示.md)
 	
 - [运维]()
 	- [CICD]()
@@ -284,14 +276,22 @@
 			- [docker-踩坑记录](运维/虚拟化/docker/docker-踩坑记录.md)
 	
 - [面试记录]()
-	- [面试实战记录](面试记录/面试实战记录.md)
-	- [面试题总纲](面试记录/面试题总纲.md)
-	
+
+  - [mybatis]()
+    - [MyBatis-面试题](理论记录/mybatis/MyBatis-面试题.md)
+
+  - [面试实战记录](面试记录/面试实战记录.md)
+  - [面试题总纲](面试记录/面试题总纲.md)
+
 - [搭建示例]()
   - [示例01](搭建示例/Java开发搭建案例.md)
   - [示例02](搭建示例/Java开发搭建案例01.md)
   - [示例03](搭建示例/Java开发搭建案例02.md)
 
 - [开源记录]()
+
+  - [小玩意]()
+    - [Java+Selenium+swing_淘宝首页数据爬取的小软件](小玩意/Java+Selenium+swing_淘宝首页数据爬取的小软件.md)
+
   - [soybean-admin]()
     - [2024-1-29-proxy](default proxy prefix)
