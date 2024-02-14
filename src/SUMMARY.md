@@ -12,7 +12,8 @@
   - [python]()
     - [安装与配置]()
       - [python-miniconda3安装与配置](语言方向/python/安装与配置/python-miniconda3安装与配置.md)
-
+  - [python-pip安装与配置](语言方向/python/安装与配置/python-pip安装与配置.md)
+    
   - [java]()
   	- [basic]()
   		- [注解定义]()
@@ -134,8 +135,8 @@
   		- [druid-datasource](语言方向/java/note/druid-datasource.md)
   		- [google.zxing-qrcode](语言方向/java/note/google.zxing-qrcode.md)
   		- [hibernate-validator](语言方向/java/note/hibernate-validator.md)
-  		- [sql-password-design](语言方向/java/note/sql-password-design.md)
-	- [sql-ssh-proxy](语言方向/java/note/sql-ssh-proxy.md)
+			- [sql-password-design](语言方向/java/note/sql-password-design.md)
+  - [sql-ssh-proxy](语言方向/java/note/sql-ssh-proxy.md)
   		- [TODO](语言方向/java/note/TODO.md)
   	
   - [前端]()
@@ -184,8 +185,8 @@
   			- [Mysql-索引](语言方向/数据库/sql/mysql/Mysql-索引.md)
   			- [Mysql-配置问题](语言方向/数据库/sql/mysql/Mysql-配置问题.md)
   		- [Sql注入]()
-  			- [Sql注入-入门](语言方向/数据库/sql/Sql注入/Sql注入-入门.md)
-		- [预编译]()
+				- [Sql注入-入门](语言方向/数据库/sql/Sql注入/Sql注入-入门.md)
+  	- [预编译]()
   			- [Sql-预编译](语言方向/数据库/sql/预编译/Sql-预编译.md)
   
 - [route]()
