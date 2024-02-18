@@ -10,10 +10,10 @@
 
 - [语言方向]()
   - [python]()
+    -  [pip-常用指令.md](语言方向/python/pip-常用指令.md) 
     - [安装与配置]()
       - [python-miniconda3安装与配置](语言方向/python/安装与配置/python-miniconda3安装与配置.md)
-  - [python-pip安装与配置](语言方向/python/安装与配置/python-pip安装与配置.md)
-    
+      - [python-pip安装与配置](语言方向/python/安装与配置/python-pip安装与配置.md)
   - [java]()
   	- [basic]()
   		- [注解定义]()
@@ -138,7 +138,6 @@
 			- [sql-password-design](语言方向/java/note/sql-password-design.md)
   - [sql-ssh-proxy](语言方向/java/note/sql-ssh-proxy.md)
   		- [TODO](语言方向/java/note/TODO.md)
-  	
   - [前端]()
   	
   	- [工具方法]()
@@ -169,11 +168,9 @@
   		- [包装类型和进制转换](语言方向/前端/原生JS/包装类型和进制转换.md)
   	- [微信小程序]()
   		- [开发心得和蓝牙库](语言方向/前端/微信小程序/开发心得和蓝牙库.md)
-  	
   - [嵌入式研发]()
   	- [理论知识]()
   		- [理论知识](语言方向/嵌入式研发/理论知识/理论知识.md)
-  	
   - [数据库]()
   	- [sql]()
   		- [mysql]()
@@ -185,10 +182,10 @@
   			- [Mysql-索引](语言方向/数据库/sql/mysql/Mysql-索引.md)
   			- [Mysql-配置问题](语言方向/数据库/sql/mysql/Mysql-配置问题.md)
   		- [Sql注入]()
-				- [Sql注入-入门](语言方向/数据库/sql/Sql注入/Sql注入-入门.md)
+  			- [Sql注入-入门](语言方向/数据库/sql/Sql注入/Sql注入-入门.md)
   	- [预编译]()
   			- [Sql-预编译](语言方向/数据库/sql/预编译/Sql-预编译.md)
-  
+	
 - [route]()
 
 - [单元测试]()
