@@ -170,7 +170,14 @@ location /test/ {
   rewrite ^/test/(.*)$ /$1 break;
   ```
 
-  
+
+## 跨域
+
+```nginx
+add_header Access-Control-Allow-Origin *;
+add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+```
 
 ## 日志相关
 
