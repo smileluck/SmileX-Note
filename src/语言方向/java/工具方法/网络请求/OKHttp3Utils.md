@@ -20,9 +20,9 @@
 ## Utils
 
 ```java
-package com.ruoyi.common.utils.http;
-
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -38,11 +38,11 @@ public class OkHttpUtils {
     public static MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     public static MediaType XML = MediaType.parse("application/xml; charset=utf-8");
 
-    public OkHttpUtils() {
+    private OkHttpUtils() {
     }
 
     public static String get(String url, Map<String, String> queries) {
-        return get(url, (Map)null, queries);
+        return get(url, (Map) null, queries);
     }
 
     public static String get(String url, Map<String, String> header, Map<String, String> queries) {
@@ -64,7 +64,7 @@ public class OkHttpUtils {
     }
 
     public static String post(String url, Map<String, String> params) {
-        return post(url, (Map)null, params);
+        return post(url, (Map) null, params);
     }
 
     public static String post(String url, Map<String, String> header, Map<String, String> params) {
@@ -83,7 +83,7 @@ public class OkHttpUtils {
     }
 
     public static String postJson(String url, String json) {
-        return postJson(url, (Map)null, json);
+        return postJson(url, (Map) null, json);
     }
 
     public static String postJson(String url, Map<String, String> header, String json) {
@@ -91,7 +91,7 @@ public class OkHttpUtils {
     }
 
     public static String postXml(String url, String xml) {
-        return postXml(url, (Map)null, xml);
+        return postXml(url, (Map) null, xml);
     }
 
     public static String postXml(String url, Map<String, String> header, String xml) {
@@ -115,7 +115,16 @@ public class OkHttpUtils {
 
         String var4;
         try {
-            OkHttpClient okHttpClient = new OkHttpClient();
+            int timeout = 30;
+            String timeoutHeader = request.header("timeout");
+            if (null!=timeoutHeader&&!timeoutHeader.isEmpty()) {
+                timeout = Integer.parseInt(timeoutHeader);
+            }
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .connectTimeout(timeout, TimeUnit.SECONDS)
+                    .writeTimeout(timeout, TimeUnit.SECONDS)
+                    .readTimeout(timeout, TimeUnit.SECONDS)
+                    .build();
             response = okHttpClient.newCall(request).execute();
             if (!response.isSuccessful()) {
                 return responseBody;
