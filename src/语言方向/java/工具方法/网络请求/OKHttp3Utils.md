@@ -46,39 +46,20 @@ public class OkHttpUtils {
     }
 
     public static String get(String url, Map<String, String> header, Map<String, String> queries) {
-        StringBuffer sb = new StringBuffer(url);
-        if (queries != null && queries.keySet().size() > 0) {
-            sb.append("?clientId=blade");
-            queries.forEach((k, v) -> {
-                sb.append("&").append(k).append("=").append(v);
-            });
-        }
-
-        Request.Builder builder = new Request.Builder();
-        if (header != null && header.keySet().size() > 0) {
-            header.forEach(builder::addHeader);
-        }
-
-        Request request = builder.url(sb.toString()).build();
+        String queriesStr = buildQueries(url, queries);
+        Request.Builder builder = buildRequest(header);
+        Request request = builder.url(queriesStr).build();
         return getBody(request);
     }
+
 
     public static String post(String url, Map<String, String> params) {
         return post(url, (Map) null, params);
     }
 
     public static String post(String url, Map<String, String> header, Map<String, String> params) {
-        FormBody.Builder formBuilder = (new FormBody.Builder()).add("clientId", "blade");
-        if (params != null && params.keySet().size() > 0) {
-            params.forEach(formBuilder::add);
-        }
-
-        Request.Builder builder = new Request.Builder();
-        if (header != null && header.keySet().size() > 0) {
-            header.forEach(builder::addHeader);
-        }
-
-        Request request = builder.url(url).post(formBuilder.build()).build();
+        Request.Builder builder = buildRequest(header);
+        Request request = builder.url(url).post(buildFormBody(params)).build();
         return getBody(request);
     }
 
@@ -115,21 +96,11 @@ public class OkHttpUtils {
 
         String var4;
         try {
-            int timeout = 30;
-            String timeoutHeader = request.header("timeout");
-            if (null!=timeoutHeader&&!timeoutHeader.isEmpty()) {
-                timeout = Integer.parseInt(timeoutHeader);
-            }
-            OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .connectTimeout(timeout, TimeUnit.SECONDS)
-                    .writeTimeout(timeout, TimeUnit.SECONDS)
-                    .readTimeout(timeout, TimeUnit.SECONDS)
-                    .build();
+            OkHttpClient okHttpClient = getClient(request);
             response = okHttpClient.newCall(request).execute();
             if (!response.isSuccessful()) {
                 return responseBody;
             }
-
             var4 = response.body().string();
         } catch (Exception var8) {
             log.error("okhttp3 post error >> ex = {}", var8.getMessage());
@@ -138,10 +109,80 @@ public class OkHttpUtils {
             if (response != null) {
                 response.close();
             }
-
         }
-
         return var4;
+    }
+
+    private static OkHttpClient getClient(Request request) {
+        int timeout = 30;
+        String timeoutHeader = request.header("timeout");
+        if (null != timeoutHeader && !timeoutHeader.isEmpty()) {
+            timeout = Integer.parseInt(timeoutHeader);
+        }
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(timeout, TimeUnit.SECONDS)
+                .writeTimeout(timeout, TimeUnit.SECONDS)
+                .readTimeout(timeout, TimeUnit.SECONDS)
+                .build();
+        return okHttpClient;
+    }
+
+    public static byte[] downloadPost(String url, Map<String, String> params) {
+        return downloadPost(url, (Map) null, params);
+    }
+
+    public static byte[] downloadPost(String url, Map<String, String> header, Map<String, String> params) {
+        Request.Builder builder = buildRequest(header);
+        Request request = builder.url(url).post(buildFormBody(params)).build();
+        return getBodyByte(request);
+    }
+
+    private static byte[] getBodyByte(Request request) {
+        byte[] responseBytes = null;
+        Response response = null;
+
+        try {
+            OkHttpClient okHttpClient = getClient(request);
+            response = okHttpClient.newCall(request).execute();
+            if (!response.isSuccessful()) {
+                return responseBytes;
+            }
+            responseBytes = response.body().bytes();
+        } catch (Exception var8) {
+            log.error("okhttp3 post error >> ex = {}", var8.getMessage());
+            return responseBytes;
+        } finally {
+            if (response != null) {
+                response.close();
+            }
+        }
+        return responseBytes;
+    }
+
+    public static RequestBody buildFormBody(Map<String, String> params) {
+        FormBody.Builder formBuilder = new FormBody.Builder();
+        if (params != null && params.keySet().size() > 0) {
+            params.forEach(formBuilder::add);
+        }
+        return formBuilder.build();
+    }
+
+    public static Request.Builder buildRequest(Map<String, String> header) {
+        Request.Builder builder = new Request.Builder();
+        if (header != null && header.keySet().size() > 0) {
+            header.forEach(builder::addHeader);
+        }
+        return builder;
+    }
+
+    public static String buildQueries(String url, Map<String, String> queries) {
+        StringBuffer sb = new StringBuffer(url);
+        if (queries != null && queries.keySet().size() > 0) {
+            queries.forEach((k, v) -> {
+                sb.append("&").append(k).append("=").append(v);
+            });
+        }
+        return sb.toString();
     }
 }
 
