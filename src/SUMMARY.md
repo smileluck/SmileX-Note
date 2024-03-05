@@ -277,6 +277,8 @@
 			- [搭建nginx](运维/搭建环境/nginx/搭建nginx.md)
 		- [redis]()
 			- [搭建Redis](运维/搭建环境/redis/搭建Redis.md)
+		- [ffmpeg]()
+		  - [ffmpeg-环境安装.md](运维/搭建环境/ffmpeg/ffmpeg-环境安装.md) 
 	- [服务部署]()
 		- [java]()
 			- [部署并启动jar包](运维/服务部署/java/部署并启动jar包.md)
