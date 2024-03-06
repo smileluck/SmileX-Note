@@ -20,15 +20,13 @@
 ## Utils
 
 ```java
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,6 +88,18 @@ public class OkHttpUtils {
         return getBody(request);
     }
 
+
+    public static byte[] postContentByte(String url, Map<String, String> header, String content, MediaType mediaType) {
+        RequestBody requestBody = RequestBody.create(mediaType, content);
+        Request.Builder builder = new Request.Builder();
+        if (header != null && header.keySet().size() > 0) {
+            header.forEach(builder::addHeader);
+        }
+
+        Request request = builder.url(url).post(requestBody).build();
+        return getBodyByte(request);
+    }
+
     private static String getBody(Request request) {
         String responseBody = "";
         Response response = null;
@@ -127,15 +137,39 @@ public class OkHttpUtils {
         return okHttpClient;
     }
 
+    public static byte[] downloadMultipartPost(String url, Map<String, String> params, Map<String, File> files) {
+        return downloadMultipartPost(url, (Map) null, params, files);
+    }
+
+    public static byte[] downloadMultipartPost(String url, Map<String, String> header, Map<String, String> params, Map<String, File> files) {
+        Request.Builder builder = buildRequest(header);
+        Request request = builder.url(url).post(buildMultipartBody(params, files)).build();
+        return getBodyByte(request);
+    }
+
+
     public static byte[] downloadPost(String url, Map<String, String> params) {
         return downloadPost(url, (Map) null, params);
     }
 
     public static byte[] downloadPost(String url, Map<String, String> header, Map<String, String> params) {
+        return downloadPost(url, header, params, true);
+    }
+
+    public static byte[] downloadPost(String url, Map<String, String> header, Map<String, String> params, boolean needEncode) {
         Request.Builder builder = buildRequest(header);
-        Request request = builder.url(url).post(buildFormBody(params)).build();
+        Request request = builder.url(url).post(buildFormBody(params, needEncode)).build();
         return getBodyByte(request);
     }
+
+    public static byte[] downloadPostJson(String url, String json) {
+        return postContentByte(url, null, json, JSON);
+    }
+
+    public static byte[] downloadPostJson(String url, Map<String, String> header, String json) {
+        return postContentByte(url, header, json, JSON);
+    }
+
 
     private static byte[] getBodyByte(Request request) {
         byte[] responseBytes = null;
@@ -160,11 +194,37 @@ public class OkHttpUtils {
     }
 
     public static RequestBody buildFormBody(Map<String, String> params) {
+        return buildFormBody(params, true);
+    }
+
+    public static RequestBody buildFormBody(Map<String, String> params, boolean needEncode) {
         FormBody.Builder formBuilder = new FormBody.Builder();
         if (params != null && params.keySet().size() > 0) {
-            params.forEach(formBuilder::add);
+            if (needEncode) {
+                params.forEach(formBuilder::add);
+            } else {
+                params.forEach(formBuilder::addEncoded);
+            }
         }
         return formBuilder.build();
+    }
+
+    public static RequestBody buildMultipartBody(Map<String, String> params, Map<String, File> files) {
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        if (params != null && params.keySet().size() > 0) {
+            params.forEach(builder::addFormDataPart);
+        }
+        if (files != null && files.keySet().size() > 0) {
+            files.forEach((s, file) -> {
+                try {
+                    builder.addFormDataPart(s, file.getName(), RequestBody.create(MediaType.parse(Files.probeContentType(file.toPath())), file));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+        return builder.build();
     }
 
     public static Request.Builder buildRequest(Map<String, String> header) {
