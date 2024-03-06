@@ -141,8 +141,10 @@ make install
    tar -xzvf FFmpeg-n6.1.1.tar.gz
    cd FFmpeg-n6.1.1.tar.gz
    
-   ./configure --prefix=/usr/local/ffmpeg --disable-autodetect --enable-gpl --enable-version3 --pkg-config-flags="--static" --enable-libwebp --enable-libx264
+   ./configure --prefix=/usr/local/ffmpeg --enable-shared --enable-static --disable-autodetect --enable-gpl --enable-version3 --pkg-config-flags="--static" --enable-libwebp --enable-libx264
 
+   # --pkg-config-flags="--static"
+   
    make
    make install
    ```
