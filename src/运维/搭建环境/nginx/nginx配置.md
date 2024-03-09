@@ -179,6 +179,16 @@ add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
 add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
 ```
 
+## http重定向https
+
+```nginx
+server {
+    listen 80;
+    server_name example.com www.example.com;
+    return 301 https://$host$request_uri;
+}
+```
+
 ## 日志相关
 
 - error_log。error_log [错误日志地址] [level]。以下警报等级，从高到底，一般生产不会设置warn以上的以免影响性能。
