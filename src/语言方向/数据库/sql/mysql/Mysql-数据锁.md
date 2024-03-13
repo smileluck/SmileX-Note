@@ -34,6 +34,16 @@ select * from table where id = 1 for update;
     ```
 
     设置当前会话的锁等待时间，当超过的等待时间后，会抛出异常。
+    
+  - mybatis 下，需要这么写，借助属性timeout，单位s
+  
+    ```xml
+    <select id="selectForUpdate" timeout="20">
+    select * from kb_power_compere where user_id = #{userId}  and del_flag = 0 for update;
+    </select>
+    ```
+    
+    
 
 
 
