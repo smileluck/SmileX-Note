@@ -57,3 +57,11 @@ https://rumenz.com/java-topic/hibernate/hibernate-validator-cdi/index.html
 
 - sonarqube
 - arthas
+
+
+
+
+
+## 鎖
+
+ MPSC 。caffeine的寫鎖機制
