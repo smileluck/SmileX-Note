@@ -321,7 +321,8 @@
   - [示例02](搭建示例/Java开发搭建案例01.md)
   - [示例03](搭建示例/Java开发搭建案例02.md)
 - [开源记录]()
-- [小玩意]()
-    - [Java+Selenium+swing_淘宝首页数据爬取的小软件](小玩意/Java+Selenium+swing_淘宝首页数据爬取的小软件.md)
-  - [soybean-admin]()
-    - [2024-1-29-proxy.md](开源记录/soybean-admin/2024-1-29-proxy.md)
+    - [小玩意]()
+        - [Java+Selenium+swing_淘宝首页数据爬取的小软件](开源记录/小玩意/Java+Selenium+swing_淘宝首页数据爬取的小软件.md)
+    - [soybean-admin]()
+      - [2024-1-29-proxy.md](开源记录/soybean-admin/2024-1-29-proxy.md)
+
