@@ -1,0 +1,57 @@
+[toc]
+
+---
+
+# 前言
+> https://github.com/Microsoft/dts-gen
+
+在开发TypeScript项目时，我们经常需要为第三方库或自定义函数创建类型声明文件（.d.ts）。手动编写这些文件可能会耗费大量时间且易出错。为此，微软推出了一款名为dts-gen的工具，帮助开发者自动化这个过程。让我们一起深入了解一下这个项目，并看看它如何提升我们的开发效率。
+
+dts-gen 是一个命令行工具，专用于生成TypeScript类型声明文件。它的目标是通过分析JavaScript代码，自动推断并创建对应的.d.ts文件，减轻开发者的工作负担。由于源自微软，因此该工具对Angular、React等流行的JavaScript库有很好的支持。
+
+# 如何使用
+1. 首先确保安装了Node.js环境，然后通过npm全局安装该工具：
+```shell
+npm install -g dts-gen
+```
+2. 接着，只需运行以下命令，即可为指定模块生成类型声明：
+- -f 指定导出的文件
+- -m 指定模块
+```shell
+dts-gen -f 'temp.d.ts' -m @mkkellogg/gaussian-splats-3d
+```
+
+
+# 异常记录
+## ENOENT: no such file or directory, open '@mkkellogg/gaussian-splats-3d.d.ts'
+- 问题描述：当执行下面命令 时，出现无法打开.d.ds文件问题
+```shell
+dts-gen -m @mkkellogg/gaussian-splats-3d
+```
+- 异常概览：`Error: ENOENT: no such file or directory, open '@mkkellogg/gaussian-splats-3d.d.ts'`
+
+- **解决办法**：执行导出文件，因为在node_modules 中无法创建对应文件，所以只需指定到当前文件夹下任意文件名称即可。如：`temp.d.ts`
+
+- 详细异常
+```shell
+Unexpected crash! Please log a bug with the commandline you specified.
+D:\dev\repositories\node_global\node_modules\dts-gen\dist\run.js:156
+        throw e;
+        ^
+
+Error: ENOENT: no such file or directory, open '@mkkellogg/gaussian-splats-3d.d.ts'
+    at Object.openSync (node:fs:603:3)
+    at Object.writeFileSync (node:fs:2324:35)
+    at Object.<anonymous> (D:\dev\repositories\node_global\node_modules\dts-gen\dist\run.js:136:12)
+    at Module._compile (node:internal/modules/cjs/loader:1256:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1310:10)
+    at Module.load (node:internal/modules/cjs/loader:1119:32)
+    at Module._load (node:internal/modules/cjs/loader:960:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:86:12)
+    at node:internal/main/run_main_module:23:47 {
+  errno: -4058,
+  syscall: 'open',
+  code: 'ENOENT',
+  path: '@mkkellogg/gaussian-splats-3d.d.ts'
+}
+```
