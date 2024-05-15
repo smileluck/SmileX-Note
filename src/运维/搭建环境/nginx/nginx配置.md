@@ -6,7 +6,7 @@
 
 ## 单机部署
 
-```conf
+```nginx
  server {
         listen          443 ssl;
         server_name     localhost;
@@ -82,6 +82,26 @@ server {
  }
 ```
 
+## rabbitmq
+
+```nginx
+{
+     #默认访问端口号为 80
+     listen 15673; 
+     #请填写绑定证书的域名
+     server_name cloud.tencent.com; 
+    location / {
+        port_in_redirect on;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Nginx-Proxy true;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:15672;
+    }
+ }
+```
+
 
 
 ## 前端版本更新
@@ -151,8 +171,6 @@ location /test/ {
 
 }
 ```
-
-···
 
 
 
