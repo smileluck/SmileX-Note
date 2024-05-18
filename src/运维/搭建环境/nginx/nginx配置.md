@@ -84,6 +84,8 @@ server {
 
 ## rabbitmq
 
+## Web管理端
+
 ```nginx
 {
      #默认访问端口号为 80
@@ -102,7 +104,36 @@ server {
  }
 ```
 
+## Amqp
 
+ 这种配置方式比配置Rabbitmq自身的SSL方法要简单。也适用于其他的服务（Redis）等。
+
+1. 修改 `nginx.conf`
+
+```shell
+stream {
+    include /etc/nginx/conf/stream/*.conf
+}
+```
+
+2. 在 `/etc/nginx/conf/stream`
+
+```shell
+upstream rabbitmq_backend {
+    server rabbitmq:5672;
+}
+ 
+server {
+    listen 5672 ssl;
+    proxy_pass rabbitmq_backend;
+    ssl_certificate certs/********.pem;
+    ssl_certificate_key certs/********.key;
+    ssl_session_timeout 5m;
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+}
+```
 
 ## 前端版本更新
 
@@ -206,6 +237,30 @@ server {
     return 301 https://$host$request_uri;
 }
 ```
+
+## @跳转www
+
+```shell
+server {
+	listen 443;
+    server_name example.com;
+ssl_certificate /www/server/nginx/cert/example.com_nginx/example.com_bundle.crt;
+     #请填写私钥文件的相对路径或绝对路径
+     ssl_certificate_key /www/server/nginx/cert/example.com_nginx/example.com.key;
+     ssl_session_timeout 5m;
+     #请按照以下协议配置
+     ssl_protocols TLSv1.2 TLSv1.3;
+     #请按照以下套件配置，配置加密套件，写法遵循 openssl 标准。
+     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+     ssl_prefer_server_ciphers on;
+
+    return 301 https://example.com$request_uri;
+}
+```
+
+注意 cos配置跨域时，要避免 example.com和www.example.com的配置。
+
+
 
 ## 日志相关
 
