@@ -251,11 +251,228 @@ spring:
       simple: 
       	acknowledge-mode: auto # audo 自动确认，none 不确认， manual 手动
       	prefetch: 3 # 设置每次预抓取的数量是3,处理完之前不收下一条 默认250
+      direct: 
+        acknowledge-mode: auto # audo 自动确认，none 不确认， manual 手动
 ```
 
+### 发送确认
+
+```yaml
+spring:
+  rabbitmq:
+    #开启发送到交换机确认callback
+    publisher-confirm-type: correlated
+    #开启发送到队列失败returnCallback
+    publisher-returns: true
+```
+
+publish-confirm-type。发布确认类型
+
+- NONE值是禁用发布确认模式，是默认值
+- CORRELATED值是发布消息成功到交换器后会触发回调方法
+- SIMPLE值经测试有两种效果，
+  1. 效果和CORRELATED值一样会触发回调方法，
+  2. 在发布消息成功后使用rabbitTemplate调用waitForConfirms或waitForConfirmsOrDie方法等待broker节点返回发送结果，根据返回结果来判定下一步的逻辑，要注意的点是waitForConfirmsOrDie方法如果返回false则会关闭channel，则接下来无法发送消息到broker;
 
 
 
+RabbitCallbackConfig。配置回调
+
+```java
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.context.annotation.Configuration;
+ 
+/**
+ * rabbitmq 消息回调
+ */
+@Slf4j
+@Configuration
+public class RabbitCallbackConfig implements RabbitTemplate.ConfirmCallback, RabbitTemplate.ReturnCallback {
+ 
+    /**
+     * 消息正常发送 或者发送到broker后出现问题
+     * @param correlationData
+     * @param ack
+     * @param cause
+     */
+    @Override
+    public void confirm(CorrelationData correlationData, boolean ack, String cause) {
+        if (!ack) {
+ 
+            log.error("confirm==>发送到broker失败\r\n" + "correlationData={}\r\n" + "ack={}\r\n" + "cause={}",
+                    correlationData, ack, cause);
+        } else {
+ 
+            log.info("confirm==>发送到broker成功\r\n" + "correlationData={}\r\n" + "ack={}\r\n" + "cause={}",
+                    correlationData, ack, cause);
+        }
+    }
+ 
+    /**
+     * 压根没到目的地 执行
+     * @param message
+     * @param replyCode
+     * @param replyText
+     * @param exchange
+     * @param routingKey
+     */
+    @Override
+    public void returnedMessage(@NonNull Message message, int replyCode,
+                                @NonNull String replyText, @NonNull String exchange, @NonNull String routingKey) {
+ 
+ 
+        log.error("error returnedMessage==> \r\n" + "message={}\r\n" + "replyCode={}\r\n" +
+                        "replyText={}\r\n" + "exchange={}\r\n" + "routingKey={}",
+                message, replyCode, replyText, exchange, routingKey);
+    }
+ 
+ 
+}
+
+// RabbitMqConfig
+ 
+@Configuration
+public class RabbitMqConfig {
+    
+    @Resource;
+    private RabbitCallbackConfig callbackConfig;
+    
+    @Bean
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        // 转为 json 发送
+
+        rabbitTemplate.setConfirmCallback(callbackConfig);
+        rabbitTemplate.setReturnsCallback(callbackConfig);
+//        rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
+        return rabbitTemplate;
+    }
+
+    /**
+     * 上传任务的队列
+     *
+     * @return 队列
+     */
+    @Bean("RabbitUploadQueue")
+    public Queue UploadQueue() {
+        return new Queue("upload_queue", true);
+    }
+
+}
+```
+
+### 接受确认
+
+1. basicAck确认接受
+2. basicNack拒绝确认接受
+3. 要关闭手动确认的
+
+```java
+package com.ruoyi.tap.mq.listener;
+
+import com.alibaba.fastjson2.JSONObject;
+import com.rabbitmq.client.Channel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.ExchangeTypes;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.*;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.Date;
+
+@Component
+public class TapRabbitListener {
+
+    private final static Logger logger = LoggerFactory.getLogger(TapRabbitListener.class);
+
+    @RabbitListener(queues = "result_queue")
+    public void taskStatus(String msg, Message message, Channel channel) {
+        logger.info("receive: {}", msg);
+    }
+
+
+}
+
+```
+
+- Channel.basicAck。确认收到一个或者多个消息
+
+  ```java
+  
+  /**
+   * deliveryTag：从服务端接受到的tag
+   	multiple true 表示确认所有消息，包括消息唯一标识小于等于deliveryTag 的消息，false只确认所提供的deliveryTag
+  
+   */
+  void basicAck(long deliveryTag, boolean multiple) throws IOException;
+  ```
+
+- Channel.basicRecover: 重新发送消息
+
+  ```java
+      /**
+       * requeue。true 消息会重新入队，可能会发送给其它消费者，如果为false 则发送给相同消费者
+       */
+      Basic.RecoverOk basicRecover(boolean requeue) throws IOException;
+  
+  ```
+
+- Channel.basicNack: 拒绝一条或多条消息
+
+  ```java
+  	/**
+  	 *  deliveryTag：从服务端接受到的tag
+  	 *  multiple true 表示拒绝所有消息，包括消息唯一标识小于等于deliveryTag 的消息，false只拒绝所提供的deliveryTag
+  	 * requeue： true 表示拒绝的消息应该重新入队，否则丢弃或者死信队列
+  	 */
+  void basicNack(long deliveryTag, boolean multiple, boolean requeue)
+              throws IOException;
+  ```
+
+- Channel.basicReject： 拒绝一条消息， 与basic.reject区别就是同时支持多个消息， 
+
+  ```java
+  /** 
+   * deliveryTag：从服务端接受到的tag
+   * requeue： true 表示拒绝的消息应该重新入队，否则丢弃或者死信队列
+   */
+  void basicReject(long deliveryTag, boolean requeue) throws IOException;
+  ```
+
+## 死信队列
+
+在声明队列时，设置参数
+
+- x-dead-letter-exchange。设置死信交换机
+- x-dead-letter-routing-key 。设置死信绑定Routingkey
+
+```java
+//创建一个hashmap对象来配置连接死信队列的参数
+Map<String, Object> arguments = new HashMap<>();
+//设置过期时间
+arguments.put("x-message-ttl",10000);
+//正常队列设置死信交换机
+arguments.put("x-dead-letter-exchange",DEAD_EXCHANGE);
+//设置死信RoutingKey
+arguments.put("x-dead-letter-routing-key","dead1");
+//声明普通队列
+channel.queueDeclare("common",false,false,false,arguments);
+channel.queueDeclare("dead",false,false,false,null);
+```
+
+有以下几种情况，会触发死信队列：
+
+1. x-message-ttl。消息过期时间，不常用的
+2. x-max-length。 正常队列的最大消息堆积容量 ，达到最大容量抛出到死信队列。
+3. 拒绝消息 basicNack 和 basicReject 的requeue 为false，如果设置了死信队列，则会传入死信队列，否则丢弃。
 
 # 消息预取
 
@@ -284,4 +501,12 @@ spring:
 ```
 
 
+
+
+
+# 注意问题
+
+1. 如果开启了confirmCallback、returnCallback可一在回调的方法做些额外处理，例如结合数据库进一步保证消息100%投递，或者重发，提示等等操作，但是需要注意的是高并发处理消息的效率会降低
+2. 配置如果开启了手动ack，所有的消息都需要手动确认，不然消息会一直存在队列中只是状态有所变化为unack，会被不断重新消费，所以一定要调用channel.basicAck方法
+3.  消费消息不要抛出异常，异常中断也不会正常消费消息，会导致消息死循环一直重复消费 
 
