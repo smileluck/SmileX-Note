@@ -35,11 +35,17 @@
   conda update [package_name]
   ```
 
-- 安装包在当前环境
+- 安装包在当前环境，需要先激活环境，否则装到默认环境
 
   ```shell
   conda install [package_name]
   conda install [package_name]=1.0.0 # 指定版本包
+  ```
+
+- 安装到指定环境
+
+  ```shell
+  conda install -n [env] [package_name]
   ```
 
 - 删除包在当前环境
