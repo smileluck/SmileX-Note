@@ -130,9 +130,15 @@
    trim_trailing_whitespace = false # 关闭末尾空格修剪
    ```
    
-   
-   
-4. 添加 git 忽略文件 `.gitignore`
+4. 根目录添加文件 ` pnpm-workspace.yaml`
+
+   ```shell
+   packages:
+     - "packages/**" # packages 存放 cli 和 components
+     - "site" # docs vitepress 使用
+   ```
+
+5. 添加 git 忽略文件 `.gitignore`
 
    ```
    # Logs
@@ -162,16 +168,49 @@
    
    ```
 
-5. 创建文件夹 `components`、主文件`index.ts`，以及初始化 `.eslintrc`
+6. 创建文件夹 `components`、主文件`index.ts`，以及初始化 `eslint.config.mjs`
 
    ```shell
    mkdir components
    cd components
    echo "" >> index.ts
-   
    ```
 
-6. 返回根目录，配置eslint 。可以看一下相关的笔记  [eslint-基础.md](..\..\..\语言方向\前端\前端工程化\eslint\eslint-基础.md) 
+   ```javascript
+   import globals from "globals";
+   import pluginJs from "@eslint/js";
+   import tseslint from "typescript-eslint";
+   import pluginVue from "eslint-plugin-vue";
+   
+   
+   export default [
+     {
+       ignores: [
+         "dist",
+         "node_modules",
+         "public",
+         ".husky",
+         ".vscode",
+         ".idea",
+         "*.sh",
+         "*.md",
+         "docs",
+         "src/assets",
+         ".eslintrc.cjs",
+         ".prettierrc.cjs",
+         ".stylelintrc.cjs"
+       ]
+     },
+     {
+       languageOptions: { globals: globals.browser },
+     },
+     pluginJs.configs.recommended,
+     ...tseslint.configs.recommended,
+     ...pluginVue.configs["flat/essential"],
+   ];
+   ```
+
+7. 返回根目录，配置eslint 。可以看一下相关的笔记  [eslint-基础.md](..\..\..\语言方向\前端\前端工程化\eslint\eslint-基础.md) 
 
    ```shell
    npx eslint --init
@@ -192,6 +231,7 @@
    .idea
    *.sh
    *.md
+   d
    
    src/assets
    
@@ -202,7 +242,7 @@
 
    
 
-7. 创建 tsconfig.json
+8. 创建 tsconfig.json
 
    ```shell
    npx tsc --init 
@@ -317,7 +357,7 @@
    }
    ```
 
-8. 安装一些依赖库
+9. 安装一些依赖库
 
    > https://cn.vitest.dev/
 
@@ -815,6 +855,64 @@ stylelint-config-standard -D
       
       ```
 
+## 第二步：组件库站 vitepress
+
+> https://vitepress.dev/
+
+1. 新建文件夹 `site`，并初始化
+
+   ```shell
+   mkdir site
+   cd site
+   pnpm install
+   ```
+
+2. 安装依赖
+
+   ```shell
+   pnpm add vitepress -D
+   ```
+
+3. 执行初始化
+
+   ```shell
+   pnpm vitepress init
+   ```
+
+   ![1716976387546](UnoUI-搭建项目.assets/1716976387546.png)
+
+4. 在根目录 `package.json` 添加命令
+
+   ```shell
+   {
+     "scripts": {
+       "docs:dev": "pnpm run --filter site docs:dev",
+       "docs:build": "pnpm run --filter site docs:build",
+       "docs:deploy": "pnpm run --filter site docs:deploy"
+     },
+   }
+   ```
+
+## 第三步：组件开发 VUE
+
+### 基础
+
+1. 安装依赖库
+	> 这里用到 vue 和 unocss 作为开发架子
+
+    ```shell
+    pnpm add @vitejs/plugin-vue -D
+    pnpm add vue
+    
+    # unocss
+    pnpm add -D unocss
+    
+    ```
+
+
+
+### 主题配置
+
 
 
 ## 问题记录
@@ -986,7 +1084,7 @@ stylelint-config-standard -D
       defaultSubject: "",
     },
   };
-   ```
+  ```
 
   
 
