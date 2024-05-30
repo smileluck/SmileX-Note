@@ -895,6 +895,8 @@ stylelint-config-standard -D
 
 ## 第三步：组件开发 VUE
 
+> https://cn.vuejs.org/guide/extras/web-components.html
+
 ### 基础
 
 1. 安装依赖库
@@ -906,14 +908,38 @@ stylelint-config-standard -D
     
     # unocss
     pnpm add -D unocss
-    
     ```
 
 
 
 ### 主题配置
 
+## 第四步：脚手架开发
 
+> https://npmtrends.com/
+>
+> https://mengyang.online/%E5%B7%A5%E7%A8%8B%E5%8C%96/cli/
+>
+> 
+
+### 脚手架插件依赖
+
+| 插件选择                      | 作用                |
+| ----------------------------- | ------------------- |
+| enquirer / prompts / Inquirer | 处理用户信息输入    |
+| cac / commander / yargs       | 用于构建cli应用的库 |
+| chalk                         | 美化控制台输出信息  |
+| lodash.template               | 处理模板替换        |
+| download-git-repo             | 下载远程模板        |
+| ora                           | loading效果美化     |
+| fast-glob                     | 读取文件名          |
+
+
+开发思路demo
+
+- 使用cac 或者 commander定义cli命令，例如 cli create
+- 使用prompts或 Inquirer和用户进行交互，拿到用户输入信息
+- 根据用户输入，download-git-repo下载远程模板，使用lodash.template将模板替换成用户输入信息
 
 ## 问题记录
 
