@@ -14,3 +14,10 @@
 - `git stash drop stash@{数字}`：删除对应的缓存内容，`stash@{数字}`从`git stash list`命令的显示内容中可得
 - `git stash clear`：删除所有的缓存内容
 
+
+
+
+
+# restore
+
+- git restore --staged . 。删除 add 的所有文件
