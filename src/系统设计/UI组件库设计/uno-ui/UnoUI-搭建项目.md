@@ -914,13 +914,27 @@ stylelint-config-standard -D
 
 ### 主题配置
 
-## 第四步：脚手架开发
+
+
+## 第四步：示例展示
+
+1. 基于vite + vue-ts
+
+   ```shell
+   pnpm create vite playground --template vue-ts
+   ```
+
+   
+
+
+
+## 第五步：脚手架开发
 
 > https://npmtrends.com/
 >
 > https://mengyang.online/%E5%B7%A5%E7%A8%8B%E5%8C%96/cli/
->
-> 
+
+
 
 ### 脚手架插件依赖
 
@@ -1180,3 +1194,9 @@ https://www.douyin.com/note/7298678914728070439
 
 
 https://www.cnblogs.com/huangtq/p/17337352.html#1-%E5%AE%89%E8%A3%85-2
+
+
+
+
+
+https://zhuanlan.zhihu.com/p/678811563
