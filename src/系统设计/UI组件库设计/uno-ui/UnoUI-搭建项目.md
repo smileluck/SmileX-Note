@@ -262,7 +262,7 @@
        // "disableSolutionSearching": true,                 /* Opt a project out of multi-project reference checking when editing. */
        // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
        /* Language and Environment */
-       "target": "es2015", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+       "target": "es2020", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
        "lib": [
          "esnext",
          "dom"
@@ -910,7 +910,30 @@ stylelint-config-standard -D
     pnpm add -D unocss
     ```
 
+2. 修改 `component/package.json`
 
+   ```json
+   {
+     "name": "@unosl-ui/component", // 修改名称
+     "type": "module",
+     "version": "1.0.0",
+     "description": "",
+     "main": "index.ts",
+     "scripts": {
+       "test": "echo \"Error: no test specified\" && exit 1"
+     },
+     "keywords": [ // 修改key word
+       "unosl-ui",
+       "unocss",
+       "@unosl-ul/component"
+     ],
+     "author": "B.Smile",
+     "license": "MIT"
+   }
+   
+   ```
+
+   
 
 ### 主题配置
 
@@ -918,15 +941,78 @@ stylelint-config-standard -D
 
 ## 第四步：示例展示
 
-1. 基于vite + vue-ts
+1. 基于vite + vue-ts + @vue/repl
 
    ```shell
+   cd packages
    pnpm create vite playground --template vue-ts
+   ```
+
+2. 修改 `playground/package.json`。统一使用根目录的vite+vue+typescript版本库。
+
+   ```shell
+   {
+     "name": "@unosl-ui/playground", # 修改名称
+     "private": true,
+     "version": "0.0.0",
+     "type": "module",
+     "scripts": {
+       "dev": "vite",
+       "build": "vue-tsc && vite build",
+       "preview": "vite preview"
+     },
+     "devDependencies": {
+       "vue-tsc": "^2.0.6"
+     },
+     "dependencies": {
+       "@unosl-ui/component": "workspace:^"
+     }
+   }
+	```
+
+3. 安装 @unosl-ui/component
+
+   ```shell
+   pnpm --filter @unosl-ui/playground i -S @unosl-ui/component
+   ```
+
+4. 安装 `@vue/repl` 
+
+   ```shell
+   pnpm add @vue/rep
+   
+   # 或者在根目录下执行
+   pnpm --filter @unosl-ui/playground i -S @vue/repl
+   ```
+
+5. 根目录 `package.json`
+
+   ```json
+   {
+     "scripts": {
+       "test": "vitest",
+       "prepare": "husky",
+       "lint": "eslint . --fix",
+       "format": "prettier --write .",
+       "commit": "git-cz",
+       "docs:dev": "pnpm run --filter site docs:dev",
+       "docs:build": "pnpm run --filter site docs:build",
+       "docs:deploy": "pnpm run --filter site docs:deploy",
+         // 添加 playground 启动
+       "play:dev": "pnpm run --filter playground dev",
+       "play:build": "pnpm run --filter playground build",
+       "play:preview": "pnpm run --filter playground preview"
+     },
+   }
    ```
 
    
 
+https://www.npmjs.com/package/@vue/repl
 
+https://blog.51cto.com/u_15319948/5874269
+
+https://www.jianshu.com/p/e0f670714168
 
 ## 第五步：脚手架开发
 
@@ -955,9 +1041,9 @@ stylelint-config-standard -D
 - 使用prompts或 Inquirer和用户进行交互，拿到用户输入信息
 - 根据用户输入，download-git-repo下载远程模板，使用lodash.template将模板替换成用户输入信息
 
-## 问题记录
+# 问题记录
 
-### lint-staged 乱码问题
+## lint-staged 乱码问题
 
 - 问题描述：执行  `lint-staged` 后，会产生乱码问题
 
@@ -1024,7 +1110,7 @@ stylelint-config-standard -D
     },
   ```
 
-### commitlint error: Please add rules to your `commitlint.config.js`
+## commitlint error: Please add rules to your `commitlint.config.js`
 
 - 问题说明：执行提交的时候，到了最后提示这个，是因为rules为空，可能是没有按照规范配置
 
@@ -1126,9 +1212,68 @@ stylelint-config-standard -D
   };
   ```
 
+
+## ✖ eslint --fix:Parsing error: Unexpected token )
+
+- 异常信息： 
+
+  ```shell
+  - ✖ eslint --fix:
+  
+  D:\project\SmileX\unosl-ui\packages\playground\index.html
+    0:0  warning  File ignored because of a matching ignore pattern. Use "--no-ignore" to disable file ignore settings or use "--no-warn-ignored" to suppress this warning
+  
+  D:\project\SmileX\unosl-ui\packages\playground\src\components\HelloWorld.vue
+    4:29  error  Parsing error: Unexpected token )
+  ```
+
+- 解决办法：增加parserOptions
+
+  ```js
+  import globals from "globals";
+  import pluginJs from "@eslint/js";
+  import tseslint from "typescript-eslint";
+  import pluginVue from "eslint-plugin-vue";
+  
+  
+  export default [
+    {
+      ignores: [
+        "dist",
+        "node_modules",
+        "public",
+        ".husky",
+        ".vscode",
+        ".idea",
+        "*.sh",
+        "*.md",
+        "site/docs",
+        "src/assets",
+        ".eslintrc.cjs",
+        ".prettierrc.cjs",
+        ".stylelintrc.cjs"
+      ]
+    },
+    {
+      languageOptions: {
+        globals: globals.browser,
+          // 增加转换
+        parserOptions: {
+          sourceType: 'module',
+          parser: tseslint.parser,
+          ecmaVersion: 12
+        },
+      },
+    },
+    pluginJs.configs.recommended,
+    ...tseslint.configs.recommended,
+    ...pluginVue.configs["flat/essential"],
+  ];
+  ```
+
   
 
-## 创建工程(废弃)
+# 创建工程(废弃)
 
 > 使用环境
 >
@@ -1179,7 +1324,7 @@ pnpm create vite uno-ui --template vue-ts
    }
    ```
 
-## 参考
+# 参考
 
 https://www.cnblogs.com/zdsdididi/p/16460802.html
 https://github.com/onu-ui/onu-ui/blob/main/package.json
@@ -1189,14 +1334,26 @@ https://blog.csdn.net/xdididi/category_12421163.html
 https://blog.csdn.net/qq_41885871/article/details/121415719
 https://www.douyin.com/note/7298678914728070439
 
+https://github.com/qddidi/easyest/blob/master/packages/components/index.ts
 
+https://segmentfault.com/a/1190000041103446#item-5
 
+https://juejin.cn/column/7118932817119019015
 
+https://juejin.cn/post/7200389542759153701
+
+https://juejin.cn/post/7134733869076938765
 
 https://www.cnblogs.com/huangtq/p/17337352.html#1-%E5%AE%89%E8%A3%85-2
 
 
 
-
+https://vuejs.org/guide/scaling-up/sfc.html
 
 https://zhuanlan.zhihu.com/p/678811563
+
+https://unocss.dev/config/
+
+https://cn.vuejs.org/guide/extras/web-components.html
+
+https://github.com/vitejs/vite-plugin-vue/tree/main/packages/plugin-vue#using-vue-sfcs-as-custom-elements
