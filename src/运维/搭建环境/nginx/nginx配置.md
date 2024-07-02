@@ -205,6 +205,56 @@ location /test/ {
 
 
 
+### 示例
+
+```shell
+
+        server {
+     #SSL 默认访问端口号为 443
+     listen 9029 ssl; 
+     #请填写绑定证书的域名
+     server_name model.example.com; 
+     #请填写证书文件的相对路径或绝对路径
+     ssl_certificate /etc/nginx/cert/model.example.com_bundle.crt; 
+     #请填写私钥文件的相对路径或绝对路径
+     ssl_certificate_key /etc/nginx/cert/model.example.com.key; 
+     ssl_session_timeout 5m;
+     #请按照以下协议配置
+     ssl_protocols TLSv1.2 TLSv1.3; 
+     #请按照以下套件配置，配置加密套件，写法遵循 openssl 标准。
+     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE; 
+     ssl_prefer_server_ciphers on;
+        location /video-inject-3d/ {
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #proxy_set_header X-Nginx-Proxy true;
+
+
+# 跨域
+if ($request_method = 'OPTIONS') {
+        add_header Access-Control-Allow-Origin *;
+add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,x-request-id';
+        return 204;
+}
+
+
+    # 后台接口地址
+    proxy_connect_timeout 3600s;
+    proxy_send_timeout      3600s;
+    proxy_read_timeout      3600s;
+    rewrite ^/video-inject-3d/(.*)$ /$1 break;
+    proxy_pass http://127.0.0.1:9020;
+
+   
+}
+```
+
+
+
+
+
 # 常用的配置说明
 
 ## 服务配置
@@ -225,7 +275,11 @@ location /test/ {
 ```nginx
 add_header Access-Control-Allow-Origin *;
 add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
-add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,x-request-id';
+
+    if ($request_method = 'OPTIONS') {
+        return 204;
+}
 ```
 
 ## http重定向https
