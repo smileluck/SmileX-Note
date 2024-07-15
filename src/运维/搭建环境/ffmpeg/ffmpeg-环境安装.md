@@ -1,4 +1,4 @@
-[toc]
+[TOC]
 
 ---
 
@@ -98,43 +98,41 @@ make
 make install
 ```
 
-
-
 ## 编译安装
 
 1. 从git上clone代码到本地
-
+   
    - clone最新代码
-
+     
      ```shell
      git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
      ```
-
+   
    - clone指定tag代码
-
+     
      ```shell
      git clone -b n6.1.1 --depth=1 https://git.ffmpeg.org/ffmpeg.git ffmpeg
      ```
-
+     
      - `-b` 后面写上指定 版本标签 , 即 tag, 比如 n6.1.1
      - `--depth` 表示克隆深度, 1 表示只克隆最新的版本. 因为如果项目迭代的版本很多, 克隆会很慢 
-
+   
    - 上面的办法clone下来的 ./configure 无法执行
 
 2. 从github上下载
-
+   
    ```shell
    wget https://codeload.github.com/FFmpeg/FFmpeg/tar.gz/refs/tags/n6.1.1
    ```
 
 3. 安装依赖项目
+   
+   ```shell
+   yum -y install gcc automake autoconf libtool make
+   ```
 
-	```shell
-	yum -y install gcc automake autoconf libtool make
-	```
-	
 4. 解压并安装
-
+   
    - /usr/local/lib/pkgconfig 是编译时会自动存放一个.pc文件到该目录下
    
    ```shell
@@ -142,41 +140,39 @@ make install
    cd FFmpeg-n6.1.1.tar.gz
    
    ./configure --prefix=/usr/local/ffmpeg --enable-shared --enable-static --disable-autodetect --enable-gpl --enable-version3 --pkg-config-flags="--static" --enable-libwebp --enable-libx264
-
+   
    # --pkg-config-flags="--static"
    
    make
    make install
    ```
-   
-   
 
 # 异常提示
 
 ## nasm/yasm not found or too old. Use --disable-x86asm for a crippled build
 
 - 问题描述
-
-  -  nasm/yasm是汇编编译器，ffmpeg为了提高效率使用了汇编指令，如MMX和SSE等。所以系统中未安装nasm/yasm时，就会报上面错误。 
+  
+  - nasm/yasm是汇编编译器，ffmpeg为了提高效率使用了汇编指令，如MMX和SSE等。所以系统中未安装nasm/yasm时，就会报上面错误。 
 
 - 解决办法
-
+  
   1. 安装yasm
-
-  	- 官网地址：http://yasm.tortall.net/
-
-  	- 下载解压并安装
-
-        ```shell
-        wget http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
-        tar -xzvf yasm-1.3.0.tar.gz
-        cd yasm-1.3.0 
-        ./configure --prefix=/usr/bin
-        make && make install
-        ```
      
+     - 官网地址：http://yasm.tortall.net/
+     
+     - 下载解压并安装
+       
+       ```shell
+       wget http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
+       tar -xzvf yasm-1.3.0.tar.gz
+       cd yasm-1.3.0 
+       ./configure --prefix=/usr/bin
+       make && make install
+       ```
+  
   2. 安装nasm
-
+     
      ```shell
      wget --no-check-certificate https://www.nasm.us/pub/nasm/releasebuilds/2.16/nasm-2.16.tar.gz
      tar -xvf nasm-2.16.tar.gz
@@ -186,7 +182,7 @@ make install
      ```
 
 - 完整错误信息
-
+  
   ```shell
   ./configure --prefix=/usr/local/
   nasm/yasm not found or too old. Use --disable-x86asm for a crippled build.
@@ -198,16 +194,14 @@ make install
   solve the problem.
   ```
 
-  
-
 ## ERROR: libwebp >= 0.2.0 not found using pkg-config
 
 - 问题描述
-
+  
   ffmpeg ./configure --enable-libwebp 执行时抛出异常
 
 - 解决办法
-
+  
   ```shell
   yum install libwebp
   # or
@@ -223,8 +217,4 @@ make install
   
   # 关键在于配置环境变量
   export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/local/ssl/lib/pkgconfig
-  
   ```
-
-  
-
