@@ -1,4 +1,4 @@
-[toc]
+[TOC]
 
 ---
 
@@ -11,9 +11,8 @@
 # 自定义加载YAML文件
 
 1. 自定义 `YamlPropertySourceFactory`，实现 `propertySourceFactory` 接口
-
-   ```java
    
+   ```java
    /**
     * Yaml 解析工厂
     */
@@ -24,7 +23,6 @@
            String sourceName = name != null ? name : encodedResource.getResource().getFilename();
            return new PropertiesPropertySource(sourceName, properties);
        }
-   
    
        /**
         * 从resource里面读取属性清单
@@ -47,51 +45,48 @@
                throw e;
            }
        }
-   }
    
+   }
    ```
 
+```
 2. 在 `@PropertySource` 使用。
 
-   ```yaml
-   # tencent.yml文件
-   tencent:
-     secret_id: 
-     secret_key: 
-   ```
+```yaml
+# tencent.yml文件
+tencent:
+  secret_id: 
+  secret_key: 
+```
 
    在 `@PropertySource` 中设置 `factory`(该属性 从 Spring 4.3 增加) 指向 `YamlPropertySourceFactory.class`
 
-   ```java
-   
-   @Component
-   @ConfigurationProperties(prefix = "tencent")
-   @PropertySource(value = {"classpath:tencent.yml"}, encoding = "UTF-8", factory = YamlPropertySourceFactory.class)
-   public class TencentConfig {
-   
-       private String secretId;
-   
-       private String secretKey;
-   
-       private TencentSms sms;
-   
-       public String getSecretId() {
-           return secretId;
-       }
-   
-       public void setSecretId(String secretId) {
-           this.secretId = secretId;
-       }
-   
-       public String getSecretKey() {
-           return secretKey;
-       }
-   
-       public void setSecretKey(String secretKey) {
-           this.secretKey = secretKey;
-       }
-   }
-   
-   ```
+```java
+@Component
+@ConfigurationProperties(prefix = "tencent")
+@PropertySource(value = {"classpath:tencent.yml"}, encoding = "UTF-8", factory = YamlPropertySourceFactory.class)
+public class TencentConfig {
 
-   
+    private String secretId;
+
+    private String secretKey;
+
+    private TencentSms sms;
+
+    public String getSecretId() {
+        return secretId;
+    }
+
+    public void setSecretId(String secretId) {
+        this.secretId = secretId;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
+}
+```

@@ -1,4 +1,4 @@
-[toc]
+[TOC]
 
 ---
 
@@ -8,7 +8,7 @@
 
 有些时候我们使用内置数据源时，并不方便做数据查看和统一配置。所以我们会需要使用外置数据源进行配置
 
-# 外置数据源 
+# 外置数据源
 
 > 目前仅支持 Mysql
 
@@ -29,4 +29,3 @@ db.url.0=jdbc:mysql://127.0.0.1:3306/smilex-nacos?characterEncoding=utf8&connect
 db.user.0=root
 db.password.0=root
 ```
-

@@ -1,4 +1,4 @@
-[toc]
+[TOC]
 
 ---
 
@@ -9,7 +9,6 @@
 # 实现代码
 
 ```java
-
 @Slf4j
 @RefreshScope
 @Configuration
@@ -84,4 +83,3 @@ public class NacosListener implements InitializingBean {
     }
 }
 ```
-

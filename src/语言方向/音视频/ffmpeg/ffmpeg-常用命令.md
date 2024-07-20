@@ -1,4 +1,4 @@
-[toc]
+[TOC]
 
 ---
 
@@ -54,9 +54,7 @@
 ## 转码优化
 
 - **-preset**的参数主要调节编码速度和质量的平衡，有ultrafast（转码速度最快，视频往往也最模糊）、superfast、veryfast、[faster](https://so.csdn.net/so/search?q=faster&spm=1001.2101.3001.7020)、fast、medium、slow、slower、veryslow、placebo这10个选项，从快到慢。 
--  
-
-
+- 
 
 # 命令实例
 
@@ -82,7 +80,7 @@ ffmpeg -i input_test.mp4 -vcodec copy -an output_test.avi
 ffmpeg -i input_test.mp4 -vcodec copy -an output_test.mp4
 ```
 
-##  音频+视频合成 
+## 音频+视频合成
 
 - `ffmpeg -i input_test_1.mp4 -i input_test_2.mp3 -vcodec copy -acodec copy output_test.mp4`
 - `ffmpeg -i input_test_1.mp4 -itsoffset 10 -i input_test_2.mp3 -vcodec copy -acodec copy output_test.mp4`
@@ -91,7 +89,7 @@ ffmpeg -i input_test.mp4 -vcodec copy -an output_test.mp4
 - `ffmpeg -ss 20 -t 5 -i input_test_1.mp3 -i input_test_2.mp4 -vcodec copy -acodec copy output_test.mp4`
   视频持续播放，音乐只播放5秒
 
-##  音频+音频合成 
+## 音频+音频合成
 
 > 格式：ffmpeg -i INPUT1 -i INPUT2 -i INPUT3 -filter_complex  amix=inputs=3:duration=first:dropout_transition=3 OUTPUT
 
@@ -99,17 +97,16 @@ ffmpeg -i input_test.mp4 -vcodec copy -an output_test.mp4
 - `ffmpeg -i input_test_1.mp3 -i input_test_2.mp3 -filter_complex amix=inputs=2:duration=longest output_test.mp3`
 - `ffmpeg –i input_test_1.mp3 –i input_test_2.mp3 –vcodec copy –acodec copy output_test.mp3`
 
-
 ## 视频分离成图片
 
 - `ffmpeg -i input_test.mp4 -r 1 -f image2 output_image-%03d.jpeg`
 
 - 截图图片的一帧
-
+  
   ```shell
   ffmpeg -ss [时间戳] -i [输入视频文件] -frames:v 1 -update 1 -q:v 2 [输出图像文件]
   ```
-
+  
   - `-ss [时间戳]`：指定要截取哪一帧的时间，格式为 `HH:MM:SS.sss`。例如，要截取第 5 秒的帧，可以使用 `00:00:05`。
   - `-i [输入视频文件]`：要截取帧的视频文件的路径。
   - `-vframes 1/-frames:v 1`：指定要截取的帧数。在这里，我们只截取一帧，所以设置为 1。
@@ -145,11 +142,9 @@ ffmpeg -i input_test.mp4 -vcodec copy -an output_test.mp4
 
 - `ffmpeg -i https://xxx.xxx.xxxxxx -c copy -f mp3 output_test.mp3`
 
-
 ## 播放音频视频
 
 - `ffplay input_test.mp3`
-
 
 ## 图片生成gif动图
 
@@ -162,15 +157,15 @@ ffmpeg -i input_test.mp4 -vcodec copy -an output_test.mp4
 ## 视频转码
 
 > 参考：
->
+> 
 > - https://zhuanlan.zhihu.com/p/675879599
 
 - 转 `H.264` 编码
-
+  
   ```shell
   ffmpeg -y -i [input.video] -c:v h264 -crf 23 -preset slow [output.video]
   ```
-
+  
   - `-c:v`指定编码器。（也可以使用 libx264 编码器）这是一种高效率的H.264视频编码器
-  -  `-pixel_format yuv420p`: 指定输入视频的像素格式为 yuv420p。这是一种常见的 YUV 格式，其中 Y 分量是完全采样的，而 U 和 V 分量则以 2x2 的子样本进行采样。 
-  -  `-crf 23`: 指定编码质量因子为 23。CRF（Constant Rate Factor）是一种基于质量的编码控制方法，值越小表示更高的质量和比特率。常用的范围是 18-28。 
+  - `-pixel_format yuv420p`: 指定输入视频的像素格式为 yuv420p。这是一种常见的 YUV 格式，其中 Y 分量是完全采样的，而 U 和 V 分量则以 2x2 的子样本进行采样。 
+  - `-crf 23`: 指定编码质量因子为 23。CRF（Constant Rate Factor）是一种基于质量的编码控制方法，值越小表示更高的质量和比特率。常用的范围是 18-28。 
