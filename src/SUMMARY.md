@@ -110,12 +110,28 @@
     
     - [分布式]()
       
+      - [springcloud]()
+        
+        - [SpringCloud-问题记录](语言方向/java/分布式/springcloud/SpringCloud-问题记录.md)
+        
+        - [流量控制]()
+          
+          - [SpringCloud-Sentinel](语言方向/java/分布式/springcloud/流量控制/SpringCloud-Sentinel.md)
+        
+        - [负载均衡]()
+          
+          - [SpringCloud-loadBalance](语言方向/java/分布式/springcloud/负载均衡/SpringCloud-LoadBalance.md)
+          - [SpringCloud-loadBalance整合OpenFeign](语言方向/java/分布式/springcloud/负载均衡/SpringCloud-LoadBalance整合OopenFeign.md)      
+      
       - [rpc]()
+        
         - [rpc-理论基础](语言方向/java/分布式/rpc/rpc-理论基础.md) 
         - [rpc-自定义框架](语言方向/java/分布式/rpc/rpc-自定义框架.md) 
         - [rpc-序列化和反序列化](语言方向/java/分布式/rpc/rpc-序列化和反序列化.md)
         - [rpc-socket实战](语言方向/java/分布式/rpc/rpc-socket实战.md)
+      
       - [MessageQueue]()
+        
         - [MessageQueue-选型](语言方向/java/分布式/MessageQueue/MessageQueue-选型.md)
         - [RabbitMq]()
           - [rabbitmq-基础](语言方向/java/分布式/MessageQueue/rabbitmq/rabbitmq-基础.md)
@@ -297,6 +313,9 @@
       - [嵌入式-一些网站](语言方向/嵌入式研发/嵌入式-一些网站.md)
       - [理论知识]()
         - [理论知识](语言方向/嵌入式研发/理论知识/理论知识.md)
+      - [电路原理]()
+        - [电路-定律和公式](语言方向/嵌入式研发/电路原理/电路-定律和公式.md)
+        - [电路-组成和大纲](语言方向/嵌入式研发/电路原理/电路-组成和大纲.md)
     - [音视频]() 
       - [音视频相关概念](语言方向/音视频/音视频相关概念.md) 
       - [ffmpeg]()
