@@ -1,4 +1,4 @@
-[toc]
+[TOC]
 
 ---
 
@@ -23,7 +23,7 @@ pnpm install @types/three --save-dev
 ## 其它
 
 - 3D高斯渲染
-
+  
   ```shell
   https://github.com/mkkellogg/GaussianSplats3D
   ```
@@ -33,7 +33,7 @@ pnpm install @types/three --save-dev
 ## 双击选中对象
 
 1. 创建存储对象数组
-
+   
    ```typescript
    const objView:any[]  = [];
    let objCtrlRef: ObjCtrl = reactive<ObjCtrl>({
@@ -43,131 +43,131 @@ pnpm install @types/three --save-dev
    ```
 
 2. 添加mesh对象
-
-    ```typescript
-      /**
-       * glb 和 gltf 渲染
-       *
-       * @param url 地址
-       */
-      function renderGltf(url: string, cb: Function) {
-        const loader: GLTFLoader = new GLTFLoader();
-        progressState.value = true;
-        loader.load(
-          url,
-          async (gltf: GLTF) => {
-            // 解决模型为黑色的问题
-            gltf.scene.traverse(function (child: any) {
-              if (child.isMesh) {
-                child.material.emissive = child.material.color;
-                child.material.emissiveMap = child.material.map;
-                child.castShadow = true;
-                child.receiveShadow = true;
-                // 增加父类说明，后续通过这个进行判断
-                child.ancestors = gltf.scene;
-              }
-            });
-            gltf.scene.castShadow = true;
-
-            if (typeof cb === 'function') {
-              await cb(gltf);
-            }
-            scene.add(gltf.scene);
-
-            objView.push(gltf.scene)
-          },
-          function (xhr) {
-            // 控制台查看加载进度xhr
-            console.log(Math.floor((xhr.loaded / xhr.total) * 100));
-            progressPercent.value = Math.floor(xhr.loaded / xhr.total);
-          }
-        );
-      }
-    ```
-
-3. 双击事件绑定
-
+   
    ```typescript
-   
-   import { TransformControls } from 'three/examples/jsm/controls/TransformControls.js'
-   
-   
-       renderer.domElement.addEventListener('dblclick', function (event: any) {
-         // .offsetY、.offsetX以canvas画布左上角为坐标原点,单位px
-         const px = event.offsetX;
-         const py = event.offsetY;
-         //屏幕坐标px、py转WebGL标准设备坐标x、y
-         //width、height表示canvas画布宽高度
-         const x = (px / canvasWidth) * 2 - 1;
-         const y = -(py / canvasHeight) * 2 + 1;
-         //创建一个射线投射器`Raycaster`
-         const raycaster = new THREE.Raycaster();
-         //.setFromCamera()计算射线投射器`Raycaster`的射线属性.ray
-         // 形象点说就是在点击位置创建一条射线，射线穿过的模型代表选中
-         raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
-         //.intersectObjects([mesh1, mesh2, mesh3])对参数中的网格模型对象进行射线交叉计算
-         // 未选中对象返回空数组[],选中一个对象，数组1个元素，选中两个对象，数组两个元素
-         const intersects = raycaster.intersectObjects(objView);
-         // intersects.length大于0说明，说明选中了模型
-         if (intersects.length > 0) {
-           transformControl.detach()
-           // 选中模型的第一个模型，设置为红色
-           // intersects[0].object.material.color.set(0xff0000);
-           const obj: any = intersects[0].object;
-           if (obj.ancestors != null) {
-             // 如果双击的是同一个对象则返回
-             if (objCtrlRef.focusObj !== null && objCtrlRef.focusObj.id === obj.ancestors.id) {
-               objCtrlRef.focusObj = null
-             } else {
-               objCtrlRef.focusObj = (obj.ancestors)
-               transformControl.attach(obj.ancestors)
+     /**
+      * glb 和 gltf 渲染
+      *
+      * @param url 地址
+      */
+     function renderGltf(url: string, cb: Function) {
+       const loader: GLTFLoader = new GLTFLoader();
+       progressState.value = true;
+       loader.load(
+         url,
+         async (gltf: GLTF) => {
+           // 解决模型为黑色的问题
+           gltf.scene.traverse(function (child: any) {
+             if (child.isMesh) {
+               child.material.emissive = child.material.color;
+               child.material.emissiveMap = child.material.map;
+               child.castShadow = true;
+               child.receiveShadow = true;
+               // 增加父类说明，后续通过这个进行判断
+               child.ancestors = gltf.scene;
              }
-           } else if (obj.parent instanceof DropInViewer) {
-             if (objCtrlRef.focusObj !== null && objCtrlRef.focusObj.id === obj.parent.id) {
-               objCtrlRef.focusObj = null
-             } else {
-               objCtrlRef.focusObj = (obj.parent)
-               transformControl.attach(obj.parent)
-             }
-           } else {
-             if (objCtrlRef.focusObj !== null && objCtrlRef.focusObj.id === obj.id) {
-               objCtrlRef.focusObj = null
-             } else {
-               objCtrlRef.focusObj = (obj)
-               transformControl.attach(obj)
-             }
+           });
+           gltf.scene.castShadow = true;
+   
+           if (typeof cb === 'function') {
+             await cb(gltf);
            }
-         } else {
-           objCtrlRef.focusObj = null
-           transformControl.detach()
+           scene.add(gltf.scene);
+   
+           objView.push(gltf.scene)
+         },
+         function (xhr) {
+           // 控制台查看加载进度xhr
+           console.log(Math.floor((xhr.loaded / xhr.total) * 100));
+           progressPercent.value = Math.floor(xhr.loaded / xhr.total);
          }
-       })
+       );
+     }
    ```
 
-## 摄像机围绕注视点旋转
+3. 双击事件绑定
+   
+   ```typescript
+   import { TransformControls } from 'three/examples/jsm/controls/TransformControls.js'
+   ```
+
+```javascript
+   renderer.domElement.addEventListener('dblclick', function (event: any) {
+     // .offsetY、.offsetX以canvas画布左上角为坐标原点,单位px
+     const px = event.offsetX;
+     const py = event.offsetY;
+     //屏幕坐标px、py转WebGL标准设备坐标x、y
+     //width、height表示canvas画布宽高度
+     const x = (px / canvasWidth) * 2 - 1;
+     const y = -(py / canvasHeight) * 2 + 1;
+     //创建一个射线投射器`Raycaster`
+     const raycaster = new THREE.Raycaster();
+     //.setFromCamera()计算射线投射器`Raycaster`的射线属性.ray
+     // 形象点说就是在点击位置创建一条射线，射线穿过的模型代表选中
+     raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
+     //.intersectObjects([mesh1, mesh2, mesh3])对参数中的网格模型对象进行射线交叉计算
+     // 未选中对象返回空数组[],选中一个对象，数组1个元素，选中两个对象，数组两个元素
+     const intersects = raycaster.intersectObjects(objView);
+     // intersects.length大于0说明，说明选中了模型
+     if (intersects.length > 0) {
+       transformControl.detach()
+       // 选中模型的第一个模型，设置为红色
+       // intersects[0].object.material.color.set(0xff0000);
+       const obj: any = intersects[0].object;
+       if (obj.ancestors != null) {
+         // 如果双击的是同一个对象则返回
+         if (objCtrlRef.focusObj !== null && objCtrlRef.focusObj.id === obj.ancestors.id) {
+           objCtrlRef.focusObj = null
+         } else {
+           objCtrlRef.focusObj = (obj.ancestors)
+           transformControl.attach(obj.ancestors)
+         }
+       } else if (obj.parent instanceof DropInViewer) {
+         if (objCtrlRef.focusObj !== null && objCtrlRef.focusObj.id === obj.parent.id) {
+           objCtrlRef.focusObj = null
+         } else {
+           objCtrlRef.focusObj = (obj.parent)
+           transformControl.attach(obj.parent)
+         }
+       } else {
+         if (objCtrlRef.focusObj !== null && objCtrlRef.focusObj.id === obj.id) {
+           objCtrlRef.focusObj = null
+         } else {
+           objCtrlRef.focusObj = (obj)
+           transformControl.attach(obj)
+         }
+       }
+     } else {
+       objCtrlRef.focusObj = null
+       transformControl.detach()
+     }
+   })
+```
+
+```typescript
+// 摄像机围绕注视点旋转
 1. 数据存储
 
-	```typescript
-	// 摄像头注视位置
-	  let _cameraLookAt = new THREE.Vector3(0, 0, 0)
-	  let cameraCtrlRef: CameraCtrl = reactive<CameraCtrl>({
-	    isMove: false,
-	    isRotate: false
-	  });
-	```
+ ```typescript
+ // 摄像头注视位置
+   let _cameraLookAt = new THREE.Vector3(0, 0, 0)
+   let cameraCtrlRef: CameraCtrl = reactive<CameraCtrl>({
+     isMove: false,
+     isRotate: false
+   });
+ ```
 
 2. 创建摄像头
 
-   ```typescript
-   camera = new THREE.PerspectiveCamera(75, canvasWidth / canvasHeight, 1, 100);
-   camera.position.set(3, 3, 3);
-   camera.lookAt(_cameraLookAt);
-   ```
+```typescript
+camera = new THREE.PerspectiveCamera(75, canvasWidth / canvasHeight, 1, 100);
+camera.position.set(3, 3, 3);
+camera.lookAt(_cameraLookAt);
+```
 
 3. 旋转方法
-
-   ```typescript
    
+   ```typescript
      let animationFrameR: number | null = null;
      let rotateAngleR = 0; // 用于圆周运动计算的角度值
      let rotateR = 2; // 相机圆周运动的半径
@@ -205,12 +205,10 @@ pnpm install @types/three --save-dev
      }
    ```
 
-
-
 ## 键盘控制摄像头
 
 1. 存储数据
-
+   
    ```typescript
      const keyState: any = {
        KeyW: false,
@@ -221,9 +219,8 @@ pnpm install @types/three --save-dev
    ```
 
 2. 控制方法
-
-   ```shell
    
+   ```shell
      function cameraKeyUp(event: any) {
        keyState[event.code] = false;
        updateMoveDirection();
@@ -258,7 +255,7 @@ pnpm install @types/three --save-dev
    ```
 
 3. 绑定事件
-
+   
    ```typescript
    function cameraStartKeyCtrl() {
        document.addEventListener('keydown', cameraKeyDown, false);
@@ -272,10 +269,6 @@ pnpm install @types/three --save-dev
        cameraCtrlRef.isMove = false
    }
    ```
-
-   
-
-
 
 ## 渲染
 
@@ -314,16 +307,11 @@ function renderPly(url: string) {
         }
     );
 }
-
-
 ```
-
-
 
 ### 渲染HDR环境贴图
 
 ```typescript
-
 import { RGBELoader } from 'three/examples/jsm/Addons.js';
   /**
    * 渲染环境贴图
@@ -355,8 +343,8 @@ import { RGBELoader } from 'three/examples/jsm/Addons.js';
 ```
 
 ### 渲染glb
-```typescript
 
+```typescript
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 /**
@@ -402,7 +390,6 @@ function renderGltf(url: string, cb: Function) {
 ### 渲染3D高斯
 
 ```typescript
-
 import { DropInViewer } from '@mkkellogg/gaussian-splats-3d';
 
   /**
@@ -441,6 +428,4 @@ import { DropInViewer } from '@mkkellogg/gaussian-splats-3d';
         scene.add(gsView);
       });
   }
-
 ```
-

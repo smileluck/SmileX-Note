@@ -13,6 +13,7 @@
     - [模型]()
       - [模型下载](语言方向/3d可视化/模型/模型下载.md)
     - [web]()
+      - [threejs-问题记录](语言方向/3d可视化/web/threejs-问题记录.md)
       - [vue3-threejs](语言方向/3d可视化/web/vue3-threejs.md)
   
   - [python]()
