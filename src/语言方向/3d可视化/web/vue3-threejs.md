@@ -155,7 +155,7 @@ pnpm install @types/three --save-dev
      isMove: false,
      isRotate: false
    });
- ```
+```
 
 2. 创建摄像头
 
