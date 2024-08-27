@@ -139,6 +139,8 @@
           - [rabbitmq-端口说明](语言方向/java/分布式/MessageQueue/rabbitmq/rabbitmq-端口说明.md)
           - [rabbitmq-Exchange](语言方向/java/分布式/MessageQueue/rabbitmq/rabbitmq-Exchange.md)
           - [rabbitmq-SpringAmqp](语言方向/java/分布式/MessageQueue/rabbitmq/rabbitmq-SpringAmqp.md)
+          - [rabbitmq-死信队列](语言方向/java/分布式/MessageQueue/rabbitmq/rabbitmq-死信队列.md)
+          - [rabbitmq-问题记录](语言方向/java/分布式/MessageQueue/rabbitmq/rabbitmq-问题记录.md)
     
     - [框架]()
       
