@@ -1,8 +1,9 @@
-[toc]
+[TOC]
 
 ---
 
 # 卸载 barad_agent
+
 > 腾讯云监控
 
 ```shell
@@ -26,7 +27,6 @@ systemctl stop firewalld
 systemctl unmask firewalld.service 
 #然后：
 systemctl start firewalld.service
-
 ```
 
 如果不生效，就需要手动添加端口放行了（系统自带的防火墙是默认不开的，如果只想使用控制台的，最好关闭系统防火墙）
@@ -50,4 +50,3 @@ firewall-cmd --zone=public --permanent --remove-port=3306/tcp
 # 重新加载一下防火墙配置规则
 firewall-cmd --reload 
 ```
-
