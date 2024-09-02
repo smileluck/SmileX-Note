@@ -1,4 +1,4 @@
-[toc]
+[TOC]
 
 ---
 
@@ -14,13 +14,15 @@ tps:/go.microsoft.com/fwlink/?LinkID=135170 中的 about_Execution_Policies。
 ```
 
 - 解决办法：
+  
   1. 设置当前用户的执行策略，允许脚本执行
-    ```shell
-  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-    ```
+     
+     ```shell
+     Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+     ```
+  
   2. 执行完后记得将权限设置会默认的 `Restricted`
-
-    ```shell
-	Set-ExecutionPolicy -ExecutionPolicy Restricted -Scope CurrentUser
-    ```
-
+     
+     ```shell
+     Set-ExecutionPolicy -ExecutionPolicy Restricted -Scope CurrentUser
+     ```
