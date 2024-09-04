@@ -1,4 +1,4 @@
-[toc]
+[TOC]
 
 ---
 
@@ -30,15 +30,15 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/ # npm镜像源
 ```
 
 4. 配置全局安装配置并配置**环境变量**。
+   
+   ```shell
+   npm config set prefix "D:\dev\repositories\node_global"
+   ```
+   
+   - 环境变量配置 `NODE_PATH`：`D:\dev\repositories\node_global\node_modules`
+   - PATH里面添加：`D:\dev\repositories\node_global`
 
-    ```shell
-    npm config set prefix "D:\dev\repositories\node_global"
-    ```
-
-    - 环境变量配置 `NODE_PATH`：`D:\dev\repositories\node_global\node_modules`
-    - PATH里面添加：`D:\dev\repositories\node_global`
-
-1. 配置缓存位置
+5. 配置缓存位置
 
 ```shell
 npm config set cache "D:\dev\repositories\node_cache"
@@ -49,7 +49,7 @@ npm config set cache "D:\dev\repositories\node_cache"
 1. 进入全局安装配置文件夹 `D:\dev\repositories\node_global`
 
 2. 执行命令
-
+   
    ```shell
    # linux || MacOS
    curl -fsSL https://get.pnpm.io/install.sh | sh -
@@ -59,7 +59,7 @@ npm config set cache "D:\dev\repositories\node_cache"
    ```
 
 3. 换源
-
+   
    ```shell
    # 切换淘宝
    npm config set registry https://registry.npm.taobao.org
@@ -67,10 +67,6 @@ npm config set cache "D:\dev\repositories\node_cache"
    # 还原
    npm config set registry https://registry.npmjs.org
    ```
-
-   
-
-
 
 # 常用指令
 
@@ -80,3 +76,22 @@ npm config set cache "D:\dev\repositories\node_cache"
 - `nvm list available`。显示可用版本。
 - `nvm use [版本]`。切换指定版本
 - `nvm current`。查看当前版本
+
+
+
+# 问题记录
+
+## nvm list available列表为空，无法install
+
+
+
+![](node-nvm安装配置.assets/2024-08-31-21-05-52-image.png)
+
+去 `NVM` 官网配置镜像
+
+```shell
+nvm node_mirror https://npmmirror.com/mirrors/node/
+nvm npm_mirror https://npmmirror.com/mirrors/npm/
+```
+
+
