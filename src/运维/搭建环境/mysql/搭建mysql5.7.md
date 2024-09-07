@@ -1,16 +1,12 @@
-[toc]
+[TOC]
 
 ---
 
 # 说明
 
-
-
 支持系统: 
 
 - ubuntu 18.04
-
-
 
 # 方法一
 
@@ -19,7 +15,6 @@ sudo apt-get install mysql-server
 sudo apt-get install mysql-client 
 sudo apt-get install libmysqlclient-dev
 ```
-
 
 # 方法二（win）
 
@@ -30,7 +25,7 @@ sudo apt-get install libmysqlclient-dev
 2. 解压并进入软件根目录。
 
 3. 新建`my.ini`文件
-
+   
    ```ini
    [mysqld]
    # 设置3306端口
@@ -47,7 +42,7 @@ sudo apt-get install libmysqlclient-dev
    character-set-server=utf8mb4
    # 创建新表时将使用的默认存储引擎
    default-storage-engine=INNODB
-  
+   
    [mysql]
    # 设置mysql客户端默认字符集
    default-character-set=utf8mb4
@@ -58,15 +53,15 @@ sudo apt-get install libmysqlclient-dev
    ```
 
 4. 进入 \bin 目录，执行以下指令。
-
+   
    - --defaults-file。指定默认文件
-
+   
    ```shell
    mysqld --defaults-file=C:\Softwares\mysql-5.7.44-winx64\my.ini --initialize --console ##使用管理员的方式打开
    ```
-
+   
    输出结果：
-
+   
    ```shell
    2023-05-05T07:22:04.819909Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
    2023-05-05T07:22:04.819935Z 0 [System] [MY-013169] [Server] D:\dev-tools\mysql-5.7.44-winx64\bin\mysqld.exe (mysqld 8.0.33) initializing of server in progress as process 920
@@ -74,7 +69,7 @@ sudo apt-get install libmysqlclient-dev
    2023-05-05T07:22:06.123640Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
    2023-05-05T07:22:07.586539Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: b*qMh0L>2-;C
    ```
-
+   
    最后面的就是临时密码。这里看出是： `b*qMh0L>2-;C`
 
 5. 执行数据库初始化。提示 **Service successfully installed** 表示成功。
@@ -101,15 +96,15 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';  # 修改密码
 ```
 
 8. 启动方式
-
+   
    1. 加入到环境变量 Path 中启动：将**安装地址\bin**追加到Path最后面
-
+      
       ```
       D:\dev-tools\mysql-5.7.44-winx64\bin;
       ```
-
+   
    2. 自定义脚本启动
-
+      
       ```shell
       @echo off
       
@@ -144,12 +139,6 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';  # 修改密码
       exit /b 0
       ```
 
-
-
-
-
-
-
 # 彻底删除mysql安装记录
 
 ```shell
@@ -174,6 +163,4 @@ dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P
 # 查看从MySQL APT安装的软件列表, 执行后没有显示列表, 证明MySQL服务已完全卸载
 
 dpkg -l | grep mysql | grep i
-
 ```
-

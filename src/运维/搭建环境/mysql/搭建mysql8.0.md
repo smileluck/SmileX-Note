@@ -1,18 +1,12 @@
-[toc]
+[TOC]
 
 ---
 
 # 说明
 
-
-
 支持系统: 
 
 - ubuntu 18.04
-
-
-
-
 
 # 方法一
 
@@ -29,12 +23,12 @@ wget -c https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb
 
 ```shell
 sudo dpkg -i mysql-apt-config_0.8.10-1_all.deb
-``` 
+```
 
 3. 下载最新的软件包信息 
 
 ```shell
-sudo apt update	
+sudo apt update    
 ```
 
 4. 如果出现异常 仓库 “http://repo.mysql.com/apt/[ubuntu](https://so.csdn.net/so/search?q=ubuntu&spm=1001.2101.3001.7020) bionic InRelease” 没有数字签名 。请看踩坑记录
@@ -44,13 +38,13 @@ sudo apt update
 apt list --upgradable
 ```
 
-6.  安装mysql8.0 
+6. 安装mysql8.0 
 
 ```shell
 sudo apt install mysql-server
 ```
 
-7.  验证安装 
+7. 验证安装 
 
 ```shell
 mysql -uroot -p
@@ -84,7 +78,7 @@ bind-address = 0.0.0.0
 2. 解压并进入软件根目录。
 
 3. 新建`my.ini`文件
-
+   
    ```ini
    [mysqld]
    # 设置3307端口
@@ -114,15 +108,15 @@ bind-address = 0.0.0.0
    ```
 
 4. 进入 \bin 目录，执行以下指令。
-
+   
    - --defaults-file。指定默认文件
-
+   
    ```shell
    mysqld --defaults-file=C:\Softwares\mysql-8.0.12-winx64\my.ini --initialize --console ##使用管理员的方式打开
    ```
-
+   
    输出结果：
-
+   
    ```shell
    2023-05-05T07:22:04.819909Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
    2023-05-05T07:22:04.819935Z 0 [System] [MY-013169] [Server] D:\dev-tools\mysql-8.0.33-winx64\bin\mysqld.exe (mysqld 8.0.33) initializing of server in progress as process 920
@@ -130,7 +124,7 @@ bind-address = 0.0.0.0
    2023-05-05T07:22:06.123640Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
    2023-05-05T07:22:07.586539Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: b*qMh0L>2-;C
    ```
-
+   
    最后面的就是临时密码。这里看出是： `b*qMh0L>2-;C`
 
 5. 执行数据库初始化。提示 **Service successfully installed** 表示成功。
@@ -157,15 +151,15 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';  # 修改密码
 ```
 
 8. 启动方式
-
+   
    1. 加入到环境变量 Path 中启动：将**安装地址\bin**追加到Path最后面
-
+      
       ```
       D:\dev-tools\mysql-8.0.33-winx64\bin;
       ```
-
+   
    2. 自定义脚本启动
-
+      
       ```shell
       @echo off
       
@@ -200,12 +194,9 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';  # 修改密码
       exit /b 0
       ```
 
-      
-
-
 # 踩坑记录
 
-##  仓库 “http://repo.mysql.com/apt/[ubuntu](https://so.csdn.net/so/search?q=ubuntu&spm=1001.2101.3001.7020) bionic InRelease” 没有数字签名 
+## 仓库 “http://repo.mysql.com/apt/[ubuntu](https://so.csdn.net/so/search?q=ubuntu&spm=1001.2101.3001.7020) bionic InRelease” 没有数字签名
 
 执行 `apt update`时，报出异常。
 
@@ -217,13 +208,13 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';  # 修改密码
 apt-key list
 ```
 
-2.  删除过期签名 
+2. 删除过期签名 
 
 ```shell
 sudo apt-key del dsa1024
 ```
 
-3.  重新添加新的签名。这里的key为 上面红色框中的 key 
+3. 重新添加新的签名。这里的key为 上面红色框中的 key 
 
 ```shell
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 467B942D3A79BD29
@@ -253,4 +244,3 @@ sql_mode=NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBST
 cd /usr/bin
 sudo mysqld restart --user=root
 ```
-
