@@ -1,4 +1,4 @@
-[toc]
+[TOC]
 
 ---
 
@@ -22,8 +22,6 @@ sudo chmod 777 -R /usr/local/serve # 简单粗暴
 # 执行test-start.sh
 ./test-start.sh
 ```
-
-
 
 # 常用指令
 
@@ -63,7 +61,6 @@ java -Duser.timezone=GMT+08 -Xdebug -Xrunjdwp:transport=dt_socket,address=5555,s
 ```
 
 5. 启动服务。
-
 - 常用参数
   - -Dspring.profiles.active=test。指定profile为test
   - -Duser.timezone=GMT+08。设置时区
@@ -81,37 +78,38 @@ nohup java -Duser.timezone=GMT+08 -jar test.jar &
 java -server -Xms512m -Xmx512m  -Duser.timezone=GMT+08 -jar test.jar > test.out 2>&1 &
 ```
 
-
-
 # 脚本启动
 
 ## 通过shell脚本
+
 1. 创建test-start.sh文件，内容如下。
-```sh
-#!/bin/bash
-PID=$(ps -ef|grep ytqms-wx-1.0-SNAPSHOT.jar| grep -v grep | grep -v tail | awk '{printf $2}')
+   
+   ```shell
+   #!/bin/bash
+   PID=$(ps -ef|grep ytqms-wx-1.0-SNAPSHOT.jar| grep -v grep | grep -v tail | awk '{printf $2}')
+   
+   if [ $? -eq 0 ]; then
+       echo "查询进程ID为 : $PID"
+   else
+       echo "脚本执行失败,退出"
+       exit
+   fi
+   
+   if [ ! -n "$PID" ] || [ ! $PID ] || [ "$PID" = "" ]; then
+       echo "未查询到PID,直接启动项目"
+       java -server -Xms512m -Xmx512m -Dspring.profiles.active=prod -Duser.timezone=GMT+08 -jar ytqms-wx-1.0-SNAPSHOT.jar > ytqms-wx-1.0-SNAPSHOT.out 2>&1 &
+   else
+       kill -9 ${PID}
+   
+       if [ $? -eq 0 ];then
+           echo "杀死进程成功,启动项目"
+           java -server -Xms512m -Xmx512m -Dspring.profiles.active=prod -Duser.timezone=GMT+08 -jar ytqms-wx-1.0-SNAPSHOT.jar > ytqms-wx-1.0-SNAPSHOT.out 2>&1 &
+       else
+           echo "杀死进程失败"
+       fi
+   fi
+   ```
 
-if [ $? -eq 0 ]; then
-    echo "查询进程ID为 : $PID"
-else
-    echo "脚本执行失败,退出"
-	exit
-fi
-
-if [ ! -n "$PID" ] || [ ! $PID ] || [ "$PID" = "" ]; then
-	echo "未查询到PID,直接启动项目"
-	java -server -Xms512m -Xmx512m -Dspring.profiles.active=prod -Duser.timezone=GMT+08 -jar ytqms-wx-1.0-SNAPSHOT.jar > ytqms-wx-1.0-SNAPSHOT.out 2>&1 &
-else
-	kill -9 ${PID}
-
-	if [ $? -eq 0 ];then
-		echo "杀死进程成功,启动项目"
-		java -server -Xms512m -Xmx512m -Dspring.profiles.active=prod -Duser.timezone=GMT+08 -jar ytqms-wx-1.0-SNAPSHOT.jar > ytqms-wx-1.0-SNAPSHOT.out 2>&1 &
-	else
-		echo "杀死进程失败"
-	fi
-fi
-```
 2. 赋予文件权限
 
 ```shell
@@ -119,9 +117,10 @@ sudo chmod u+x test-start.sh
 ```
 
 3. 运行文件
-```shell
-sudo ./test-start.sh
-```
+   
+   ```shell
+   sudo ./test-start.sh
+   ```
 
 ## 配置service
 
@@ -173,4 +172,3 @@ sudo systemctl restart test.service
 # 重新加载配置
 sudo systemctl reload test.service
 ```
-
