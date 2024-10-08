@@ -77,13 +77,9 @@ npm config set cache "D:\dev\repositories\node_cache"
 - `nvm use [版本]`。切换指定版本
 - `nvm current`。查看当前版本
 
-
-
 # 问题记录
 
 ## nvm list available列表为空，无法install
-
-
 
 ![](node-nvm安装配置.assets/2024-08-31-21-05-52-image.png)
 
@@ -93,5 +89,3 @@ npm config set cache "D:\dev\repositories\node_cache"
 nvm node_mirror https://npmmirror.com/mirrors/node/
 nvm npm_mirror https://npmmirror.com/mirrors/npm/
 ```
-
-
