@@ -1,4 +1,4 @@
-[toc]
+[TOC]
 
 ---
 
@@ -152,6 +152,4 @@ function handleView() {
 </template>
 
 <style scoped></style>
-
 ```
-
