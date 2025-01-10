@@ -133,6 +133,9 @@ ffmpeg -i input_test.mp4 -vcodec copy -an output_test.mp4
 - `ffmpeg -ss 10 -i input_test.mp3 -to 20 -vcodec copy -acodec copy output_test.mp3`
 - `ffmpeg -ss 10 -i input_test.mp3 -t 5 -vcodec copy -acodec copy output_test.mp3`
 - `ffmpeg -i input_test.mp3 -c copy -t 10 -output_ts_offset 120 output_test.mp3`
+- ffmpeg -i input.mp4 -q:a 0 -map a output.mp3
+- ffmpeg -i input.mp4 -vn -acodec pcm_s16le -ar 44100 -ac 2 output.wav
+- ffmpeg -i input.mp4 -vn -acodec aac -b:a 128k output.aac
 
 ## 容器时长获取
 
