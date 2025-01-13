@@ -187,7 +187,7 @@ public class MyEncoder extends MessageToByteEncoder<CarProtocol> {
 
 `nettyTcp.java`文件中内容：
 
-``` java
+```java
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -487,7 +487,7 @@ public class MyEncoder extends MessageToByteEncoder<CarProtocol> {
 
 `nettyTcp.java`文件中内容：
 
-``` java
+```java
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -1489,10 +1489,10 @@ public class DBHelp {
     static ResultSet rs = null;
 
     /**
-	 * 获取所有的商品信息
-	 * @return
-	 * @param sqlId
-	 */
+     * 获取所有的商品信息
+     * @return
+     * @param sqlId
+     */
     public static List<ProductTable> getProductList(String sqlId){
 
         List<ProductTable> productTables = new ArrayList<>();
@@ -1524,10 +1524,10 @@ public class DBHelp {
     public static List<ProductOrder> getProductOrderList(Integer userId){
         List<ProductOrder> productTables = new ArrayList<>();
 
-        //		String sql = "select * from product_order where USER_ID=(select USER_ID from member_user where USER_NAME=\""+name+"\")";
+        //        String sql = "select * from product_order where USER_ID=(select USER_ID from member_user where USER_NAME=\""+name+"\")";
 
         String sql = "select * from product_order "+(userId==null?"":"where USER_ID="+userId);
-        //		System.out.println("执行的 sql: "+sql);
+        //        System.out.println("执行的 sql: "+sql);
         try {
             st = conn.createStatement();
             rs = st.executeQuery(sql);
@@ -1670,38 +1670,38 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MapSortUtil {
-    
+
     private static Comparator<Map.Entry> comparatorByKeyAsc = (Map.Entry o1, Map.Entry o2) -> {
         if (o1.getKey() instanceof Comparable) {
             return ((Comparable) o1.getKey()).compareTo(o2.getKey());
         }
         throw new UnsupportedOperationException("键的类型尚未实现Comparable接口");
     };
- 
- 
+
+
     private static Comparator<Map.Entry> comparatorByKeyDesc = (Map.Entry o1, Map.Entry o2) -> {
         if (o1.getKey() instanceof Comparable) {
             return ((Comparable) o2.getKey()).compareTo(o1.getKey());
         }
         throw new UnsupportedOperationException("键的类型尚未实现Comparable接口");
     };
- 
- 
+
+
     private static Comparator<Map.Entry> comparatorByValueAsc = (Map.Entry o1, Map.Entry o2) -> {
         if (o1.getValue() instanceof Comparable) {
             return ((Comparable) o1.getValue()).compareTo(o2.getValue());
         }
         throw new UnsupportedOperationException("值的类型尚未实现Comparable接口");
     };
- 
- 
+
+
     private static Comparator<Map.Entry> comparatorByValueDesc = (Map.Entry o1, Map.Entry o2) -> {
         if (o1.getValue() instanceof Comparable) {
             return ((Comparable) o2.getValue()).compareTo(o1.getValue());
         }
         throw new UnsupportedOperationException("值的类型尚未实现Comparable接口");
     };
- 
+
     /**
      * 按键升序排列
      */
@@ -1711,7 +1711,7 @@ public class MapSortUtil {
         }
         return sort(originMap, comparatorByKeyAsc);
     }
- 
+
     /**
      * 按键降序排列
      */
@@ -1721,8 +1721,8 @@ public class MapSortUtil {
         }
         return sort(originMap, comparatorByKeyDesc);
     }
- 
- 
+
+
     /**
      * 按值升序排列
      */
@@ -1732,7 +1732,7 @@ public class MapSortUtil {
         }
         return sort(originMap, comparatorByValueAsc);
     }
- 
+
     /**
      * 按值降序排列
      */
@@ -1742,7 +1742,7 @@ public class MapSortUtil {
         }
         return sort(originMap, comparatorByValueDesc);
     }
- 
+
     private static <K, V> Map<K, V> sort(Map<K, V> originMap, Comparator<Map.Entry> comparator) {
         return originMap.entrySet()
                 .stream()
@@ -1751,7 +1751,7 @@ public class MapSortUtil {
                         Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
                                 LinkedHashMap::new));
     }
- 
+
 }
 ```
 
@@ -2264,7 +2264,7 @@ import java.io.File;
 import it.sauronsoftware.jave.AudioUtils;
 
 public class test {
-    
+
     public static void main(String[] args) throws Exception {
         File source = new File("test.amr");
         File target = new File("testAudio.mp3");
@@ -2445,7 +2445,7 @@ import javax.sound.sampled.TargetDataLine;
 public class EngineeCore {
 
     private String filePath;
-    
+
     public EngineeCore(String filePath) {
         this.filePath = filePath;
     }
@@ -2649,7 +2649,7 @@ import java.io.FileInputStream;
 import javax.xml.bind.DatatypeConverter;
 
 public class test {
-    
+
     public static byte[] readFile(String url) throws Exception {
         File file = new File(url);
         byte[] buff = new byte[(int)file.length()];
@@ -2872,7 +2872,7 @@ public String Unicode_To_Str(String unicode_str) {
 
 ```java
 public class Gps {
-    
+
     //索引
     private  int index;
     //经度
@@ -2933,11 +2933,11 @@ public class Douglas {
 
 
     /**
-	 * @method [calculationDistance]
-	 * @param gps1 : 位置点1
-	 * @param gps2 : 位置点2
-	 * @description : 计算两点之间的距离
-	 */
+     * @method [calculationDistance]
+     * @param gps1 : 位置点1
+     * @param gps2 : 位置点2
+     * @description : 计算两点之间的距离
+     */
     private double calculationDistance(Gps gps1, Gps gps2){
         double lat1 = gps1.getLat();
         double lat2 = gps2.getLat();
@@ -2953,13 +2953,13 @@ public class Douglas {
     }
 
     /**
-	 * @method [distToSegment]
-	 * @param start : 起始点
-	 * @param end : 结束点
-	 * @param center : 中心点
-	 * @return dist : 距离
-	 * @description : 计算两点之间的距离
-	 */
+     * @method [distToSegment]
+     * @param start : 起始点
+     * @param end : 结束点
+     * @param center : 中心点
+     * @return dist : 距离
+     * @description : 计算两点之间的距离
+     */
     private double distToSegment(Gps start,Gps end,Gps center) {
         double a = Math.abs(calculationDistance(start, end));
         double b = Math.abs(calculationDistance(start, center));
@@ -2971,14 +2971,14 @@ public class Douglas {
     }
 
     /**
-	 * @method [compressLine]
-	 * @param traList : 过滤的轨迹数据
-	 * @param result : 过滤后的轨迹数据
-	 * @param start : 起始点
-	 * @param end : 结束点
-	 * @param dMax : 允许最大距离误差
-	 * @description : 递归方式压缩轨迹
-	 * */
+     * @method [compressLine]
+     * @param traList : 过滤的轨迹数据
+     * @param result : 过滤后的轨迹数据
+     * @param start : 起始点
+     * @param end : 结束点
+     * @param dMax : 允许最大距离误差
+     * @description : 递归方式压缩轨迹
+     * */
     private List<Gps> compressLine(List<Gps> traList,List<Gps> result,int start,int end,int dMax){
         if(start < end) {
             double maxDist = 0;
@@ -3009,11 +3009,11 @@ public class Douglas {
     }
 
     /**
-	 * @method [Peucker]
-	 * @param traList : 过滤的轨迹数据
-	 * @param dMax : 允许最大距离误差
-	 * @description : 递归方式压缩轨迹
-	 * */
+     * @method [Peucker]
+     * @param traList : 过滤的轨迹数据
+     * @param dMax : 允许最大距离误差
+     * @description : 递归方式压缩轨迹
+     * */
     public List<Gps> Peucker(List<Gps> traList,int dMax){
         List<Gps> result = null;
         if (traList != null && traList.size() > 2) {
@@ -3238,11 +3238,11 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     /*
-	 * @method [WebHttpRequest]
-	 * @param [ChannelHandlerContext] ctx : 广播数据接收通道对象
-	 * @param [FullHttpRequest] req : http请求数据
-	 * @description : http请求响应
-	 * */
+     * @method [WebHttpRequest]
+     * @param [ChannelHandlerContext] ctx : 广播数据接收通道对象
+     * @param [FullHttpRequest] req : http请求数据
+     * @description : http请求响应
+     * */
     private void WebHttpRequest(ChannelHandlerContext ctx,FullHttpRequest req) {
         if (!req.decoderResult().isSuccess() 
             || (!"websocket".equals(req.headers().get("Upgrade")))) {
@@ -3264,7 +3264,7 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<Object> {
 
 
     private void WebSocketRequest(ChannelHandlerContext ctx, WebSocketFrame frame) {
-        // TODO Auto-generated method stub
+   
         //地址标识
         Channel ch = ctx.channel();
         //连接地址
@@ -3290,11 +3290,11 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     /*
-	 * @method [WebSocketUrl]
-	 * @param [FullHttpRequest] req : http请求数据
-	 * @param [String] location : websocket请求地址
-	 * @description : http地址
-	 * */
+     * @method [WebSocketUrl]
+     * @param [FullHttpRequest] req : http请求数据
+     * @param [String] location : websocket请求地址
+     * @description : http地址
+     * */
     private String WebSocketUrl(FullHttpRequest req) {
         String location = req.headers().get(HOST).toString();
         return "ws://" + location;
@@ -3328,11 +3328,11 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     /*
-	 * @method [exceptionCaught]
-	 * @param [ChannelHandlerContext] ctx : 广播协议接入通道对象
-	 * @param [Throwable] cause : 广播异常信息
-	 * @description : 广播异常信息处理
-	 * */
+     * @method [exceptionCaught]
+     * @param [ChannelHandlerContext] ctx : 广播协议接入通道对象
+     * @param [Throwable] cause : 广播异常信息
+     * @description : 广播异常信息处理
+     * */
     public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception {
         //释放对象
         ctx.close();
@@ -3360,7 +3360,7 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<Object> {
 
 ```java
 public class test {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         new nettyHttp().HttpServer();
     }
 }
@@ -3504,11 +3504,11 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     /*
-	 * @method [userEventTriggered]
-	 * @param [ChannelHandlerContext] ctx : 广播协议接入通道对象
-	 * @param [Object] evt : 接收到的数据信息
-	 * @description : 超时计算
-	 * */ 
+     * @method [userEventTriggered]
+     * @param [ChannelHandlerContext] ctx : 广播协议接入通道对象
+     * @param [Object] evt : 接收到的数据信息
+     * @description : 超时计算
+     * */ 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) 
         throws Exception {
@@ -3662,7 +3662,7 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object> {
                     //写入回复
                     ctx.write(response);
                     //通过Netty的ChunkedFile对象直接将文件写入发送到缓冲区中
-                    ctx.write(new HttpChunkedInput(new ChunkedFile(raf, 0, fileLength, 8192)),ctx.newProgressivePromise());					 
+                    ctx.write(new HttpChunkedInput(new ChunkedFile(raf, 0, fileLength, 8192)),ctx.newProgressivePromise());                     
                     //通道对象
                     ChannelFuture lastContentFuture = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
                     //检测对象
@@ -3680,10 +3680,10 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     /**
-	* @mthod [Request_Url]
-	* @param [String] url : 路径地址
-	* @description : 请求地址
-	* */    
+    * @mthod [Request_Url]
+    * @param [String] url : 路径地址
+    * @description : 请求地址
+    * */    
     private  String Request_Url(String url) {
         //转移路径
         try {
@@ -3712,11 +3712,11 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object> {
     private Pattern insecure_url = Pattern.compile(".*[<>&\"].*");
 
     /**
-	* @mthod [setContentTypeHeader]
-	* @param [HttpResponse] response : 回复对象
-	* @param [File] file : 文件对象
-	* @description : 请求地址
-	* */  
+    * @mthod [setContentTypeHeader]
+    * @param [HttpResponse] response : 回复对象
+    * @param [File] file : 文件对象
+    * @description : 请求地址
+    * */  
     private void setContentTypeHeader(HttpResponse response, File file) {
         //文件map对象
         MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
@@ -3725,11 +3725,11 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     /*
-	 * @method [Htp_Res_Send]
-	 * @param [ChannelHandlerContext] htp_ctx : 通道对象
-	 * @param [String] htp_str : ota消息内容
-	 * @description : 消息回复
-	 * */
+     * @method [Htp_Res_Send]
+     * @param [ChannelHandlerContext] htp_ctx : 通道对象
+     * @param [String] htp_str : ota消息内容
+     * @description : 消息回复
+     * */
     public void Htp_Res_Send(ChannelHandlerContext htp_ctx,String htp_str) {
         //检测对象
         if(htp_ctx != null) {
@@ -3757,11 +3757,11 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     /*
-	 * @method [exceptionCaught]
-	 * @param [ChannelHandlerContext] ctx : 广播协议接入通道对象
-	 * @param [Throwable] cause : 广播异常信息
-	 * @description : 广播异常信息处理
-	 * */
+     * @method [exceptionCaught]
+     * @param [ChannelHandlerContext] ctx : 广播协议接入通道对象
+     * @param [Throwable] cause : 广播异常信息
+     * @description : 广播异常信息处理
+     * */
     public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception {
         //释放对象
         ctx.close();
@@ -3811,44 +3811,44 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class nettyTcp {
 
-	
-	public void TcpServer() {
-		
-		//线程数
-		int boss_os_num = 8;
-		//数据接收线程组
-		EventLoopGroup bossLoop = new NioEventLoopGroup(boss_os_num);
-		//线程数
-		int event_os_num = 32;
-		//Tcp管理线程组
-		EventLoopGroup eventLoop = new NioEventLoopGroup(event_os_num);
-		try {
-		//配置netty中ServerBootstrap对象
-		ServerBootstrap serverBoot = new ServerBootstrap();
-		//配置Tcp参数
-		serverBoot.group(bossLoop,eventLoop)
-				  .channel(NioServerSocketChannel.class)
-				  .option(ChannelOption.SO_BACKLOG, 1024 * 1024)
-				  .childOption(ChannelOption.SO_KEEPALIVE, true)
-								  .childHandler(new TcpChannel());
-		ChannelFuture cf = serverBoot.bind(8080).sync();
-		  //等待线程池结束
-		  cf.channel().closeFuture().sync();
-		}
-		catch(Exception e) {
 
-			//释放数据接收线程组
-			bossLoop.shutdownGracefully();
-			//释放Tcp线程组
-			eventLoop.shutdownGracefully();
-		}
-		finally {
-			//释放数据接收线程组
-			bossLoop.shutdownGracefully();
-			//释放Tcp线程组
-			eventLoop.shutdownGracefully();
-		}  
-	}
+    public void TcpServer() {
+
+        //线程数
+        int boss_os_num = 8;
+        //数据接收线程组
+        EventLoopGroup bossLoop = new NioEventLoopGroup(boss_os_num);
+        //线程数
+        int event_os_num = 32;
+        //Tcp管理线程组
+        EventLoopGroup eventLoop = new NioEventLoopGroup(event_os_num);
+        try {
+        //配置netty中ServerBootstrap对象
+        ServerBootstrap serverBoot = new ServerBootstrap();
+        //配置Tcp参数
+        serverBoot.group(bossLoop,eventLoop)
+                  .channel(NioServerSocketChannel.class)
+                  .option(ChannelOption.SO_BACKLOG, 1024 * 1024)
+                  .childOption(ChannelOption.SO_KEEPALIVE, true)
+                                  .childHandler(new TcpChannel());
+        ChannelFuture cf = serverBoot.bind(8080).sync();
+          //等待线程池结束
+          cf.channel().closeFuture().sync();
+        }
+        catch(Exception e) {
+
+            //释放数据接收线程组
+            bossLoop.shutdownGracefully();
+            //释放Tcp线程组
+            eventLoop.shutdownGracefully();
+        }
+        finally {
+            //释放数据接收线程组
+            bossLoop.shutdownGracefully();
+            //释放Tcp线程组
+            eventLoop.shutdownGracefully();
+        }  
+    }
 }
 ```
 
@@ -3916,11 +3916,11 @@ public class TcpHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     /*
-	 * @method [exceptionCaught]
-	 * @param [ChannelHandlerContext] ctx : 广播协议接入通道对象
-	 * @param [Throwable] cause : 广播异常信息
-	 * @description : 广播异常信息处理
-	 * */
+     * @method [exceptionCaught]
+     * @param [ChannelHandlerContext] ctx : 广播协议接入通道对象
+     * @param [Throwable] cause : 广播异常信息
+     * @description : 广播异常信息处理
+     * */
     public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception {
         //释放对象
         ctx.close();
@@ -3988,7 +3988,7 @@ public class nettyTcp {
                 .handler(new TcpChannel());
             ChannelFuture cf = ClientBoot.connect("120.24.248.220",8006).sync();
             //管道对象
-            Channel	ch = cf.channel();
+            Channel    ch = cf.channel();
             //接入广播节点
             ch.writeAndFlush("{\"status\":101}");
 
@@ -4065,11 +4065,11 @@ public class TcpHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     /*
-	 * @method [exceptionCaught]
-	 * @param [ChannelHandlerContext] ctx : 广播协议接入通道对象
-	 * @param [Throwable] cause : 广播异常信息
-	 * @description : 广播异常信息处理
-	 * */
+     * @method [exceptionCaught]
+     * @param [ChannelHandlerContext] ctx : 广播协议接入通道对象
+     * @param [Throwable] cause : 广播异常信息
+     * @description : 广播异常信息处理
+     * */
     public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception {
         //释放对象
         ctx.close();
@@ -4163,12 +4163,12 @@ public class KeyExpiredListener extends JedisPubSub {
 ```
 
 > **注：**修改redis配置文件redis.conf
->
+> 
 > ```
 > notify-keyspace-events Ex
 > notify-keyspace-events ""
 > ```
->
+> 
 > 修改完成后重启redis此时设置expire过期时间，当数据过期时触发
 
 ***
@@ -4210,7 +4210,6 @@ public interface MyClient {
     )
     String send(@DataParam("username") String username);
 }
-
 ```
 
 **(3) 创建test.java文件**
@@ -4221,7 +4220,7 @@ test.java文件中内容：
 import com.dtflys.forest.config.ForestConfiguration;
 import com.dtflys.forest.ssl.SSLUtils;
 public class test {
-    
+
     public static void main(String[] args) throws Exception {
         ForestConfiguration configuration = ForestConfiguration.configuration();
         configuration.setBackendName("okhttp3");
@@ -4405,7 +4404,7 @@ public class test {
 
 **1.随机算法**
 
-		通过系统随机函数，根据后台服务器的server的地址随机选取其中一台服务器进行访问，根据概率论的相关知识，随着调用量的增加，最终的访问趋于平均，就是达到了均衡的目的。
+        通过系统随机函数，根据后台服务器的server的地址随机选取其中一台服务器进行访问，根据概率论的相关知识，随着调用量的增加，最终的访问趋于平均，就是达到了均衡的目的。
 
 ```java
 import java.util.ArrayList;
@@ -4422,7 +4421,7 @@ public class test {
         ipMap.put("192.168.13.2",2);
         ipMap.put("192.168.13.3",4);
     }
-    
+
     public String Random() {
         Set<String> ipSet=ipMap.keySet();
         //定义一个list放所有server
@@ -4448,7 +4447,7 @@ public class test {
 
 **2.加权随机算法**
 
-		加权随机算法就是在上面的随机算法的基础上做的优化，比如一些性能好的Server多承担一些，请求根据权重分发到各个服务器。
+        加权随机算法就是在上面的随机算法的基础上做的优化，比如一些性能好的Server多承担一些，请求根据权重分发到各个服务器。
 
 ```java
 import java.util.ArrayList;
@@ -4499,7 +4498,7 @@ public class test {
 
 **3.轮询算法**
 
-		轮询算法顾名思义，就是按照顺序轮流访问后台服务。
+        轮询算法顾名思义，就是按照顺序轮流访问后台服务。
 
 ```java
 import java.util.ArrayList;
@@ -4551,7 +4550,7 @@ public class test {
 
 **4.加权轮询算法**
 
-		加权随机一样，加权轮询，就是在轮询的基础上加上权重，将服务器性能好的，权重高一些。
+        加权随机一样，加权轮询，就是在轮询的基础上加上权重，将服务器性能好的，权重高一些。
 
 ```java
 import java.util.ArrayList;
@@ -4607,7 +4606,7 @@ public class test {
 
 **5.`Ip-Hash`算法**
 
-		根据`hash`算法，将请求大致均分的分配到各个服务器上。
+        根据`hash`算法，将请求大致均分的分配到各个服务器上。
 
 ```java
 import java.util.ArrayList;
@@ -4708,7 +4707,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 public class test {
-    
+
     public static void main(String[] args) throws Exception {
         List<String> command = new ArrayList<>();
         command.add("F:\\ffmpeg\\bin\\ffmpeg.exe");
@@ -4761,7 +4760,7 @@ import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.TableDescriptorBuilder.ModifyableTableDescriptor;
 
 public class test {
-    
+
     public static void main(String[] args) throws Exception {
         Confuration cnf = HBaseConfiguration.create();
         cnf.set("hbase.zookeeper.quorum","<zookeeper的ip地址>");
@@ -4808,7 +4807,7 @@ import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.habse.util.Bytes;
 public class test {
-    
+
     public static void main(String[] args) throws Exception {
         Confuration cnf = HBaseConfiguration.create();
         cnf.set("hbase.zookeeper.quorum","<zookeeper的ip地址>");
@@ -4862,7 +4861,7 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 public class test {
-    
+
     public static void main(String[] args) throws Exception {
         Confuration cnf = HBaseConfiguration.create();
         cnf.set("hbase.zookeeper.quorum","<zookeeper的ip地址>");
@@ -5008,7 +5007,7 @@ import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 public class test {
-    
+
     public static void main(String[] args) throws Exception {
         Confuration cnf = HBaseConfiguration.create();
         cnf.set("hbase.zookeeper.quorum","<zookeeper的ip地址>");
@@ -5048,7 +5047,7 @@ import com.spire.doc.PictureWatermark;
 import com.spire.doc.TextWatermark;
 import com.spire.doc.documents.WatermarkLayout;
 public class test {
-    
+
     public static void main(String[] args) {
         Document doc = new Document();
         doc.loadFromFile("D:\\xx.doc");
@@ -5086,6 +5085,7 @@ public class test {
    <version>2.3.9</version>
 </dependency>
 ```
+
 **(1) 创建MDoc.java文件**
 
 MDoc.java文件中内容：
@@ -5102,14 +5102,14 @@ import java.util.Map;
 import freemarker.template.Configuration;
 import java.template.Template;
 public class MDoc {
-    
+
     private Configuration configuration = null;
     public MDoc() {
-        
+
         configuration = new Configuration();
         configuration.setDefaultEncoding("utf-8");
     }
-    
+
     public createDoc(Map<String,Object> dataMap,String fileName) throws Exception {
         //配置信息
         configuration.setClassForTemplateLoading(this.getClass(),"/");
@@ -5153,7 +5153,7 @@ test.java文件中内容：
 import java.util.HashMap;
 import java.util.Map;
 public class test{
-    
+
     public static void main(String[] args) throws Exception {
         Map<String,Object> dataMap = new HashMap<String,Object>();
         dataMap.put("name","字符串");
@@ -5191,7 +5191,7 @@ import com.lowagie.text.pdf.PdfImportedPage;
 import com.lowagie.text.pdf.PdfReader;
 
 public class test {
-    
+
     public static void mergePdfFiles(String[] files,String newfile) {
         Document document = null;
         try{
@@ -5255,7 +5255,7 @@ import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 public class test {
-    
+
     public static void main(String[] args) throws Exception {
         //默认端口5683
         CoapServer  server = new CoapServer(8050);
@@ -5267,7 +5267,7 @@ public class test {
                 exchange.respond(ResponseCode.CONTENT,"字符串");
             }
         });
-        
+
         server.add(new CoapResource("time")){
             @Override
             public void handleGET(CoapExchange exchange) {
@@ -5303,7 +5303,7 @@ import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.Utils;
 public class test {
-    
+
     public static void main(String[] args) throws Exception {
         URI uri = new URI("coap://xxip地址:8050/hello");
         CoapClient client = new CoapClient(uri);
@@ -5346,7 +5346,7 @@ public class test {
 ```java
 import com.sproutsocial.nsq.Publisher;
 public class test {
-    
+
     public static void main(String[] args) {
         Publisher publisher = new Publisher("xxIp地址:4150");
         byte[] data = ("消息内容").getBytes();
@@ -5359,14 +5359,14 @@ public class test {
 
 ```java
 public class test implements MeesageHandler {
-    
+
     @Override
     public void accept(Message paramMessage){
         //接收内容
         System.out.println(new Stirng(paramMessage.getData()));
         paramMessage.finish();
     }
-    
+
     public static void main(String[] args){
         Subscriber subscriber = new Subscriber("xxIp地址");
         Test test = new Test();
@@ -5474,8 +5474,8 @@ public class ImageSource extends LuminanceSource{
     }
 
     /**
-	 * 返回一个新的对象与裁剪的图像数据。实现可以保存对原始数据的引用，而不是复制。
-	 */
+     * 返回一个新的对象与裁剪的图像数据。实现可以保存对原始数据的引用，而不是复制。
+     */
     @Override
     public LuminanceSource crop(int left, int top, int width, int height) {
         return new BufferedImageLuminanceSource(image, this.left + left, this.top + top, width, height);
@@ -5542,8 +5542,8 @@ public class QRCodeUtil {
 
 
     /**
-	 * 生成二维码
-	 */
+     * 生成二维码
+     */
     private static BufferedImage createImage(String content, String imgPath, boolean needCompress) throws Exception {
         @SuppressWarnings("rawtypes")
         Hashtable<EncodeHintType, Comparable> hints = new Hashtable<EncodeHintType, Comparable>();
@@ -5569,8 +5569,8 @@ public class QRCodeUtil {
     }
 
     /**
-	 * 在生成的二维码中插入图片
-	 */
+     * 在生成的二维码中插入图片
+     */
     private static void insertImage(BufferedImage source, String imgPath, boolean needCompress) throws Exception {
         File file1 = new File(imgPath);
         if (!file1.exists()) {
@@ -5606,8 +5606,8 @@ public class QRCodeUtil {
     }
 
     /**
-	 * 生成带logo二维码，并保存到磁盘
-	 */
+     * 生成带logo二维码，并保存到磁盘
+     */
     public static void encode(String content, String imgPath, String destPath, boolean needCompress,String file) throws Exception {
         BufferedImage image = QRCodeUtil.createImage(content, imgPath, needCompress);
         mkdirs(destPath);
@@ -5647,8 +5647,8 @@ public class QRCodeUtil {
 
 
     /**
-	 * 从二维码中，解析数据
-	 */
+     * 从二维码中，解析数据
+     */
     public static String decode(File file) throws Exception {
         BufferedImage image;
         image = ImageIO.read(file);
@@ -5677,7 +5677,7 @@ test.java文件中内容：
 
 ```java
 public class test {
-    
+
     public static void main(String[] args) throws Exception {
         String textt = "www.baidu.com";//二维码的内容
         String logo = "E:\\storage\\logo.jpg";//logo的路径
@@ -5697,14 +5697,14 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 public class test {
-    
+
     private static void generateQRCodeImage(String text, int width, int height, String filePath) throws WriterException, IOException  {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
         Path path = FileSystems.getDefault().getPath(filePath);
         MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
     }
-    
+
     public static void main(String[] args) throws Exception {
         //生成二维码
         generateQRCodeImage("This is my first QR Code", 350, 350, "E:\\test.png");
@@ -5744,7 +5744,7 @@ import org.krysalis.barcode4j.impl.code39.Code39Bean;
 import org.krysails.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.krysails.barcode4j.tools.UnitConv;
 public class BarcodeUtil {
-    
+
     public static File generateFile(String msg,String path){
         File file = new File(path);
         try{
@@ -5755,14 +5755,14 @@ public class BarcodeUtil {
         }
         return file;
     }
-    
+
     //生成字节
     public static byte[] generate(String msg){
         ByteArrayOutputStream ous = new ByteArrayOutputStream();
         generate(msg,ous);
         return ous.toByteArray();
     }
-    
+
     public static void generate(String msg,OutputStream ous){
         if(StringUtils.isEmpty(msg) || ous == null){
             return;
@@ -5789,7 +5789,7 @@ public class BarcodeUtil {
             throw new RuntimeException(e);
         }
     }
-    
+
     public static void main(String[] args){
         generateFile("xx","E:\\xx.png");
     }
@@ -5849,7 +5849,7 @@ public class test {
             e.printStackTrace();
         }
     }
-    
+
     public static void readCode(File file){
         try{
             BufferedImage image = ImageIO.read(file);
@@ -5869,7 +5869,7 @@ public class test {
             e.printStaceTrace();
         }
     }
-    
+
     public static void main(String[] args) {
         //生成条形码
         generateCode(new File("D:\\xx.png"),"123",500,250);
@@ -5907,7 +5907,7 @@ import java.nio.file.path;
 import java.util.HashMap;
 import java.util.Map;
 public class test {
-    
+
     public static void readQrCode(File file){
         MultiFormatReader reader = new MultiFormatReader();
         try{
@@ -5924,7 +5924,7 @@ public class test {
             e.printStackTrace();
         }
     }
-    
+
     public static void main(String[] args){
         readQrCode(new File("xx.png"));
     }
@@ -5960,7 +5960,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class Socket {
-    
+
     public void bind(int port) throws Exception {
         /*服务线程组用于网络事件处理一个用户服务器断接收另一个socketChannel处理*/
         EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -5988,7 +5988,7 @@ public class Socket {
             workGroup.shutdownGracefully();
         }
     }
-    
+
     public static void main(String[] args) {
         new Socket().binf(8010);        
     }
@@ -6006,13 +6006,13 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 
 public class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
-    
+
     protected void initChannel(SocketChannel ch){
           //下发消息
         ch.pipeline().addLast(new ServerHandler());
         ChannelFuture f = ch.closeFuture();
         f.addListeners(new ChannelFutureListener(){
-           
+
             public void operationComplete(ChannelFuture cf){
                 /*Socket关闭操作*/
                 Channel ch = cf.channel();
@@ -6062,9 +6062,9 @@ public class ServerHandler extends SimpleChannelInboundHandler<ByteBuf> {
 ```
 
 > **注：**
->
+> 
 > 要使用发送自定义字符串使用以下方式
->
+> 
 > ```java
 > String str = "字符串";
 > ByteBuf resp = Unpooled.copiedBuffer(str.getBytes());
@@ -6097,7 +6097,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.Socket.nio.NioSocketChannel;
 
 public class Client {
-    
+
     public void connect(int port,String host) throws Exception {
         /*配置线程组*/
         EventLoopGroup group = new EventLoopGroup();
@@ -6114,7 +6114,7 @@ public class Client {
             group.shutdownGracefully();
         }
     }
-    
+
     public static void main(String[] args) throws Exception {
         new Client().connect(8023,"xxIP地址");
     }
@@ -6133,7 +6133,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.socket.SocketChannel;
 import io.netty.handler,timeout.IdleStateHandler;
 public class childChannelHandler extends ChannelInitializer<SocketChannel>{
-    
+
     protected void initChannel(SocketChannel ch){
         /*添加心跳检测*/
         ch.pipeline().add(new IdleStateHandler(15,0,0,TimeUnit.SECONDS))
@@ -6143,7 +6143,7 @@ public class childChannelHandler extends ChannelInitializer<SocketChannel>{
         ch.pipeline().addLast(new ClientHandler());
         ChanelFuture f = ch.closeFuture();
         f.addListeners(new ChannelFutureListener(){
-           
+
             public void operationComplete(ChannelFuture cf){
                 /*Socket关闭操作*/
                 Channel ch = cf.channel();
@@ -6165,7 +6165,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 public class ClientHandler extends SimpleChannelInboundHandler<ByteBuf>{
-    
+
     protected void channelRead0(ChannelHandlerContext ctx ,ByteBuf msg) throws Exception {
         /*
           ctx.write("内容");
@@ -6180,7 +6180,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<ByteBuf>{
         String remoteAddress = ctx.channel().remoteAddress();
         System.out.println(remoteAddress);
     }
-    
+
      public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception{
         ctx.close();
         ctx.allocc();
@@ -6198,14 +6198,14 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
 
 public class HeartBeatServerHandler extends ChannelInboundHandlerAdapter {
-    
+
     public void useEventTriggered(ChannelHandlerContext ctx,Object evt) throws Exception{
-        
+
         if(evt instanceof IdelStateEvent){
             ctx.channel().close();
         }
     }
-    
+
      public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception{
         ctx.close();
         ctx.alloc();
@@ -6246,7 +6246,7 @@ import io.netty.channel.socket.DatagramPacket;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 
 public class Server {
-    
+
     public void bind(int port) throws Exception {
         EventLoopGroup workGroup = new NioEventLoopGroup();
         try{
@@ -6267,7 +6267,7 @@ public class Server {
             workgroup.shutdownGracefully();
         }
     }
-    
+
     public static void main(String[] args) throws Exception {
         new Server().bind(8320);
     }
@@ -6283,7 +6283,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 
 public class UdpChannelHandler extends ChannelInitializer<NioDatagramChannel> {
-    
+
     protected void initChannel(NioDatagramChannel ch) throws Exception {
        ch.pipeline().addLast(new ServerHandler());        
     }
@@ -6338,9 +6338,9 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 
 public class UdpClient {
-    
+
     public void bind() throws Exception {
-        
+
         EventLoopGroup wrokGroup = new NioEventLoopGroup();
         try{
             Bootstrap serverbootstrap = new Bootstrap();
@@ -6356,7 +6356,7 @@ public class UdpClient {
             workGroup.shutdownGracefully();
         }
     }
-    
+
      public static void main(String[] args) throws Exception {
         new UdpClient().bind();
     }
@@ -6374,7 +6374,7 @@ import io.netty.channel.socket.DatagramPacket;
 import io.netty.util.CharsetUtil;
 
 public class UdpChannelHandler extends SimpleChannelInboundHandler<DatagramPacket> {
-    
+
     protected void channelRead0(ChannelHandlerContext ctx,DatagramPacket msg){
         ctx.writeAndFlush(new DatagramPacket(Unpooled.copiedBuffer("字符串"),CharsetUtil.UTF_8),msg.sender());
     }
@@ -6410,7 +6410,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class Socket {
-    
+
     public void bind(int port) throws Exception {
         /*服务线程组用于网络事件处理一个用户服务器断接收另一个socketChannel处理*/
         //线程数
@@ -6441,7 +6441,7 @@ public class Socket {
             workGroup.shutdownGracefully();
         }
     }
-    
+
     public static void main(String[] args) {
         new Socket().binf(8010);        
     }
@@ -6463,14 +6463,14 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 
 public class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
-    
+
     protected void initChannel(SocketChannel sch){
         sch.pipeline().addLast(new ObjectEncoder())
                       .addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(this.getClass().getClassLoader())))
                       .addLast(new ServerHandler());
         ChannelFuture scf = sch.closeFuture();
         scf.addListener(new ChannelFutureListener(){
-            
+
             public void operationComplete(ChannelFuture cf) throws Exception {
                 Channel ch = cf.channel();
                 String remote_addr = ch.remoteAddress().toString();
@@ -6490,12 +6490,12 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.ChannelHandlerContext;
 
 public class ServerHandler extends SimpleChannelInboundHandler<Object> {
-    
+
     protected void channelRead0(ChannelHandlerContext ctx ,Object msg) throws Exception {
         String str = (String) msg;
         System.out.println(str);
     }
-    
+
     public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception{
         ctx.close();
         ctx = null;
@@ -6529,14 +6529,14 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.Socket.nio.NioSocketChannel;
 
 public class Client {
-    
+
     public void connect(int port,String host) throws Exception {
         /*配置线程组*/
         EventLoopGroup group = new EventLoopGroup();
         try{
             Bootstrap b = new Bootstrap();
             b.group(group).channel(NioSocketChannel.class)
-                		 .option(ChannelOption.TCP_KEEPALIVE,true)
+                         .option(ChannelOption.TCP_KEEPALIVE,true)
                           .option(ChannelOption.TCP_NODELY,true)
                           .handler(new childChannelHandler());
             ChannelFuture f = b.connect(host,port).sync();
@@ -6547,7 +6547,7 @@ public class Client {
             group.shutdownGracefully();
         }
     }
-    
+
     public static void main(String[] args) throws Exception {
         new Client().connect(8023,"xxIP地址");
     }
@@ -6567,7 +6567,7 @@ import io.netty.socket.SocketChannel;
 import io.netty.handler.imeout.IdleStateHandler;
 
 public class childChannelHandler extends ChannelInitializer<SocketChannel>{
-    
+
     protected void initChannel(SocketChannel ch){
         /*添加心跳检测*/
         ch.pipeline().add(new IdleStateHandler(15,0,0,TimeUnit.SECONDS))
@@ -6577,7 +6577,7 @@ public class childChannelHandler extends ChannelInitializer<SocketChannel>{
                      .addLast(new clientHandler());
         ChanelFuture f = ch.closeFuture();
         f.addListeners(new ChannelFutureListener(){
-           
+
             public void operationComplete(ChannelFuture cf){
                 /*Socket关闭操作*/
                 Channel ch = cf.channel();
@@ -6602,7 +6602,7 @@ import io.netty.channel.EventLoop;
 import io.netty.channel.handler.timeout.IdleStateEvent;
 
 public class ClientHandler extends SimpleChannelInboundHandler<Object>{
-    
+
     protected void channelRead0(ChannelHandlerContext ctx ,Object msg) throws Exception {
         String str = (String) msg;
         /*获取远程客户端地址*/
@@ -6610,25 +6610,25 @@ public class ClientHandler extends SimpleChannelInboundHandler<Object>{
         String remoteAddress = ctx.channel().remoteAddress();
         System.out.println(remoteAddress);
     }
-    
+
     //掉线重连
     public void  channelInactive(ChannelHandlerContext ctx) throw Exception {
         final EventLoop eventLoop = ctx.channel.eventLoop();
         eventLoop.schedule(new Runnable(){
-            
+
             public void run(){
                 eventLoop.shutdownGracefully();
                 try{
                     //重连操作
                 }
                 catch(Exception e){
-                    
+
                 }
             }
         },1L,TimeUnit.SECONDS);
         super.channelInactive(ctx);
     }
-    
+
     //心跳检查
     public void userEventTriggered(ChannelHandlerContext ctx,Object evt) throws Exception {
         if(evt instanceof IdleStateEvent){
@@ -6638,7 +6638,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<Object>{
             super.userEventTriggered(ctx,evt);
         }
     }
-    
+
     public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception{
         ctx.close();
         ctx = null;
@@ -6675,7 +6675,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class Socket {
-    
+
     public void bind(int port) throws Exception {
         /*服务线程组用于网络事件处理一个用户服务器断接收另一个socketChannel处理*/
         //线程数
@@ -6706,7 +6706,7 @@ public class Socket {
             workGroup.shutdownGracefully();
         }
     }
-    
+
     public static void main(String[] args) {
         new Socket().binf(8010);        
     }
@@ -6728,14 +6728,14 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 
 public class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
-    
+
     protected void initChannel(SocketChannel sch){
         sch.pipeline().addLast(new ObjectEncoder())
                       .addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(this.getClass().getClassLoader())))
                       .addLast(new ServerHandler());
         ChannelFuture scf = sch.closeFuture();
         scf.addListener(new ChannelFutureListener(){
-            
+
             public void operationComplete(ChannelFuture cf) throws Exception {
                 Channel ch = cf.channel();
                 String remote_addr = ch.remoteAddress().toString();
@@ -6755,12 +6755,12 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.ChannelHandlerContext;
 
 public class ServerHandler extends SimpleChannelInboundHandler<Object> {
-    
+
     protected void channelRead0(ChannelHandlerContext ctx ,Object msg) throws Exception {
         String str = (String) msg;
         System.out.println(str);
     }
-    
+
     public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception{
         ctx.close();
         ctx = null;
@@ -6801,10 +6801,10 @@ import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.FutureListener;
 
 public class Client {
-    
+
     //连接池对象
     public static ChannelPoolMap<String, FixedChannelPool> tra_pool = null;
-    
+
     public void connect(int port,String host) throws Exception {
         /*配置线程组*/
         EventLoopGroup group = new EventLoopGroup();
@@ -6849,14 +6849,14 @@ public class Client {
             }
             //释放对象
             _host = null;
-            _port = null;	
+            _port = null;    
 
         }
         catch(Exception e) {
 
         }
     }
-    
+
     public static void main(String[] args) throws Exception {
         new Client().connect(8023,"xxIP地址");
         //获取tcp线程池
@@ -6890,7 +6890,7 @@ import io.netty.channel.EventLoop;
 import io.netty.channel.handler.timeout.IdleStateEvent;
 
 public class ClientHandler extends SimpleChannelInboundHandler<Object>{
-    
+
     protected void channelRead0(ChannelHandlerContext ctx ,Object msg) throws Exception {
         String str = (String) msg;
         /*获取远程客户端地址*/
@@ -6898,7 +6898,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<Object>{
         String remoteAddress = ctx.channel().remoteAddress();
         System.out.println(remoteAddress);
     }
-    
+
     public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception{
         ctx.close();
         ctx = null;
@@ -6993,11 +6993,11 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class mqttHandler {
-    
+
     public void connectionLost(Throwable cause) {
         //重连操作
     }
-    
+
     public void messageArrived(String topic, MqttMessage mqtt_msg) {
         //接收mqtt订阅消息
         String message = new String(mqtt_msg.getPayload());
@@ -7005,7 +7005,7 @@ public class mqttHandler {
         System.out.println(message.getQos());
         System.out.println(new String(message.getPayload()));
     }
-    
+
     public void deliveryComplete(IMqttDeliveryToken token) {
 
     }
@@ -7023,7 +7023,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.persist.MqttMemoryPersistence;
 
 public class Consumer {
-    
+
     String host = "tcp:xxIP地址//:1937";
     String topic = "topic值";
     String qos = 1;
@@ -7055,15 +7055,15 @@ public class Consumer {
         mqttClient.subscribe(topic, qos);
     }
     catch(Exception e){
-        
+
     } 
 }
 ```
 
 > **注：**
->
+> 
 > `MqttClient`：同步调用客户端，使用阻塞的方式与mqtt服务器沟通
->
+> 
 > `MqttAsyncClient`：异步调用客户端，使用非阻塞方式与mqtt服务器通信
 
 ****
@@ -7140,7 +7140,7 @@ import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.FutureListener;
 
 public class MyNettyPool {
-    
+
     public static ChannelPoolMap<String,FixedChannelPool> poolMap = null;
     private static final Bootstrap = new Bootstrap();
     static {
@@ -7148,18 +7148,18 @@ public class MyNettyPool {
                  .channel(NioSocketChannel.class)
                  .remoteAddress("localhost",8080);
     }
-    
+
     public MyNettyPool(){
         init();
     }
-    
+
     public void init(){
         poolMap = new AbstractChannelPoolMap<String,FixedChannelPool>(){
-          
+
             @Override
             protected FixedChannelPool newPool(String key) {
                 ChannelPoolHandler handler = new ChannelPoolHandler(){
-                    
+
                     @Override
                     public void channelReleased(Channel ch) throws Exception {
                         //刷新数据
@@ -7171,7 +7171,7 @@ public class MyNettyPool {
                                      .addLast(new StringDecoder())
                                      .addLast(new NettyClientHandler());
                     }
-                    
+
                     @Override
                     public void channelAcquiredd(Channel ch) throws Exception {
                         //获取连接池channel
@@ -7218,12 +7218,12 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
         String hext_str = ByteBufUtil.hexDump(buf);
         //接收服务器端消息
     }
-    
+
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         //完成消息接收操作
     }
-    
+
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception {
         ctx.close();
@@ -7232,17 +7232,17 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
 }
 ```
 
->**注：**
->
->(1) 连接池大小需设定在合理范围，否则会导致服务器`cpu`损耗增加
->
->(2)`SimpleChannelPool`实现`ChannelPool`接口，简单的连接池实现
->
->(3)`FixedChannelPool`继承`SimpleChannelPool`，有大小限制的连接池实现
->
->(4) `ChannelPoolMap`管理`host`与连接池映射的接口
->
->(5) `AbstractChannelPoolMap`抽象类，实现`ChannelPoolMap`接口
+> **注：**
+> 
+> (1) 连接池大小需设定在合理范围，否则会导致服务器`cpu`损耗增加
+> 
+> (2)`SimpleChannelPool`实现`ChannelPool`接口，简单的连接池实现
+> 
+> (3)`FixedChannelPool`继承`SimpleChannelPool`，有大小限制的连接池实现
+> 
+> (4) `ChannelPoolMap`管理`host`与连接池映射的接口
+> 
+> (5) `AbstractChannelPoolMap`抽象类，实现`ChannelPoolMap`接口
 
 ****
 
@@ -7273,7 +7273,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 public class TcpClient {
-    
+
     public void clientStart(){
         try{
             String host = "127.0.0.1";
@@ -7304,7 +7304,7 @@ public class TcpClient {
                           }
                       });
             //连接服务器端
-		   ChannelFuture cf = clientBoot.connect(host,port).sync();
+           ChannelFuture cf = clientBoot.connect(host,port).sync();
             /*for(init i=0;i<2;i++){
                 //建立连接
                 ChannelFuture sync = clientBoot.connect(host,port);
@@ -7335,7 +7335,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public class TcpHandler extends SimpleChannelInboundHandler<Bytebuf> {
     //字符串缓冲区
     private StringBuilder buf_hex = null;
-    
+
     @Override
     protected void channelRead0(ChannelHandler ctx,Bytebuf  buf) throws Exception {
         String hex_str = ByteBufUtil.hexDump(buf).toLowerCase();
@@ -7355,7 +7355,7 @@ public class TcpHandler extends SimpleChannelInboundHandler<Bytebuf> {
         buf_hex.delete(0,buf_hex.length());
         buf_hex = null;
     }
-    
+
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception {
         ctx.close();
@@ -7365,9 +7365,9 @@ public class TcpHandler extends SimpleChannelInboundHandler<Bytebuf> {
 ```
 
 > **注：**
->
+> 
 > (1) 依赖出发时建立连接
->
+> 
 > ```java
 > ChannelFuture cf = clientBoot.connect("127.0.0.1",8008).sync();
 > ```
@@ -7642,7 +7642,7 @@ public class Start {
 ```
 
 > **注：**`on_dvr`回调函数返回参数
->
+> 
 > ```json
 > {"action":"on_dvr","client_id":509,"ip":"192.168.0.4","vhost":"__defaultVhost__","app":"live","stream":"stream","param":"","cwd":"/disk/D/Srs","file":"./objs/nginx/html/live/stream.flv"}
 > ```
@@ -7860,7 +7860,7 @@ public class Start {
 ```
 
 > **注：**`on_dvr`回调函数返回参数
->
+> 
 > ```json
 > {"action":"on_dvr","client_id":509,"ip":"192.168.0.4","vhost":"__defaultVhost__","app":"live","stream":"stream","param":"","cwd":"/disk/D/Srs","file":"./objs/nginx/html/live/stream.flv"}
 > ```
@@ -7883,15 +7883,15 @@ ffmpeg -re -i xx.mp4 -vcodec libx264 -acodec copy -strict -2 -f flv rtmp://xxIP�
 
 1.回调函数
 
-| 回调函数       | 描述                                      |
-| -------------- | ----------------------------------------- |
-| `on_connect`   | 当客户端连接到指定的`vhost`和`app`时      |
-| `on_close`     | 当客户端关闭连接，或者`Srs主动关闭连接时` |
-| `on_publish`   | 当客户端发布流时                          |
-| `on_unpublish` | 当客户端停止发布流时                      |
-| `on_play`      | 当客户端开始播放流时                      |
-| `on_stp`       | 当客户端停止播放时                        |
-| `on_dvr`       | 当`dvr`录制关闭一个`flv`文件时            |
+| 回调函数           | 描述                       |
+| -------------- | ------------------------ |
+| `on_connect`   | 当客户端连接到指定的`vhost`和`app`时 |
+| `on_close`     | 当客户端关闭连接，或者`Srs主动关闭连接时`  |
+| `on_publish`   | 当客户端发布流时                 |
+| `on_unpublish` | 当客户端停止发布流时               |
+| `on_play`      | 当客户端开始播放流时               |
+| `on_stp`       | 当客户端停止播放时                |
+| `on_dvr`       | 当`dvr`录制关闭一个`flv`文件时     |
 
 2.回调函数返回参数
 
@@ -7938,14 +7938,3 @@ ffmpeg -re -i xx.mp4 -vcodec libx264 -acodec copy -strict -2 -f flv rtmp://xxIP�
 ```
 
 ***
-
-
-
-
-
-
-
-
-
-
-

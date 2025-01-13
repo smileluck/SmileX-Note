@@ -78,7 +78,7 @@ public class Start {
 
 ##### <font size="4" color="red">12. Eclipse安装SpringBoot插件创建项目</font>01. Springboot(2.0.2)中集成SpringBootAdmin和Eureka监控服务</font>
 
-​		注册中心可以是`Eureka`、`Consul`、`Dubbo`等
+​        注册中心可以是`Eureka`、`Consul`、`Dubbo`等
 
 **1.`Eureka`注册中心**
 
@@ -323,11 +323,11 @@ public class Start {
 ```
 
 > **注：**
->
+> 
 > (1) 依次启动`Eureka`注册中心、`SpringbootAdmin`服务器端、`SpringbootAdmin`客户端
->
+> 
 > (2) 访问`SpringbootAdmin`的`Web`管理页面
->
+> 
 > ```
 > http://localhost:8311
 > ```
@@ -336,7 +336,7 @@ public class Start {
 
 ##### <font size="4" color="red">02. Springboot(2.4.1)中集成SpringBootAdmin监控服务</font>
 
-​		`SpringbootAdmin`是面向`springboot`的一款监控组件
+​        `SpringbootAdmin`是面向`springboot`的一款监控组件
 
 **1.服务器端**
 
@@ -808,11 +808,11 @@ public class Start {
 }
 ```
 
->**注：**依次启动`Eureka`注册中心、`Zuul`路由生产者、`Zuul`路由消费者，然后访问地址验证
->
->```
->地址：http://localhost:8312/five/index
->```
+> **注：**依次启动`Eureka`注册中心、`Zuul`路由生产者、`Zuul`路由消费者，然后访问地址验证
+> 
+> ```
+> 地址：http://localhost:8312/five/index
+> ```
 
 ***
 
@@ -1128,11 +1128,11 @@ public class Start {
 }
 ```
 
->**注：**依次启动`Eureka`注册中心、`Zuul`路由生产者、`Zuul`路由消费者，然后访问地址验证
->
->```
->地址：http://localhost:8312/five/index
->```
+> **注：**依次启动`Eureka`注册中心、`Zuul`路由生产者、`Zuul`路由消费者，然后访问地址验证
+> 
+> ```
+> 地址：http://localhost:8312/five/index
+> ```
 
 ***
 
@@ -1567,11 +1567,11 @@ public class Start {
 ```
 
 > **注：**
->
+> 
 > (1) 依次启动`Eureka`注册中心、`Getway`路由生产者1、`GetWay`路由消费者
->
+> 
 > (2) 启动完所有服务，测试`Web`页面
->
+> 
 > ```
 > 地址：http://localhost:8312/client-test/index
 > ```
@@ -1854,7 +1854,7 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class Configure {
 
-    //	@Bean
+    //    @Bean
     //    KeyResolver apiKeyResolver() {
     //            //按URL限流,即以每秒内请求数按URL分组统计，超出限流的url请求都将返回429状态
     //            return exchange -> Mono.just(exchange.getRequest().getPath().toString());
@@ -1894,11 +1894,11 @@ public class Start {
 ```
 
 > **注：**
->
+> 
 > (1) 依次启动`Eureka`注册中心、`Getway`路由生产者1、`GetWay`路由消费者
->
+> 
 > (2) 启动完所有服务，测试`Web`页面
->
+> 
 > ```
 > 地址：http://localhost:8312/client-test/index
 > ```
@@ -2194,11 +2194,11 @@ public class Start {
 ```
 
 > **注：**
->
+> 
 > (1) 依次启动`Eureka`注册中心、`Getway`路由生产者1、`GetWay`路由消费者
->
+> 
 > (2) 启动完所有服务，测试`Web`页面
->
+> 
 > ```
 > 地址：http://localhost:8312/client-test/index
 > ```
@@ -2900,7 +2900,7 @@ public class Start {
 ```
 
 > **注：**
->
+> 
 > ```
 > (1) 启动eureka服务器端服务
 > (2) 启动zuul生产者服务
@@ -3381,23 +3381,23 @@ public class Start {
 }
 ```
 
->**注：**删除缓存方法
->
->(1) 删除指定`key`值
->
->```java
->@Caching(evict = {
+> **注：**删除缓存方法
+> 
+> (1) 删除指定`key`值
+> 
+> ```java
+> @Caching(evict = {
 >   @CacheEvict(value = "MyRedis",key="redis")
->})
->```
->
->(2) 删除指定文件下`value`值所有`key`值
->
->```java
->@Caching(evict = {
->@CacheEvict(value = "MyRedis",allEntries=true/*表示删除MyRedis文件下所有的缓存*/)
->})
->```
+> })
+> ```
+> 
+> (2) 删除指定文件下`value`值所有`key`值
+> 
+> ```java
+> @Caching(evict = {
+> @CacheEvict(value = "MyRedis",allEntries=true/*表示删除MyRedis文件下所有的缓存*/)
+> })
+> ```
 
 ****
 
@@ -3664,9 +3664,9 @@ public class Start {
 ```
 
 > **注：**
->
+> 
 > (1) 启动参数启动
->
+> 
 > ```shell
 > java -jar yourproject.jar --jasypt.encryptor.password=CodeSheep
 > ```
@@ -3967,9 +3967,9 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("Configure,controller")
 public class Start {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Start.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Start.class, args);
+    }
 }
 ```
 
@@ -4290,9 +4290,9 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("Configure,controller")
 public class Start {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Start.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Start.class, args);
+    }
 }
 ```
 
@@ -5041,7 +5041,7 @@ public class Start {
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>19.0</version>
-    </dependency>	
+    </dependency>    
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aspects</artifactId>
@@ -5269,10 +5269,10 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 @Component
 public class NettyServer {
-	
-	@Value("${netty.port}")
-	private int nettyPort;
-	
+
+    @Value("${netty.port}")
+    private int nettyPort;
+
 
     private EventLoopGroup bossGroup = new NioEventLoopGroup();
     private EventLoopGroup workGroup = new NioEventLoopGroup();
@@ -5305,9 +5305,9 @@ public class NettyServer {
 ```
 
 > **注：**
->
+> 
 > (1) `@PostConstruct`修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器调用一次，类似于`Servlet`的`inti()`方法。
->
+> 
 > (2) `@PreDestroy`修饰的方法会在服务器卸载`Servlet`的时候运行，并且只会被服务器调用一次，类似于`Servlet`的`destroy()`方法。
 
 **(4) 在`netty`包中创建`NettyChannel.java`文件**
@@ -5339,12 +5339,12 @@ import io.netty.channel.SimpleChannelInboundHandler;
 
 public class NettyHandler  extends SimpleChannelInboundHandler<ByteBuf> {
 
-	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, ByteBuf buf) throws Exception {
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, ByteBuf buf) throws Exception {
          //转十六进制
-		String str = ByteBufUtil.hexDump(buf).toLowerCase();
-		System.out.println(str);
-	}
+        String str = ByteBufUtil.hexDump(buf).toLowerCase();
+        System.out.println(str);
+    }
 }
 ```
 
@@ -5441,7 +5441,7 @@ public class NettyServer {
         }
         finally{
             bossGroup.shutdownGracefully();
-            workGroup.shutdownGracefully();	
+            workGroup.shutdownGracefully();    
         }
     }
 }
@@ -5478,12 +5478,12 @@ import io.netty.channel.SimpleChannelInboundHandler;
 
 public class NettyHandler  extends SimpleChannelInboundHandler<ByteBuf> {
 
-	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, ByteBuf buf) throws Exception {
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, ByteBuf buf) throws Exception {
         //转十六进制
-		String str = ByteBufUtil.hexDump(buf).toLowerCase();
-		System.out.println(str);
-	}
+        String str = ByteBufUtil.hexDump(buf).toLowerCase();
+        System.out.println(str);
+    }
 }
 ```
 
@@ -5516,7 +5516,7 @@ public class Start implements CommandLineRunner{
 }
 ```
 
->**注：**`@Resource`对象只初始化一次
+> **注：**`@Resource`对象只初始化一次
 
 ****
 
@@ -5596,7 +5596,7 @@ public class NettyServer {
         }
         finally{
             bossGroup.shutdownGracefully();
-            workGroup.shutdownGracefully();	
+            workGroup.shutdownGracefully();    
         }
     }
 }
@@ -6052,7 +6052,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 @Configuration
 public class Configure {
-    
+
     @Bean  
     public ServerEndpointExporter serverEndpointExporter() {  
         return new ServerEndpointExporter();  
@@ -6266,7 +6266,7 @@ public class Start {
     public static void main(String[] args) {
         SpringApplication.run(Start.class, args);
     }
-    
+
 }
 ```
 
@@ -6407,7 +6407,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 public class controller {
-    
+
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String Index() {
         return "成功";
@@ -6426,10 +6426,10 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("Configure,controller")
 public class Start {
 
-	public static void main(String[] args) {
-		
-		SpringApplication.run(Start.class, args);
-	}
+    public static void main(String[] args) {
+
+        SpringApplication.run(Start.class, args);
+    }
 }
 ```
 
@@ -6535,7 +6535,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 public class controller {
-    
+
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String Index() {
         return "成功";
@@ -6554,10 +6554,10 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("Configure,controller")
 public class Start {
 
-	public static void main(String[] args) {
-		
-		SpringApplication.run(Start.class, args);
-	}
+    public static void main(String[] args) {
+
+        SpringApplication.run(Start.class, args);
+    }
 }
 ```
 
@@ -6658,7 +6658,7 @@ mybatis.type-aliases-package=Entity
 
 `Account.java`文件中内容：
 
-````java
+```java
 import org.springframework.stereotype.Component;
 
 @Component
@@ -6707,7 +6707,7 @@ public class Account {
         return "Account [id=" + id + ", name=" + name + ", balance=" + balance + "]";
     }
 }
-````
+```
 
 **(5) 创建`Dao`包，并创建`AccountDao.java`文件**
 
@@ -6730,7 +6730,7 @@ public interface AccountDao {
 
 `NettyServer.java`文件中内容：
 
-````java
+```java
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6781,7 +6781,7 @@ public class NettyServer {
         System.out.println("关闭 Netty 成功");
     }
 }
-````
+```
 
 **(7) 在`netty`包中创建`NettyChannel.java`文件**
 
@@ -7192,9 +7192,9 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("Configure,controller")
 public class Start {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Start.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Start.class, args);
+    }
 
 }
 ```
@@ -7321,7 +7321,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SecondMongoProperties {
-    
+
     @Bean(name="secondMongoProperties2")
     @ConfigurationProperties(prefix="second")
     public MongoProperties firstMongoProperties(){
@@ -7356,7 +7356,7 @@ public class SecondMongoTemplate {
     @Autowired
     @Qualifier("secondMongoProperties2")
     private MongoProperties mongoProperties;
-    
+
     @Bean
     public SimpleMongoClientDatabaseFactory secondFactory(MongoProperties mongo) throws Exception{
         ConnectionString connectionString = new ConnectionString(mongo.getUri());
@@ -7372,7 +7372,7 @@ public class SecondMongoTemplate {
     public MongoTemplate firstMongoTemplate() throws Exception {
         return new MongoTemplate(secondFactory(this.mongoProperties));
     }
-    
+
 }
 ```
 
@@ -7500,45 +7500,45 @@ public class Start {
 
 ****
 
-#####  <font size="4" color="red">33. Springboot(2.0)集成mybaits开启Ecache二级缓存(1)</font>
+##### <font size="4" color="red">33. Springboot(2.0)集成mybaits开启Ecache二级缓存(1)</font>
 
 **(1) 依赖包**
 
 ```xml
  <!-- springboot 父节点区域 -->
  <parent>
-  	  <groupId>org.springframework.boot</groupId>
-  	  <artifactId>spring-boot-starter-parent</artifactId>
-  	  <version>2.0.2.RELEASE</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.2.RELEASE</version>
   </parent>
   <dependencies>
        <dependency>
-	       <groupId>org.springframework.boot</groupId>
-	       <artifactId>spring-boot-starter-web</artifactId>
-	  </dependency>
-	  <dependency>
-	      <groupId>mysql</groupId>
-	      <artifactId>mysql-connector-java</artifactId>
-	</dependency>
-	<dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter-data-jpa</artifactId>
-	</dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-web</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
     <dependency>
           <groupId>com.alibaba</groupId>
           <artifactId>druid</artifactId>
           <version>1.0.13</version>
     </dependency>
     <dependency>
-		  <groupId>dom4j</groupId>
-		  <artifactId>dom4j</artifactId>
-		  <version>1.6.1</version>
+          <groupId>dom4j</groupId>
+          <artifactId>dom4j</artifactId>
+          <version>1.6.1</version>
     </dependency>
-	<!-- Spring Boot Mybatis 依赖 -->
-	<dependency>
-	     <groupId>org.mybatis.spring.boot</groupId>
-	     <artifactId>mybatis-spring-boot-starter</artifactId>
-	     <version>2.1.1</version>
+    <!-- Spring Boot Mybatis 依赖 -->
+    <dependency>
+         <groupId>org.mybatis.spring.boot</groupId>
+         <artifactId>mybatis-spring-boot-starter</artifactId>
+         <version>2.1.1</version>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -7619,20 +7619,20 @@ import com.alibaba.druid.pool.DruidDataSource;
 @Configuration
 @MapperScan(basePackages ="Dao")
 public class Configure {
-    
-	@Value("${spring.mysql.url}")
-	private String url;
-	@Value("${spring.mysql.username}")
-	private String username;
-	@Value("${spring.mysql.password}")
-	private String password;
-	@Value("${spring.mysql.driver-class}")
-	private String driverName;
-	
-	@Bean
-	@Primary
-	public DataSource basicDataSource() throws Exception {
-		DruidDataSource dataSource = new DruidDataSource();
+
+    @Value("${spring.mysql.url}")
+    private String url;
+    @Value("${spring.mysql.username}")
+    private String username;
+    @Value("${spring.mysql.password}")
+    private String password;
+    @Value("${spring.mysql.driver-class}")
+    private String driverName;
+
+    @Bean
+    @Primary
+    public DataSource basicDataSource() throws Exception {
+        DruidDataSource dataSource = new DruidDataSource();
         dataSource.setUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
@@ -7650,10 +7650,10 @@ public class Configure {
         dataSource.setValidationQuery("SELECT 'x'");
         dataSource.setPoolPreparedStatements(true);
         dataSource.setMaxPoolPreparedStatementPerConnectionSize(20);
-		return dataSource;
-	}
-	
-	@Bean(name = "testSqlSessionFactory")
+        return dataSource;
+    }
+
+    @Bean(name = "testSqlSessionFactory")
     public SqlSessionFactory testSqlSessionFactory() throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(basicDataSource());
@@ -7661,9 +7661,9 @@ public class Configure {
         factoryBean.setMapperLocations(pathMatch.getResources("classpath:mapper/*.xml"));
         return factoryBean.getObject();
     }
-	
-	@Bean(name = "testSqlSessionTemplate")
-	public SqlSessionTemplate testSqlSessionTemplate(@Qualifier("testSqlSessionFactory")      SqlSessionFactory sqlSessionFactory) {
+
+    @Bean(name = "testSqlSessionTemplate")
+    public SqlSessionTemplate testSqlSessionTemplate(@Qualifier("testSqlSessionFactory")      SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
@@ -7720,46 +7720,46 @@ import java.io.Serializable;
 import java.util.List;
 public class Person implements Serializable{
 
-	private static final long serialVersionUID = 1L;
-	private int id;
-	private int parentId;
-	private String name;
-	//子节点
-	private List<Person> child;
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private int parentId;
+    private String name;
+    //子节点
+    private List<Person> child;
 
-	public Person() {
-		
-	}
+    public Person() {
+
+    }
     public Person(int id, int parentId, String name, List<Person> child) {
-		this.id = id;
-		this.parentId = parentId;
-		this.name = name;
-		this.child = child;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
-	}
-	public int getParentId() {
-		return parentId;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setChild(List<Person> child) {
-		this.child = child;
-	}
-	public List<Person> getChild() {
-		return child;
-	}
+        this.id = id;
+        this.parentId = parentId;
+        this.name = name;
+        this.child = child;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
+    public int getParentId() {
+        return parentId;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setChild(List<Person> child) {
+        this.child = child;
+    }
+    public List<Person> getChild() {
+        return child;
+    }
 }
 ```
 
@@ -7782,12 +7782,12 @@ import Entity.*;
 //@CacheNamespace
 public interface PersonDao {
 
-	@Select("select * from person where id = #{id}")
-	Person getPerson(int id);
-	//查询所有节点
-	List<Person> getNodeTree();
-	//查询节点
-	List<Person> getNextPersonTree(int parentId);
+    @Select("select * from person where id = #{id}")
+    Person getPerson(int id);
+    //查询所有节点
+    List<Person> getNodeTree();
+    //查询节点
+    List<Person> getNextPersonTree(int parentId);
 }
 ```
 
@@ -7810,15 +7810,15 @@ import domain.ResultJson;
 @Controller
 public class controller {
 
-	@Autowired
+    @Autowired
     private PersonDao personDao;
-	@Cacheable(key="'user_'+#uid",value="userCache")
-	@RequestMapping(value = "/index",method = RequestMethod.GET)
-	@ResponseBody
+    @Cacheable(key="'user_'+#uid",value="userCache")
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
+    @ResponseBody
     public Person Index() throws Exception {
-		return personDao.getPerson(1);
-	}
-	
+        return personDao.getPerson(1);
+    }
+
 }
 ```
 
@@ -7832,10 +7832,9 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan("Configure,controller")
 public class Start {
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		SpringApplication.run(Start.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Start.class, args);
+    }
 
 }
 ```
@@ -7897,8 +7896,8 @@ import com.google.code.kaptcha.util.Config;
 
 @Configuration
 public class Configure {
-	
-	@Value("${kaptcha.border}")
+
+    @Value("${kaptcha.border}")
     private String border;
 
     @Value("${kaptcha.border.color}")
@@ -8003,7 +8002,7 @@ public class controller {
         }
         return null;
     }
-	
+
 }
 ```
 
@@ -8019,9 +8018,9 @@ import org.springframework.context.annotation.ComponentScan;
 
 public class Start {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Start.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Start.class, args);
+    }
 }
 ```
 
@@ -8131,39 +8130,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class controller {
 
-	@Autowired
+    @Autowired
     private CuratorFramework zkClient;
 
-	@GetMapping("/zookeeperLock1")
-	public ResultJson ZookeeperLock1() throws  Exception {
-	 try {
-		// InterProcessMutex 构建一个分布式锁该节点会在客户端链接断开时被删除
+    @GetMapping("/zookeeperLock1")
+    public ResultJson ZookeeperLock1() throws  Exception {
+     try {
+        // InterProcessMutex 构建一个分布式锁该节点会在客户端链接断开时被删除
         InterProcessMutex lock = new InterProcessMutex(zkClient, "/test");
           try {
-        	    //锁定5秒钟
-	            if (lock.acquire(5, TimeUnit.HOURS)) {
-	            	// 模拟业务处理耗时5秒
-	                Thread.sleep(5*1000);
-	                System.out.println("处理事务");
-	               }
-		        } finally {
-		        	// 释放该锁
-		            //lock.release();
-		       }
+                //锁定5秒钟
+                if (lock.acquire(5, TimeUnit.HOURS)) {
+                    // 模拟业务处理耗时5秒
+                    Thread.sleep(5*1000);
+                    System.out.println("处理事务");
+                   }
+                } finally {
+                    // 释放该锁
+                    //lock.release();
+               }
 
- 			} catch (Exception e) {
-		    	// zk异常
-		        e.printStackTrace();
-	          }
-		return "zookeeper1锁定";
-	}
+             } catch (Exception e) {
+                // zk异常
+                e.printStackTrace();
+              }
+        return "zookeeper1锁定";
+    }
 
-	@GetMapping("/zookeeperLock2")
-	public String ZookeeperLock2() throws  Exception {
-		// 获取锁
+    @GetMapping("/zookeeperLock2")
+    public String ZookeeperLock2() throws  Exception {
+        // 获取锁
         InterProcessSemaphoreMutex balanceLock = new InterProcessSemaphoreMutex(zkClient, "/zktest");
         try {
-        	// 执行加锁操作
+            // 执行加锁操作
             balanceLock.acquire();
             System.out.println("执行事务");
 
@@ -8171,14 +8170,14 @@ public class controller {
             e.printStackTrace();
         } finally {
             try {
-            	// 释放锁资源
+                // 释放锁资源
                 balanceLock.release();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-		return "zookeeper2锁定";
-	}
+        return "zookeeper2锁定";
+    }
 }
 ```
 
@@ -8193,9 +8192,9 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("controller,Configure")
 public class Start {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Start.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Start.class, args);
+    }
 }
 ```
 
@@ -8485,7 +8484,7 @@ public class Start {
 ```
 
 > **注：**
->
+> 
 > ```
 > #每次运行该程序，没有表格会新建表格，表内有数据会清空
 > spring.jpa.hibernate.ddl-auto:create
@@ -9506,7 +9505,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 @ComponentScan("Configure,controller")
 public class Start {
-    
+
     public static void main(String[] args){
         SpringApplication.run(Start.class,args);
     }
@@ -9679,7 +9678,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 @ComponentScan("controller")
 public class Start {
-    
+
     public static void main(String[] args){
         SpringApplication.run(Start.class,args);
     }
@@ -9900,19 +9899,19 @@ public class FileTypeUtils {
     }
 
     /**
-	 * @param fileName
-	 * @return String
-	 * @description 通过文件后缀名获取文件类型
-	 */
+     * @param fileName
+     * @return String
+     * @description 通过文件后缀名获取文件类型
+     */
     public static String getFileTypeBySuffix(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
     }
 
     /**
-	 * @param inputStream
-	 * @return String
-	 * @description 通过文件头魔数获取文件类型
-	 */
+     * @param inputStream
+     * @return String
+     * @description 通过文件头魔数获取文件类型
+     */
     public static String getFileTypeByMagicNumber(InputStream inputStream) {
         byte[] bytes = new byte[default_check_length];
         try {
@@ -10178,7 +10177,7 @@ public class FtpRouteBuilder extends RouteBuilder {
             .process(dataProcessor)
             .log(LoggingLevel.INFO, logger, "Download img ${file:name} complete.");
 
-        from(sftpServerFile)		
+        from(sftpServerFile)        
             .to(downloadLocationFile)
             .log(LoggingLevel.INFO, logger, "Download file ${file:name} complete.");
     }
@@ -10305,7 +10304,7 @@ public class Start {
 
 ##### <font size="4" color="red">47. Springboot集成JustAuth第三方登录</font>
 
-​		支持`Github`、`Gitee`、微博、钉钉、百度、`Coding`、腾讯云开发者平台、`OSChina`、支付宝、`QQ`、微信、淘宝、`Google`、`Facebook`、抖音、领英、小米、微软、今日头条、`Teambition`、`StackOverflow`、`Pinterest`、人人、华为、企业微信、酷家乐、`Gitlab`、美团、饿了么和推特等第三方平台的授权登录还在继续扩展。
+​        支持`Github`、`Gitee`、微博、钉钉、百度、`Coding`、腾讯云开发者平台、`OSChina`、支付宝、`QQ`、微信、淘宝、`Google`、`Facebook`、抖音、领英、小米、微软、今日头条、`Teambition`、`StackOverflow`、`Pinterest`、人人、华为、企业微信、酷家乐、`Gitlab`、美团、饿了么和推特等第三方平台的授权登录还在继续扩展。
 
 配置示例：
 
@@ -10470,8 +10469,8 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
     /**
-	 * 缓存错误处理
-	 */
+     * 缓存错误处理
+     */
     @Bean
     public CacheErrorHandler errorHandler() {
 
@@ -10499,10 +10498,10 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
     /**
-	 * 注入Redis缓存配置类
-	 * 
-	 * @return
-	 */
+     * 注入Redis缓存配置类
+     * 
+     * @return
+     */
     @Bean(name = { "redisCacheConfiguration" })
     public RedisCacheConfiguration redisCacheConfiguration() {
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
@@ -10550,23 +10549,23 @@ public class JustAuthTokenCache {
     }
 
     /**
-	 * 保存Token
-	 * 
-	 * @param uuid     用户uuid
-	 * @param authUser 授权用户
-	 * @return
-	 */
+     * 保存Token
+     * 
+     * @param uuid     用户uuid
+     * @param authUser 授权用户
+     * @return
+     */
     public AuthToken saveorUpdate(String uuid, AuthToken authToken) {
         valueOperations.put(uuid, authToken);
         return authToken;
     }
 
     /**
-	 * 根据用户uuid查询Token
-	 * 
-	 * @param uuid 用户uuid
-	 * @return
-	 */
+     * 根据用户uuid查询Token
+     * 
+     * @param uuid 用户uuid
+     * @return
+     */
     public AuthToken getByUuid(String uuid) {
         Object token = valueOperations.get(uuid);
         if (null == token) {
@@ -10576,20 +10575,20 @@ public class JustAuthTokenCache {
     }
 
     /**
-	 * 查询所有Token
-	 * 
-	 * @return
-	 */
+     * 查询所有Token
+     * 
+     * @return
+     */
     public List<AuthToken> listAll() {
         return new LinkedList<>(Objects.requireNonNull(valueOperations.values()));
     }
 
     /**
-	 * 根据用户uuid移除Token
-	 * 
-	 * @param uuid 用户uuid
-	 * @return
-	 */
+     * 根据用户uuid移除Token
+     * 
+     * @param uuid 用户uuid
+     * @return
+     */
     public void remove(String uuid) {
         valueOperations.delete(uuid);
     }
@@ -10619,28 +10618,28 @@ public class JustAuthUser extends AuthUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-	 * 用户第三方系统的唯一id。在调用方集成该组件时，可以用uuid + source唯一确定一个用户
-	 */
+     * 用户第三方系统的唯一id。在调用方集成该组件时，可以用uuid + source唯一确定一个用户
+     */
     @TableId(type = IdType.INPUT)
     private String uuid;
 
     /**
-	 * 用户授权的token信息
-	 */
+     * 用户授权的token信息
+     */
     @TableField(exist = false)
     private AuthToken token;
 
     /**
-	 * 第三方平台返回的原始用户信息
-	 */
+     * 第三方平台返回的原始用户信息
+     */
     @TableField(exist = false)
     private JSONObject rawUserInfo;
 
     /**
-	 * 自定义构造函数
-	 * 
-	 * @param authUser 授权成功后的用户信息，根据授权平台的不同，获取的数据完整性也不同
-	 */
+     * 自定义构造函数
+     * 
+     * @param authUser 授权成功后的用户信息，根据授权平台的不同，获取的数据完整性也不同
+     */
     public JustAuthUser(AuthUser authUser) {
         super(authUser.getUuid(), authUser.getUsername(), authUser.getNickname(), authUser.getAvatar(),
               authUser.getBlog(), authUser.getCompany(), authUser.getLocation(), authUser.getEmail(),
@@ -10675,27 +10674,27 @@ import Entity.*;
 public interface JustAuthUserService extends IService<JustAuthUser> {
 
     /**
-	 * 保存或更新授权用户
-	 * 
-	 * @param justAuthUser 授权用户
-	 * @return
-	 */
+     * 保存或更新授权用户
+     * 
+     * @param justAuthUser 授权用户
+     * @return
+     */
     boolean saveOrUpdate(JustAuthUser justAuthUser);
 
     /**
-	 * 根据用户uuid查询信息
-	 * 
-	 * @param uuid 用户uuid
-	 * @return
-	 */
+     * 根据用户uuid查询信息
+     * 
+     * @param uuid 用户uuid
+     * @return
+     */
     JustAuthUser getByUuid(String uuid);
 
     /**
-	 * 根据用户uuid移除信息
-	 * 
-	 * @param uuid 用户uuid
-	 * @return
-	 */
+     * 根据用户uuid移除信息
+     * 
+     * @param uuid 用户uuid
+     * @return
+     */
     boolean removeByUuid(String uuid);
 }
 ```
@@ -10720,11 +10719,11 @@ public class JustAuthUserServiceImpl extends ServiceImpl<JustAuthUserMapper, Jus
     private JustAuthTokenCache justAuthTokenCache;
 
     /**
-	 * 保存或更新授权用户
-	 * 
-	 * @param justAuthUser 授权用户
-	 * @return
-	 */
+     * 保存或更新授权用户
+     * 
+     * @param justAuthUser 授权用户
+     * @return
+     */
     @Override
     public boolean saveOrUpdate(JustAuthUser justAuthUser) {
         justAuthTokenCache.saveorUpdate(justAuthUser.getUuid(), justAuthUser.getToken());
@@ -10732,11 +10731,11 @@ public class JustAuthUserServiceImpl extends ServiceImpl<JustAuthUserMapper, Jus
     }
 
     /**
-	 * 根据用户uuid查询信息
-	 * 
-	 * @param uuid 用户uuid
-	 * @return
-	 */
+     * 根据用户uuid查询信息
+     * 
+     * @param uuid 用户uuid
+     * @return
+     */
     @Override
     public JustAuthUser getByUuid(String uuid) {
         JustAuthUser justAuthUser = super.getById(uuid);
@@ -10747,11 +10746,11 @@ public class JustAuthUserServiceImpl extends ServiceImpl<JustAuthUserMapper, Jus
     }
 
     /**
-	 * 根据用户uuid移除信息
-	 * 
-	 * @param uuid 用户uuid
-	 * @return
-	 */
+     * 根据用户uuid移除信息
+     * 
+     * @param uuid 用户uuid
+     * @return
+     */
     @Override
     public boolean removeByUuid(String uuid) {
         justAuthTokenCache.remove(uuid);
@@ -10986,12 +10985,12 @@ public class AuthController {
     private JustAuthUserService justAuthUserService;
 
     /**
-	 * 登录
-	 * 
-	 * @param type     第三方系统类型，例如：gitee/baidu
-	 * @param response
-	 * @throws IOException
-	 */
+     * 登录
+     * 
+     * @param type     第三方系统类型，例如：gitee/baidu
+     * @param response
+     * @throws IOException
+     */
     @GetMapping("/login/{type}")
     public void login(@PathVariable String type, HttpServletResponse response) throws IOException {
         AuthRequest authRequest = factory.get(type);
@@ -10999,12 +10998,12 @@ public class AuthController {
     }
 
     /**
-	 * 登录回调
-	 * 
-	 * @param type     第三方系统类型，例如：gitee/baidu
-	 * @param callback
-	 * @return
-	 */
+     * 登录回调
+     * 
+     * @param type     第三方系统类型，例如：gitee/baidu
+     * @param callback
+     * @return
+     */
     @SuppressWarnings("unchecked")
     @RequestMapping("/{type}/callback")
     public ResultJson login(@PathVariable String type, AuthCallback callback) {
@@ -11020,12 +11019,12 @@ public class AuthController {
     }
 
     /**
-	 * 收回
-	 * 
-	 * @param type 第三方系统类型，例如：gitee/baidu
-	 * @param uuid 用户uuid
-	 * @return
-	 */
+     * 收回
+     * 
+     * @param type 第三方系统类型，例如：gitee/baidu
+     * @param uuid 用户uuid
+     * @return
+     */
     @SuppressWarnings("unchecked")
     @RequestMapping("/revoke/{type}/{uuid}")
     public ResultJson revoke(@PathVariable String type, @PathVariable String uuid) {
@@ -11050,12 +11049,12 @@ public class AuthController {
     }
 
     /**
-	 * 刷新
-	 * 
-	 * @param type 第三方系统类型，例如：gitee/baidu
-	 * @param uuid 用户uuid
-	 * @return
-	 */
+     * 刷新
+     * 
+     * @param type 第三方系统类型，例如：gitee/baidu
+     * @param uuid 用户uuid
+     * @return
+     */
     @SuppressWarnings("unchecked")
     @RequestMapping("/refresh/{type}/{uuid}")
     @ResponseBody
@@ -11125,7 +11124,7 @@ public class Start {
 
 ##### <font size="4" color="red">48. Springboot集成Xjar程序加密</font>
 
-​		`Xjar`基于对`jar`包内资源的加密以及拓展`ClassLoader`来构建的一套程序加密启动，动态解密运行的方案，避免源码泄露或反编译。它不需要侵入代码，只需要把编译好的`jar`包通过工具加密即可。
+​        `Xjar`基于对`jar`包内资源的加密以及拓展`ClassLoader`来构建的一套程序加密启动，动态解密运行的方案，避免源码泄露或反编译。它不需要侵入代码，只需要把编译好的`jar`包通过工具加密即可。
 
 **(1) 依赖包**
 
@@ -12454,7 +12453,7 @@ public class WorkSheetEntity  {
         this.data = data;
         this.deleteStatus = deleteStatus;
     }
-    
+
     public String getId() {
         return id;
     }
@@ -12482,7 +12481,7 @@ public class WorkSheetEntity  {
     public int getDeleteStatus() {
         return deleteStatus;
     }
-    
+
     public void setDeleteStatus(int deleteStatus) {
         this.deleteStatus = deleteStatus;
     }
@@ -12847,18 +12846,3 @@ public class Start {
 ```
 
 ***
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
