@@ -50,6 +50,12 @@
         #        index index.html index.htm;
         #}
 
+        location / {
+            root /www/wwwroot/userui/dist/;
+            try_files $uri $uri/ /index.html;
+            index index.html index.htm;
+        }
+
     }
 
 
