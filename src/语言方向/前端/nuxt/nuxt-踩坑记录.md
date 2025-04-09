@@ -73,3 +73,20 @@ export default defineNuxtPlugin((nuxtApp: any) => {
 ```
 
 
+
+## nuxt3使用ssr+naiveui生产模式构建有问题
+> Named export 'VResizeObserver' not found. The requested module 'vueuc' is a CommonJS module,
+
+解决办法：https://github.com/tusen-ai/naive-ui/issues/4641
+
+```typescript
+
+export default defineNuxtConfig({
+	vite: {
+		ssr: {
+			// https://github.com/histoire-dev/histoire/issues/488
+			noExternal: ["naive-ui"], // 添加即可
+		},
+	}
+})
+```
