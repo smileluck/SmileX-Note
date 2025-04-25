@@ -73,3 +73,26 @@
     ```
   
   - 需更改配置文件：hosts 地址 `C:\Windows\System32\drivers\etc\hosts`
+  
+
+# 关于 ssh.github.com 443 connection refused
+
+- 问题描述：ssh 执行 push/pull/fetch 时操作时，出现 `ssh.github.com 443: Connection refused`
+- 排查方式:
+  - 试试443/22端口访问
+  ```shell
+  ssh -T -p 22 git@github.com
+  
+  ssh -T -p 443 git@github.com
+  ```
+  - 检查ssh请求明细
+  ```shell
+  ssh -v -v -v git@github.com
+  ```
+  - 扫描域名
+  ```shell
+  nslookup github.com
+  ```
+- 解决办法：
+  - 更换dns【8.8.8.8/8.8.4.4】，并清空dns缓存
+  - 发现nslookup结果为[::1]，可能使用了ipv6。可以通过禁用ipv6解决
