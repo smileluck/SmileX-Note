@@ -220,3 +220,183 @@ animate();
 - **兼容性要求高**：需要在各种设备上一致运行的应用。
 
 通过合理使用 FXAAShader，你可以在不显著影响性能的情况下，大幅提升 Three.js 渲染的视觉质量。
+
+
+
+以下是Three.js中常见后期处理效果的**简单示例代码**与**功能说明**，按类别整理：
+
+## 其它
+
+### **1. 抗锯齿 (Antialiasing)**
+#### **FXAA (快速近似抗锯齿)**
+```javascript
+// 需引入的模块
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
+
+// 创建后期处理链
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+
+// 添加FXAA通道
+const fxaaPass = new ShaderPass(FXAAShader);
+fxaaPass.material.uniforms['resolution'].value.set(
+  1 / window.innerWidth, 
+  1 / window.innerHeight
+);
+composer.addPass(fxaaPass);
+```
+**说明**：  
+通过屏幕空间边缘检测和颜色插值，减少多边形边缘的锯齿感，提升视觉平滑度。性能开销低，适合移动设备。
+
+
+### **2. 视觉增强效果**
+#### **Bloom (泛光)**
+```javascript
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+
+const bloomPass = new UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth, window.innerHeight),
+  1.5,  // 强度
+  0.4,  // 半径
+  0.85  // 阈值（控制哪些区域发光）
+);
+composer.addPass(bloomPass);
+```
+**说明**：  
+使明亮区域产生光晕扩散效果，增强视觉层次感，常用于模拟光源发光、霓虹灯等效果。
+
+#### **Vignette (暗角)**
+```javascript
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader.js';
+
+const vignettePass = new ShaderPass(VignetteShader);
+vignettePass.uniforms['offset'].value = 1.0;   // 边缘过渡强度
+vignettePass.uniforms['darkness'].value = 1.2; // 暗角深度
+composer.addPass(vignettePass);
+```
+**说明**：  
+使画面边缘逐渐变暗，突出中心内容，常用于电影感渲染或增强沉浸感。
+
+
+### **3. 深度与空间效果**
+#### **DOF (景深)**
+```javascript
+import { DepthOfFieldPass } from 'three/examples/jsm/postprocessing/DepthOfFieldPass.js';
+
+// 需启用深度纹理
+renderer.setDepthTexture(true);
+
+const dofPass = new DepthOfFieldPass(scene, camera);
+dofPass.focusDistance = 0.0;  // 聚焦距离
+dofPass.aperture = 0.025;     // 光圈大小（值越大，背景虚化越明显）
+composer.addPass(dofPass);
+```
+**说明**：  
+模拟相机聚焦效果，使特定距离的物体清晰，其他区域模糊，增强场景真实感和视觉重点。
+
+#### **SSAO (屏幕空间环境光遮蔽)**
+```javascript
+import { SSAOPass } from 'three/examples/jsm/postprocessing/SSAOPass.js';
+
+const ssaoPass = new SSAOPass(scene, camera);
+ssaoPass.radius = 0.02;       // 遮蔽半径
+ssaoPass.intensity = 1.5;     // 强度
+ssaoPass.aoClamp = 0.25;      // 钳位值
+composer.addPass(ssaoPass);
+```
+**说明**：  
+通过屏幕空间算法计算物体间的间接光照，增强阴影和角落的深度感，无需复杂光照计算。
+
+
+### **4. 色彩校正**
+#### **Color Grading (色彩分级)**
+```javascript
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { ColorCorrectionShader } from 'three/examples/jsm/shaders/ColorCorrectionShader.js';
+
+const colorCorrectionPass = new ShaderPass(ColorCorrectionShader);
+colorCorrectionPass.uniforms['powRGB'].value.set(1.1, 1.1, 1.1); // 色彩幂次（提亮）
+colorCorrectionPass.uniforms['mulRGB'].value.set(1.05, 1.05, 1.05); // 色彩乘法（饱和度）
+composer.addPass(colorCorrectionPass);
+```
+**说明**：  
+调整画面整体色调、亮度和饱和度，常用于创建特定风格（如复古、冷色调等）。
+
+
+### **5. 特效与滤镜**
+#### **Glitch (故障艺术)**
+```javascript
+import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
+
+const glitchPass = new GlitchPass();
+glitchPass.renderToScreen = true;
+glitchPass.goWild = false;  // 是否持续故障效果（false为随机触发）
+composer.addPass(glitchPass);
+```
+**说明**：  
+模拟数字信号干扰效果，常用于赛博朋克风格、UI警告状态或过渡动画。
+
+#### **Film Grain (胶片颗粒)**
+```javascript
+import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
+
+const filmPass = new FilmPass(
+  0.5,    // 噪点强度
+  0.025,  // 扫描线强度
+  648,    // 扫描线数量
+  false   // 是否禁用色彩（黑白效果）
+);
+filmPass.renderToScreen = true;
+composer.addPass(filmPass);
+```
+**说明**：  
+添加类似胶片电影的颗粒感和扫描线效果，增强复古或电影质感。
+
+
+### **6. 性能优化**
+#### **SMAA (增强型多帧采样抗锯齿)**
+```javascript
+import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js';
+
+const smaaPass = new SMAAPass(window.innerWidth, window.innerHeight);
+composer.addPass(smaaPass);
+```
+**说明**：  
+比FXAA更精确的抗锯齿算法，尤其适合处理对角线边缘和文字边缘，性能略高于TAA。
+
+
+### **使用步骤总结**
+1. **初始化后期处理链**：
+   ```javascript
+   const composer = new EffectComposer(renderer);
+   composer.addPass(new RenderPass(scene, camera));
+   ```
+
+2. **添加效果通道**（按顺序添加，影响最终效果）：
+   ```javascript
+   composer.addPass(bloomPass);
+   composer.addPass(dofPass);
+   // ...其他通道
+   ```
+
+3. **在动画循环中渲染**：
+   ```javascript
+   function animate() {
+     requestAnimationFrame(animate);
+     composer.render(); // 替代 renderer.render(scene, camera)
+   }
+   animate();
+   ```
+
+
+### **性能注意事项**
+- **复杂效果慎用**：SSAO、DOF等算法开销大，移动端需谨慎使用
+- **通道顺序**：先应用抗锯齿，再叠加特效，最后使用全屏效果（如Vignette）
+- **分辨率调整**：可降低EffectComposer的渲染分辨率以提升性能
+  ```javascript
+  composer.setSize(window.innerWidth / 2, window.innerHeight / 2); // 半分辨率
+  ```
