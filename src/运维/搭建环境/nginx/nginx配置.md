@@ -257,6 +257,33 @@ add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent
 }
 ```
 
+### 示例2
+```shell
+location /video-sam/ {
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #proxy_set_header X-Nginx-Proxy true;
+
+
+    # 跨域
+    if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+            add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,x-request-id';
+            return 204;
+    }
+
+
+    # 后台接口地址
+    proxy_connect_timeout 3600s;
+    proxy_send_timeout      3600s;
+    proxy_read_timeout      3600s;
+    rewrite ^/video-sam/(.*)$ /$1 break;
+    proxy_pass http://127.0.0.1:9021;
+}
+```
+
 
 
 
@@ -335,6 +362,21 @@ ssl_certificate /www/server/nginx/cert/example.com_nginx/example.com_bundle.crt;
   - emerg - 紧急情况。 系统处于无法使用的状态
 
 # 说明
+
+## 反向代理 外部域名404
+当访问域名时，返回404
+```nginx
+location /tap-serve/ {
+                proxy_redirect off;
+                proxy_set_header Host example.com;
+                proxy_set_header X-Nginx-Proxy true;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_pass https://example.com;
+                #error_log /var/log/nginx/debug.log debug;
+        }
+
+```
 
 ## proxy_pass 有无斜杠问题
 
