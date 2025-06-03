@@ -105,3 +105,13 @@
     child.material.emissiveMap = child.material.map;
   }
   ```
+
+# 关于glb 后期处理不高亮问题
+当加载GLB模型后，将其设置为边缘高亮时，会出现没有特效处理的情况，如以下代码所示：
+```javascript
+this.outlinePass.selectedObjects = model;
+```
+需要将它的所有子对象传入才可以 正常高亮。
+```javascript
+this.outlinePass.selectedObjects = model.children;
+```
