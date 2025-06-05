@@ -172,3 +172,12 @@ ffmpeg -i input_test.mp4 -vcodec copy -an output_test.mp4
   - `-c:v`指定编码器。（也可以使用 libx264 编码器）这是一种高效率的H.264视频编码器
   - `-pixel_format yuv420p`: 指定输入视频的像素格式为 yuv420p。这是一种常见的 YUV 格式，其中 Y 分量是完全采样的，而 U 和 V 分量则以 2x2 的子样本进行采样。 
   - `-crf 23`: 指定编码质量因子为 23。CRF（Constant Rate Factor）是一种基于质量的编码控制方法，值越小表示更高的质量和比特率。常用的范围是 18-28。 
+
+
+## 拆分关键帧
+```
+ffmpeg -i .\WeChat_20250605115516.mp4 -vf "select='eq(pict_type,I)'" -vsync vfr -vframes 30 frames/frame_%05d.jpg -loglevel error
+
+
+ffmpeg -i .\WeChat_20250605115516.mp4 -vf "select='eq(pict_type,I)+not(mod(n,20))'" -vsync vfr -vframes 30 frames/frame_%05d.jpg -loglevel error
+```
