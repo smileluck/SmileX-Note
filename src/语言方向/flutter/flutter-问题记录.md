@@ -1,4 +1,5 @@
 
+
 # Flutter 连接 https://pub.dev 报错解决
 
 > https://docs.flutter.cn/get-started/learn-flutter
@@ -27,4 +28,24 @@ $env:FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
 3. 验证安装
 ```shell
 flutter doctor
+```
+
+# Unable to locate Android SDK.
+## 方法一：配置Android SDK环境变量
+1. 找到Android SDK路径: `{Android SDK安装路径}`
+2. 确保路径下有文件夹 `cmdline-tools`
+3. 添加环境变量 `ANDROID_HOME`
+4. 重启电脑，并验证
+```shell
+flutter doctor --android-licenses
+```
+
+## 方法二：配置flutter
+1. 运行命令
+```shell
+flutter config --android-sdk {Android SDK安装路径}
+```
+2. 验证
+```shell
+flutter doctor --android-licenses
 ```
