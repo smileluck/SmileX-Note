@@ -1,3 +1,8 @@
+- [Flutter 连接 https://pub.dev 报错解决](#flutter-连接-httpspubdev-报错解决)
+- [flutter 没有添加到path](#flutter-没有添加到path)
+- [Unable to locate Android SDK.](#unable-to-locate-android-sdk)
+  - [方法一：配置Android SDK环境变量](#方法一配置android-sdk环境变量)
+  - [方法二：配置flutter](#方法二配置flutter)
 
 
 # Flutter 连接 https://pub.dev 报错解决
