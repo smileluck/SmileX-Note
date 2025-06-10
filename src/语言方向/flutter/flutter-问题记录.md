@@ -24,3 +24,7 @@ $env:FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
         1. 路径 `~/.bashrc OR ~/.profile`
         2. 添加 `export PATH=$PATH:{flutter安装路径}\flutter\bin`
         3. 保存并运行  `source ~/.bashrc OR ~/.profile`
+3. 验证安装
+```shell
+flutter doctor
+```
