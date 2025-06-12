@@ -3,6 +3,7 @@
 - [Unable to locate Android SDK.](#unable-to-locate-android-sdk)
   - [方法一：配置Android SDK环境变量](#方法一配置android-sdk环境变量)
   - [方法二：配置flutter](#方法二配置flutter)
+- [gradle 配置镜像](#gradle-配置镜像)
 
 
 # Flutter 连接 https://pub.dev 报错解决
@@ -53,4 +54,52 @@ flutter config --android-sdk {Android SDK安装路径}
 2. 验证
 ```shell
 flutter doctor --android-licenses
+```
+
+# gradle 配置镜像
+> 理论上下面三种都可以，但我这里直接都配置了。
+
+插个题外话，**建议先配置 gradle 的缓存位置。** [参考](../包管理工具/gradle/gradle配置.md)
+
+
+1. 编辑 `android/build.gradle` 文件，添加镜像源
+```gradle
+allprojects {
+  repositories {
+      // 阿里云镜像（按顺序优先使用）
+      maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+      maven { url 'https://maven.aliyun.com/repository/google' }
+      maven { url 'https://maven.aliyun.com/repository/jcenter' }
+      maven { url 'https://maven.aliyun.com/repository/public' }
+      
+      // 官方仓库（备用）
+      google()
+      mavenCentral()
+  }
+}
+```
+2. 编辑 `android/gradle/wrapper/gradle-wrapper.properties` 中的`distributionUrl`
+```properties
+distributionUrl=https://mirrors.aliyun.com/gradle/distributions/v8.12.1/gradle-8.12.1-all.zip
+# 可以上https://mirrors.aliyun.com/gradle/distributions选择想要的版本
+```
+3. 编辑 `android/gradle.properties` 文件，使用代理
+```properties
+# 使用阿里云的Maven仓库作为镜像
+systemProp.http.proxyHost=mirrors.aliyun.com
+systemProp.http.proxyPort=80
+systemProp.https.proxyHost=mirrors.aliyun.com
+systemProp.https.proxyPort=80
+ 
+# 或者直接设置Gradle的仓库镜像
+org.gradle.daemon=true
+org.gradle.jvmargs=-Xmx1536M
+android.useAndroidX=true
+android.enableJetifier=true
+systemProp.mavenCentralMirror=https\://maven.aliyun.com/repository/public/
+```
+4. 验证
+```shell
+cd ./android
+./gradlew build --refresh-dependencies
 ```
