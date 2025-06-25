@@ -362,3 +362,47 @@ export {
     NodeEnvEnum,
 }
 ```
+
+### 2. prisma orm 模块
+
+
+
+## 创建 prisma 模型
+
+### 注意事项
+> 在 Prisma ORM 7 中，Prisma Client 默认将不再生成到 node_modules 中，并且将需要定义一个输出路径。
+> 
+> https://prisma.org.cn/docs/orm/prisma-client/setup-and-configuration/generating-prisma-client
+
+1. 确保你已在你的机器上安装 Prisma CLI。
+```
+npm install prisma --save-dev
+```
+2. 将以下 generator 定义添加到你的 Prisma schema 中
+```
+generator client {
+  provider = "prisma-client-js"
+  output   = "app/generated/prisma/client"
+}
+```
+> 注意
+> 请随意自定义输出位置以匹配你的应用程序。常见的目录有 app、src，甚至是你的项目根目录。
+
+3. 安装 @prisma/client npm 包
+```
+npm install @prisma/client
+```
+4. 使用以下命令生成 Prisma Client
+```
+prisma generate
+```
+5. 你现在可以在代码中实例化 Prisma Client 了
+```
+import { PrismaClient } from 'app/generated/prisma/client'
+const prisma = new PrismaClient()
+// use `prisma` in your application to read and write data in your DB
+
+```
+
+**重要：在每次更改 Prisma schema 后，你需要重新运行 prisma generate 命令来更新生成的 Prisma Client 代码。**
+
