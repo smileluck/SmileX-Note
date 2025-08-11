@@ -181,3 +181,25 @@ ffmpeg -i .\WeChat_20250605115516.mp4 -vf "select='eq(pict_type,I)'" -vsync vfr 
 
 ffmpeg -i .\WeChat_20250605115516.mp4 -vf "select='eq(pict_type,I)+not(mod(n,20))'" -vsync vfr -vframes 30 frames/frame_%05d.jpg -loglevel error
 ```
+
+## mp4转webm
+### vp9
+```shell
+# VP9编码（现代浏览器推荐）
+ffmpeg -i input.mp4 \
+  -c:v libvpx-vp9 -crf 23 -b:v 0 -g 240 \
+  -c:a libopus -b:a 128k -ac 2 \
+  -vf "scale=iw*min(1920/iw\,1080/ih):ih*min(1920/iw\,1080/ih),format=yuv420p" \
+  -movflags +faststart \
+  -deadline good -cpu-used 2 \
+  output.webm
+```
+
+### vp8
+```shell
+ffmpeg -i input.mp4 \
+  -c:v libvpx -crf 12 -b:v 2M \
+  -c:a libvorbis -b:a 128k \
+  -vf "scale=iw*min(1280/iw\,720/ih):ih*min(1280/iw\,720/ih),format=yuv420p" \
+  output-vp8.webm
+```
