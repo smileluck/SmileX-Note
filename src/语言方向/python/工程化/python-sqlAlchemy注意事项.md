@@ -3,6 +3,8 @@
     - [1. 关系表混用](#1-关系表混用)
     - [2. 基础ORM表](#2-基础orm表)
   - [关于字段顺序](#关于字段顺序)
+- [异常记录](#异常记录)
+  - [将sqlAlchemy的ORM对象转换为pydantic](#将sqlalchemy的orm对象转换为pydantic)
 
 
 ## 关于建表
@@ -186,3 +188,44 @@ class SysRole(Base):
     # 排序字段
     sort: Mapped[int] = mapped_column(default=0, comment="排序号")
 ```
+
+## 异常记录
+
+### 将sqlAlchemy的ORM对象转换为pydantic
+- 错误信息：errors=[': Input should be a valid dictionary or instance of RobotResponse']
+- 解决办法：需要在pydantic的BaseModel中添加一个配置
+  ```python
+    class ChatMessageResponse(BaseModel):
+        """聊天消息响应模型"""
+        model_config = ConfigDict(from_attributes=True)
+
+        id: int
+        session_id: int
+        sender_type: str
+        content: str
+        content_type: str
+        created_at: datetime
+        voice_url: Optional[str] = None
+        voice_duration: Optional[float] = None
+        response_time: Optional[float] = None
+  ```
+
+- 错误信息：会没有匹配到字段，提示异常errors=['id: Field required', 'session_id: Field required', 'sender_type: Field required', 'content: Field required', 'content_type: Field required', 'created_at: Field required'], request_id=-
+- 原因：这是因为sqlAlchemy查询的方式有问题，导致返回的信息存在多层[truple]
+- 解决办法：
+    ```python
+    
+        stmt = (
+            select(WjChatMessage)
+            .where(WjChatMessage.session_id == session_id)
+            .order_by(WjChatMessage.created_at)
+            .offset(offset)
+            .limit(page_size)
+        )
+        result = await self.session.execute(stmt)
+        messages = result.all() # 这种列表不行，返回格式不符合
+        
+        messages = result.scalars().all() # 这种即可成功通过
+
+        return [ChatMessageResponse.model_validate(message) for message in messages]
+    ```
