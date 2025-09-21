@@ -3,6 +3,13 @@
     - [1. 关系表混用](#1-关系表混用)
     - [2. 基础ORM表](#2-基础orm表)
   - [关于字段顺序](#关于字段顺序)
+- [插件](#插件)
+  - [监听事件](#监听事件)
+    - [1. **核心（Core）事件**](#1-核心core事件)
+    - [2. **ORM 事件**](#2-orm-事件)
+    - [3. **其他事件**](#3-其他事件)
+  - [总结](#总结)
+  - [软删除](#软删除)
 - [异常记录](#异常记录)
   - [将sqlAlchemy的ORM对象转换为pydantic](#将sqlalchemy的orm对象转换为pydantic)
 
@@ -187,6 +194,102 @@ class SysRole(Base):
 
     # 排序字段
     sort: Mapped[int] = mapped_column(default=0, comment="排序号")
+```
+
+## 插件
+
+
+### 监听事件
+> https://docs.sqlalchemy.org/en/20/orm/events.html#sqlalchemy.orm.SessionEvents.do_orm_execute
+
+
+在 SQLAlchemy 2.0 中，事件监听器（event listeners）的体系非常丰富，涵盖了 ORM、Core、引擎（Engine）、连接（Connection）等多个层面。以下是主要的事件类别及常见监听器类型：
+
+#### 1. **核心（Core）事件**
+主要针对引擎、连接、SQL 执行等底层操作：
+- **`Engine` 相关**：`connect`（连接创建时）、`begin`（事务开始）、`commit`（事务提交）、`rollback`（事务回滚）、`close`（连接关闭）等。
+- **`Connection` 相关**：`execute`（执行 SQL 前）、`after_execute`（执行 SQL 后）、`begin_nested`（嵌套事务开始）等。
+- **DDL 相关**：`before_create`（创建表前）、`after_create`（创建表后）、`before_drop`（删除表前）、`after_drop`（删除表后）等，用于监听数据表结构变更。
+
+
+#### 2. **ORM 事件**
+针对会话（Session）、模型（Model）、关系（Relationship）等 ORM 组件：
+- **`Session` 相关**：`do_orm_execute`（ORM 操作执行时，如查询、新增等）、`before_flush`（提交前刷新）、`after_flush`（提交后刷新）、`before_commit`（提交前）、`after_commit`（提交后）等。
+- **模型实例相关**：`init`（实例初始化时）、`load`（实例从数据库加载时）、`before_insert`（插入前）、`after_insert`（插入后）、`before_update`（更新前）、`after_update`（更新后）、`before_delete`（删除前）、`after_delete`（删除后）等。
+- **关系（Relationship）相关**：`append`（向关系集合添加元素时）、`remove`（从关系集合移除元素时）、`set`（设置关系值时）等。
+
+
+#### 3. **其他事件**
+- **`Mapper` 相关**：`after_configured`（映射器配置完成后），用于全局映射器初始化后的操作。
+- **`Query` 相关**：在 SQLAlchemy 1.x 中有 `before_compile` 等，但 2.0 中部分功能已整合到 `Session` 事件中。
+- **池（Pool）相关**：`checkout`（从连接池检出连接时）、`checkin`（连接归还池时）、`connect`（池创建新连接时）等，用于连接池管理。
+
+
+### 总结
+SQLAlchemy 2.0 的事件监听器没有绝对固定的“数量”，因为每个类别下还有细分的触发点和参数，但核心常用的事件类型约有 **30+**。具体可参考官方文档的 [事件参考列表](https://docs.sqlalchemy.org/en/20/core/events.html)，根据实际需求选择合适的监听器。
+
+事件机制的灵活性使得可以在 SQLAlchemy 的各个生命周期插入自定义逻辑（如软删除、数据校验、日志记录等）。
+
+
+### 软删除
+
+1. 模型
+```python
+class LogicMixin(MappedAsDataclass):
+    """逻辑 Mixin 数据类"""
+
+    id: Mapped[snowflake_id_key] = mapped_column(init=False)
+
+    deleted_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        init=False,
+        default=None,
+        sort_order=997,
+        comment="删除时间，为空则未删除",
+    )
+
+    def soft_delete(self):
+        """逻辑删除当前记录"""
+        self.deleted_at = timezone.now()
+
+```
+2. 监听器
+```python
+
+def setup_soft_delete_plug() -> None:
+    # 注册事件监听：拦截查询并添加过滤条件
+    @event.listens_for(Session, "do_orm_execute")
+    def _add_filtering_deleted_at(execute_state):
+        """
+        自动过滤掉被软删除的数据。
+        deleted_at不为null即为被软删除。
+        使用以下方法可以获得被软删除的数据。
+        select(...).execution_options(include_deleted=True)
+        """
+        if (
+            execute_state.is_select
+            and not execute_state.is_column_load
+            and not execute_state.is_relationship_load
+            and not execute_state.execution_options.get("include_deleted", False)
+        ):
+            execute_state.statement = execute_state.statement.options(
+                with_loader_criteria(
+                    LogicMixin,
+                    lambda cls: cls.deleted_at.is_(
+                        None
+                    ),  # deleted_at列为空则为未被软删除
+                    include_aliases=True,
+                )
+            )
+
+```
+3. 使用
+```python
+query = (
+    select(WjChatSession.id, WjChatSession.name) 
+    .execution_options(include_deleted=True) # 一定要放到select()方法之后才能生效
+    .filter(WjChatSession.user_id == user_id)
+)
 ```
 
 ## 异常记录
