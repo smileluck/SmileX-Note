@@ -1,5 +1,6 @@
 - [常用环境验证](#常用环境验证)
   - [flutter doctor](#flutter-doctor)
+- [常用指令](#常用指令)
 
 
 
@@ -17,4 +18,14 @@ flutter doctor -v
 3. 同意android许可证
 ```shell
 flutter doctor --android-licenses
+```
+
+# 常用指令
+1. 启动项目
+```shell
+flutter run
+```
+2. 查看设备
+```shell
+flutter devices
 ```
