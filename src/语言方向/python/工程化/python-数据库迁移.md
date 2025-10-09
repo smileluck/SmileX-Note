@@ -11,6 +11,10 @@
   - [常用命令总结](#常用命令总结)
   - [无法识别到类时，可以主动扫描注入](#无法识别到类时可以主动扫描注入)
     - [方式一：自动扫描导入所有模型文件](#方式一自动扫描导入所有模型文件)
+    - [方式二：自动扫描导入指定文件的模型文件](#方式二自动扫描导入指定文件的模型文件)
+    - [方式三：使用Alembic插件（进阶：需额外安装依赖）](#方式三使用alembic插件进阶需额外安装依赖)
+    - [推荐插件：`alembic-autoimport-models`](#推荐插件alembic-autoimport-models)
+    - [优点](#优点)
 
 
 ## alembic
@@ -163,3 +167,99 @@ for root, dirs, files in os.walk(MODEL_DIR):
             except ImportError as e:
                 print(f"警告：无法导入模型模块 {module_name}，错误：{e}")
 ```
+
+
+#### 方式二：自动扫描导入指定文件的模型文件
+```python
+
+import os
+import importlib
+
+
+# 自动扫描并导入所有模型模块
+def auto_import_models():
+    PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    # 模型所在的根目录（根据实际项目结构调整）
+
+    # 需要扫描的目录
+    include_dirs = ["app/models"]
+
+    # 排除不需要扫描的目录（可选）
+    exclude_dirs = ["__pycache__", "tests"]
+
+    for include_dir in include_dirs:
+        models_root_dir = os.path.join(PROJECT_ROOT, include_dir)
+        if os.path.exists(models_root_dir):
+            # 递归扫描所有Python文件
+            for root, dirs, files in os.walk(models_root_dir):
+                # 过滤排除目录
+                dirs[:] = [d for d in dirs if d not in exclude_dirs]
+
+                for file in files:
+                    # 只处理.py文件，且排除__init__.py
+                    if file.endswith(".py") and not file.startswith("__"):
+                        # 构造模块的相对路径
+                        relative_path = os.path.relpath(root, PROJECT_ROOT)
+                        module_name = (
+                            relative_path.replace(os.sep, ".") + "." + file[:-3]
+                        )
+
+                        try:
+                            # 动态导入模块（导入后模型会自动注册到Base.metadata）
+                            importlib.import_module(module_name)
+                            # 可选：打印导入的模块名，方便调试
+                            print(f"已自动导入模型模块: {module_name}")
+                        except ImportError as e:
+                            # 非致命错误：打印警告但不中断程序
+                            print(f"警告: 无法导入模型模块 {module_name}，错误: {e}")
+
+# 执行自动导入
+auto_import_models()
+```
+
+
+#### 方式三：使用Alembic插件（进阶：需额外安装依赖）
+如果上述两种方式仍不满足需求，可使用社区维护的Alembic插件，通过配置实现模型自动导入。但这种方式依赖第三方库，需权衡兼容性。
+
+#### 推荐插件：`alembic-autoimport-models`
+该插件可通过配置文件指定模型目录，自动扫描并导入继承`Base`的模型，无需修改`env.py`。
+
+1. **安装插件**：
+   ```bash
+   pip install alembic-autoimport-models
+   ```
+
+2. **配置`alembic.ini`**：
+   在`alembic.ini`中添加插件和模型目录配置：
+   ```ini
+   # alembic.ini
+   [alembic]
+   script_location = alembic
+   # 启用插件
+   plugins = alembic_autoimport_models
+   # 指定模型所在的包（多个目录用逗号分隔）
+   autoimport_models = core.models, other.package.models
+   # 指定Base类的路径（插件需找到Base来识别模型）
+   autoimport_base = core.base:Base
+   ```
+
+3. **简化`env.py`**：
+   插件会自动导入模型，`env.py`只需保留`Base`的导入：
+   ```python
+   # alembic/env.py
+   from logging.config import fileConfig
+   from sqlalchemy import engine_from_config, pool
+   from alembic import context
+   from core.base import Base  # 只需导入Base，插件自动加载模型
+
+   config = context.config
+   fileConfig(config.config_file_name)
+   target_metadata = Base.metadata  # 插件已确保metadata包含所有模型
+
+   # ... 迁移函数（不变）
+   ```
+
+#### 优点
+- **零代码修改**：无需手动写导入或聚合文件，通过配置实现自动化。
+- **支持多目录**：可同时指定多个模型目录，插件自动扫描。
+
