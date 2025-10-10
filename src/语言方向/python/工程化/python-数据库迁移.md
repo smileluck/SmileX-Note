@@ -25,6 +25,7 @@
     - [注意事项](#注意事项)
   - [其他事项](#其他事项)
     - [关于字符编码乱码](#关于字符编码乱码)
+    - [清空历史信息](#清空历史信息)
 
 
 # 数据库迁移
@@ -592,3 +593,36 @@ import sys
 import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 ```
+### 清空历史信息
+如果你可以按照以下步骤使用 Alembic 清空记录并重新生成迁移：
+
+1. 首先删除现有迁移记录（如果需要完全重新开始）：
+```bash
+# 删除 migrations 目录下 versions 文件夹中的所有迁移文件
+rm -rf alembic/versions/*.py
+```
+
+2. 然后创建一个新的初始迁移：
+```bash
+alembic revision --autogenerate -m "Initial migration"
+```
+
+3. 如果需要清空数据库并重新应用迁移，可以使用以下步骤：
+```bash
+# 先降级到基础状态（如果有多个版本）
+alembic downgrade base
+
+# 然后升级到最新版本
+alembic upgrade head
+```
+
+4. 如果需要彻底清空数据库表数据（保留表结构），可以在迁移脚本中添加 truncate 操作：
+在生成的迁移脚本的 `upgrade()` 方法中添加：
+```python
+def upgrade():
+    # 清空所有表数据
+    op.execute("TRUNCATE TABLE your_table_name RESTART IDENTITY CASCADE;")
+    # 其他自动生成的迁移代码...
+```
+
+注意：清空数据操作要非常谨慎，确保在生产环境中不会误操作。如果是开发环境需要频繁重置，可以考虑使用 fixtures 或种子数据来快速填充初始数据。
