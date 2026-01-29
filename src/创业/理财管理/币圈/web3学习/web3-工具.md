@@ -1,0 +1,12 @@
+# Web3 常用工具：
+- CoinMarketCap 全球最值得信赖的加密货币数据、洞见和社区来源：https://coinmarketcap.com/
+- CoinGecko 是世界上最大的独立加密货币数据聚合器：https://www.coingecko.com/
+- DefiLlama 是 DeFi（去中心化金融）领域最大的 TVL 聚合器：https://defillama.com/
+- RootData 是一个 Web3 资产数据平台：https://www.rootdata.com/zh/Projects?influenceSort=2
+- 媒体：
+  - 律动 BlockBeats：http://theblockbeats.info/
+  - PANews：https://www.panewslab.com/zh
+- 免费发推抽奖工具：https://apidance.pro/twitter_giveaway
+- 查看链上持仓：https://pummmm.com
+- 查看持币地址、筹码分布：https://bubblemaps.io/
+- 即将启动的加密项目 IDO、IEO、ICO 列表：https://www.coincarp.com/zh/upcoming-ido/
