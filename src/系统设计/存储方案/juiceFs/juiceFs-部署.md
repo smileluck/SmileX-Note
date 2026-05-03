@@ -51,7 +51,7 @@ sudo install juicefs /usr/local/bin
 4. 加载配置文件
    ```bash
     # 加载配置文件
-    sudo haproxy -c /etc/haproxy/haproxy.cfg
+    sudo haproxy -c -f /etc/haproxy/haproxy.cfg
    ```
 ### KeepAlived(可选搭配HAProxy使用)  
 
